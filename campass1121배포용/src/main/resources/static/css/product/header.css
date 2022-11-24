@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* 고정 nav */
+#cate-img{
+   width:100%;
+    }
+
+.category {
+    text-align: center;
+    font-size: 24px;
+    color: #545454;
+    list-style-type: none;
+    margin:25px;
+    font-weight: bold;
+    }
+
+.category li {
+    display: inline-block;
+    margin-right: 75px;
+    font-size: 17px;
+    cursor:pointer;
+    }
+
+.category a {
+   text-decoration:none;
+   color:grey;
+}
+
+.category a:hover {
+    font-weight: bold;
+    color: #FF375B;
+    }
+    

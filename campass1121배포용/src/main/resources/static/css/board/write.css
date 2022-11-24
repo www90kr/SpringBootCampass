@@ -1,0 +1,24 @@
+
+#notebox{
+	width:60%;
+	margin : 0 auto;
+	margin-top: 50px;
+ 
+}
+
+#write_btn{
+	width: 100px;
+	height: 35px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+}
+
+#cate-img{
+   width:100%;
+    }
+    
+.writebtn_div{
+	text-align: center;
+	margin-top: 20px;
+}

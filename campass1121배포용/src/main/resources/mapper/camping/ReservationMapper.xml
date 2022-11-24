@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.ReservationDao">
+
+<!-- 등록 -->
+  <insert id="insertReservation">
+  		<selectKey keyProperty="rCode" resultType="int" order="BEFORE">
+  			select nvl(max (rCode),0)+1 from reservation
+  
+ 		 </selectKey>
+      insert into reservation(rCode, rName, rTel, rCheckIn,rCheckOut, rDate, rPrice,rStatus ,re_czCode,re_cCode, re_username, rbank, rbankno)
+  		values(#{rCode},#{rName},#{rTel},#{rCheckIn},#{rCheckOut},sysdate,#{rPrice},'예약대기',#{re_czCode}, #{re_cCode},#{re_username}, #{rbank,jdbcType=VARCHAR}, #{rbankno,jdbcType=VARCHAR}) 
+  </insert>  
+	
+	<select id="RRfindById" resultType="com.campass.demo.entity.Reservation">
+		select * from reservation where rCode = #{rCode} and rownum &lt;=1 
+	</select>
+	
+	<select id="RRmyReservation" resultType="com.campass.demo.dto.MyReservationDto">
+	select cName,cPhoto, r.*,(select count(*) from review where review.cReview_rCode=r.rCode) cntOfReview from reservation r, camping where r.re_cCode=camping.cCode and re_username = #{username} and rownum &gt;=1 order by rDate desc
+	</select>
+	
+	<select id="RRmyCamping" resultType="com.campass.demo.dto.MyCampingDto"> 
+	select r.*,c.cName,c.cPhoto, c.c_username from reservation r, camping c where r.re_cCode = c.cCode and c.c_username=#{loginId} order by rDate desc
+	</select>
+	
+	
+	<update id="updateRStatus" >
+		update reservation set  rStatus= '예약확정' where rCode = #{rCode} and rownum &lt;=1 
+	</update>
+	
+	<delete id="cancelReservation">
+		delete reservation where rCode=#{rCode}and rownum &lt;=1 
+	</delete>
+
+	<select id="RRfindWriterById" resultType="String">
+		select re_username from reservation where rCode = #{rCode} and rownum &lt;=1 
+	</select>
+
+	<select id="RRfindCName" resultType="String">
+		select cName from (select Camping. * from Camping where cCode= #{re_cCode})
+		Camping inner join reservation on cCode=re_cCode and rownum &lt;=1 
+	</select>
+
+	<select id="RRfindHostById" resultType="String">
+		select c.c_username from reservation r ,camping c where r.re_cCode = c.cCode and r.rCode=#{rCode}
+	</select>
+
+
+</mapper>

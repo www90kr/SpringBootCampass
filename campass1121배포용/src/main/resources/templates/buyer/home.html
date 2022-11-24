@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<title>CAMPASS</title>
+<!-- favicons -->
+<link href="https://ifh.cc/g/NdOrVp.png" rel="icon">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script th:inline="javascript">
+	// 비로그인이면 anonymousUser
+	const loginInfo = /*[[${#authentication.principal}]]*/
+
+</script>
+<script>
+</script>
+</head>
+<script>
+username;
+username= null;
+
+	$(document).ready(async function() {	
+		
+		// 로그인한 사용자 아이디를 저장. 비로그인이면 null
+		if(loginInfo!=="anonymousUser") {
+			username = loginInfo.username;
+		}
+		console.log(username);
+		})
+		
+</script>
+<body>
+<div>홈화면</div>
+</body>
+</html>

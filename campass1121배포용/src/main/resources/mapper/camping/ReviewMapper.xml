@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.ReviewDao">
+
+  <insert id="insertReview">
+  <selectKey keyProperty="cReviewNo" resultType="int" order="BEFORE">
+  select nvl(max (cReviewNo),0)+1 from Review
+  
+  </selectKey>
+      insert into Review(cReviewNo, cReviewContent, cReviewDate, cReviewStar,cReview_rCode, cReview_username, cReview_cCode)
+  		values( #{cReviewNo}, #{cReviewContent}, sysdate, #{cReviewStar},#{cReview_rCode}, #{cReview_username}, #{cReview_cCode}) 
+  </insert> 
+
+  <select id="listReviewBy" resultType="com.campass.demo.dto.ReviewDto$ListDto">
+  	select cReviewNo,cReviewContent,cReviewDate,cReviewStar,cReview_rCode,cReview_username,cReview_cCode from Review where cReview_cCode = #{re_cCode} 
+  </select>
+
+  <select id="listReviewByStar" resultType="String">
+  	select cReviewNo,cReviewContent,cReviewDate,cReviewStar,cReview_rNo,cReview_username,cReview_cCode from Review where cReview_cCode = #{re_cCode} order by cReviewStar desc
+  </select>
+  
+  <delete id="deleteReview" >
+  	delete  Review where cReviewNo = #{cReviewNo} 
+  </delete>
+
+
+	<select id="getUserbyId" resultType="String">
+	select cReview_username from review where cReviewNo= #{cReviewNo}
+	</select>
+
+	<select id="getReviewbyId" resultType="com.campass.demo.entity.Review">
+	select * from review where cReviewNo= #{cReviewNo}
+	</select>
+
+
+
+
+</mapper>

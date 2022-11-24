@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.BuyerDao"> <!-- DB값을 Dao로 보낼거다? -->
+	
+	<select id="existsBybNickname" resultType="boolean">
+		select count(*) from
+		buyer
+		where bnickname=#{bnickname} and rownum&lt;=1
+	</select>
+
+	<select id="existsBybEmail" resultType="boolean">
+		select count(*) from buyer
+		where bemail=#{bemail} and rownum&lt;=1
+	</select>
+
+	<select id="existsBybId" resultType="boolean">
+		select count(*) from buyer
+		where username=#{username} and rownum&lt;=1
+	</select>
+	
+		<select id="existsBybTel" resultType="boolean">
+		select count(*) from buyer
+		where btel=#{btel} and rownum&lt;=1
+	</select>
+
+	<select id="findBybId"
+		resultType="com.campass.demo.entity.Buyer">
+		select * from buyer where bemail=#{bemail} and bname=#{bname} <!-- 이름과 이름이 같은 
+			애의 전부를 가져옴. 그중 아이디 // email, name 입력-> 그에 맞는 아이디 출력 / 아이디찾기 -->
+		and rownum&lt;=1
+	</select>
+
+	<insert id="save">
+		insert into buyer(username, bpassword, bname, bemail, bnickname, <!--bprofile,--> btel, badress
+		)
+		values(#{username}, #{bpassword}, #{bname}, #{bemail}, #{bnickname}, <!--#{bprofile},--> #{btel}, #{badress}
+	)
+	</insert>
+
+	<!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
+	<update id="update">
+		update buyer set bnickname=#{bnickname}, bpassword=#{bpassword}, bemail=#{bemail}, btel=#{btel}, badress=#{badress} where username=#{username}
+	</update>
+
+	<update id="resetpw"> 
+		update buyer set  bpassword=#{bpassword}
+		where username=#{username}
+	</update>
+	
+	<update id="changepw">
+		update buyer set bpassword=#{bpassword}
+		where username=#{username}
+	</update>
+
+
+	<delete id="deleteBybId">
+		delete from buyer where username=#{username}
+	</delete>
+
+	<select id="read" resultType="com.campass.demo.entity.Buyer">
+		select * from buyer
+		where username=#{username}<!--dao 입력될 값 -->
+	</select>
+	
+	<select id="BuyerInforRead" resultType="com.campass.demo.dto.BuyerDto$Read">
+		select username, bname, bemail, bnickname, btel, badress from buyer where username =#{username} and rownum &lt;= 1
+	</select>
+	
+	
+	
+	<select id="userdataall" resultType="com.campass.demo.entity.Buyer">
+		select * from buyer where username=#{username}
+	</select>
+	
+	<!-- 주문시 회원정보 가져오기  -->
+   <select id="buyerInfo" resultType="com.campass.demo.entity.Buyer">
+      select username, badress, bname, btel, bemail
+      from buyer where username = #{username}
+   </select>
+
+	<!-- <delete id="deleteByUsernames"> delete from member where id in <foreach 
+		collection="ids" item="id" open="(" close=")" separator=","> #{id} </foreach> 
+		</delete> -->
+
+</mapper>
+
+

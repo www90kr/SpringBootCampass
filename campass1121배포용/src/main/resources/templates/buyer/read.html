@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>CAMPASS</title>
+    <!-- favicons -->
+<link href="https://ifh.cc/g/NdOrVp.png" rel="icon">
+<script sec:authorize="isAuthenticated()" src="script/websocket.js"></script>
+<script sec:authorize="isAuthenticated()" src="script/memostate.js"></script>
+
+
+
+    <style>
+        @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap");
+:root {
+  --body-font: "Manrope", sans-serif;
+  --body-color: #b3b3b3;
+  --body-bg-color: #f2f2f2;
+  --theme-bg-color: #fafafa;
+  --border-color: #efefef;
+  --logo-color: #ff0063;
+  --main-color: #101010;
+  --header-bg-color: #fff;
+}
+
+.dark-mode {
+  --body-bg-color: #1e222b;
+  --theme-bg-color: #212835;
+  --border-color: #393f50;
+  --header-bg-color: #323a4b;
+  --main-color: #fefffd;
+  --body-color: #dddee0;
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: 15px;
+  color: var(--body-color);
+  background-color: var(--body-bg-color);
+  margin: 0;
+  font-weight: 600;
+  height:1230px;
+  min-height: -webkit-fill-available;
+
+}
+
+#navi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 93%;
+  left: 87%;
+  z-index: 99999999999;
+}
+
+#navi .navigation {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 2.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999620;
+}
+ 
+
+
+/*
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+*/
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: #000;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+      top: -15px;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: #ff0063;
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: #ff0063;
+}
+#naviul .active:hover:before {
+  opacity: 0;
+  
+}
+
+   #navBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 85px;
+    z-index: 999999;
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.video-app {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  height: 110vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+.user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.user-profile + svg {
+  width: 14px;
+}
+
+.notify {
+  position: relative;
+}
+.notify:before {
+  content: "";
+  position: absolute;
+  background-color: var(--logo-color);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  right: -6px;
+  bottom: 15px;
+}
+
+.menu-item.active {
+  color: var(--logo-color);
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+  background-color: var(--theme-bg-color);
+}
+
+.side-wrapper:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.side-wrapper svg {
+  width: 20px;
+  fill: var(--body-color);
+  margin-right: 25px;
+  flex-shrink: 0;
+}
+
+.username {
+  color: var(--main-color);
+  font-size: 15px;
+}
+
+.side-menu a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.side-menu a:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.side-menu {
+  padding: 20px;
+}
+
+.side-title {
+  padding: 0 0 20px;
+  font-size: 15px;
+}
+
+
+
+.show-more {
+  margin-top: 20px;
+  padding: 12px 16px;
+}
+
+.left-side {
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  overflow: auto;
+  flex-shrink: 0;
+}
+
+
+
+.profile {
+   height: 45vh;
+    max-height: 320px;
+    min-height: 270px;
+    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 1920px;
+    left: 0;
+    z-index: 9999;
+}
+
+.profile-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 4px 4px 6px 6px;
+}
+
+.profile-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--header-bg-color);
+    width: 100%;
+    box-shadow: -1px 3px 8px -1px rgb(0 0 0 / 10%);
+    border-radius: 0 0 4px 4px;
+    padding: 10px 280px;
+    z-index: 2;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 15px;
+}
+
+.profile-avatar {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  white-space: nowrap;
+}
+
+.menu-items {
+  display: flex;
+  cursor: pointer;
+}
+
+.profile-menu-link {
+  padding: 20px;
+  transition: 0.2s;
+}
+.profile-menu-link.active, .profile-menu-link:hover {
+  border-bottom: 3px solid var(--logo-color);
+  color: var(--logo-color);
+}
+
+
+.profile-name {
+  color: var(--main-color);
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 26px 16px;
+  white-space: nowrap;
+}
+.profile-item svg {
+  width: 22px;
+  margin-right: 10px;
+}
+
+.profile-contact-info {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  top: 20px;
+  color: #fff;
+}
+.profile-contact-info svg {
+  width: 18px;
+}
+
+.profile-contact {
+  border: 1px solid rgba(239, 239, 239, 0.3);
+  padding: 16px;
+  margin-left: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
+.follow {
+  border: 2px solid var(--border-color);
+  border-radius: 25px 0 0 25px;
+  color: var(--body-color);
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.follow:hover {
+  background-color: var(--header-bg-color);
+}
+
+.follow-option {
+  border-radius: 0 25px 25px 0;
+  margin-left: -2px;
+}
+
+.trends {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 45px;
+}
+.trends a {
+  text-decoration: none;
+  color: var(--body-color);
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.trends svg {
+  width: 20px;
+  margin-right: 16px;
+}
+
+.follow-option.active {
+  background-color: var(--header-bg-color);
+  margin-left: -3px;
+}
+
+.play-all {
+  background-color: var(--logo-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+.play-all svg {
+  width: 12px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.video video {
+  transition: 0.4s;
+  max-width: 100%;
+  display: block;
+  border-radius: 4px 4px 0 0;
+}
+
+.video {
+  overflow: hidden;
+  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  position: relative;
+  background-color: var(--header-bg-color);
+  cursor: pointer;
+}
+.video:hover .video-time {
+  opacity: 0;
+}
+.video:hover video {
+  transform: scale(2.2);
+  transform-origin: center;
+}
+.video:hover .view {
+  padding: 10px;
+}
+
+.video-time {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #fff;
+  bottom: 80px;
+  right: 6px;
+  transition: 0.3s ease-in;
+}
+
+.video-content {
+  width: 100%;
+  color: var(--main-color);
+  padding: 15px 10px 0;
+  border-radius: 0 0 4px 4px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view {
+  padding: 10px;
+  position: relative;
+  background-color: var(--header-bg-color);
+  z-index: 1;
+  font-size: 13px;
+}
+
+.load-more {
+  display: flex;
+  align-items: center;
+  /*justify-content: center;*/
+  padding: 30px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+.load-more svg {
+  width: 16px;
+  margin-right: 15px;
+}
+.load-more:hover svg {
+  -webkit-animation: load 0.9s linear infinite;
+          animation: load 0.9s linear infinite;
+}
+
+@-webkit-keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.language {
+  margin-bottom: 8px;
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+.footer-links a + a {
+  margin-left: 8px;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.link-footer a {
+  color: var(--body-color);
+  font-size: 14px;
+}
+
+.footer {
+  padding: 30px 0;
+}
+.footer-last {
+  border-top: 1px solid var(--border-color);
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+}
+.social-media svg {
+  width: 100%;
+}
+.social-media a {
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--body-color);
+  padding: 8px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+}
+
+.policy a {
+  text-decoration: none;
+  color: var(--body-color);
+}
+
+@media (max-width: 1030px) {
+  .profile-name {
+    display: none;
+  }
+
+  .profile-menu-link {
+    padding: 20px 10px;
+    font-size: 14px;
+  }
+
+  .trends {
+    padding: 40px 10px;
+  }
+}
+@media (max-width: 1120px) {
+  .footer-row {
+    flex-direction: column;
+  }
+  .footer-row + .footer-row {
+    margin-top: 10px;
+  }
+  .footer-row .button {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .play-all {
+    color: transparent;
+    white-space: nowrap;
+    width: 30px;
+    padding: 0;
+    fill: #fff;
+    height: 30px;
+    position: relative;
+  }
+
+  .profile-item {
+    padding: 20px 10px;
+  }
+
+  .play-all svg {
+    position: absolute;
+    left: 58%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    fill: #fff;
+  }
+}
+@media (max-width: 840px) {
+  .profile-contact {
+    padding: 6px;
+  }
+
+  .profile-item, .profile-avatar {
+    flex-direction: column;
+  }
+
+  .profile-item svg {
+    margin-right: 0;
+  }
+
+  .profile-item {
+    text-align: center;
+  }
+
+  .profile-img {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .profile-name {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 6px;
+  }
+
+  .profile-menu {
+    flex-direction: column;
+  }
+
+  .menu-items {
+    order: 1;
+  }
+}
+@media (max-width: 980px) {
+  .videos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .profile {
+    min-height: 380px;
+    max-height: 380px;
+  }
+}
+@media (max-width: 800px) {
+  .trends .follow-buttons {
+    display: none;
+  }
+}
+@media (max-width: 750px) {
+  .left-side {
+    display: none;
+  }
+
+  .header-menu {
+    display: none;
+  }
+
+  .search-bar input  {
+    max-width: 140px;
+  }
+
+
+}
+@media (max-width: 440px) {
+  .user-settings svg {
+    display: none;
+  }
+
+  .videos {
+    grid-template-columns: 1fr;
+  }
+}
+.dark-light {
+  position: fixed;
+  bottom: 30px;
+  right: 15px;
+  background-color: var(--header-bg-color);
+  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 50%;
+  z-index: 3;
+}
+.dark-light svg {
+  width: 28px;
+}
+
+.dark-mode .dark-light svg {
+  fill: #ffce45;
+  stroke: #ffce45;
+}
+
+.dark-light svg {
+  fill: transparent;
+  transition: 0.5s;
+}
+
+@media (max-width: 475px) {
+  .footer-links {
+    flex-direction: column;
+  }
+
+  .footer-links a + a {
+    margin-left: 0;
+  }
+
+  .footer-row:last-child {
+    align-items: flex-end;
+  }
+
+  .footer-row {
+    align-items: flex-start;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-links a {
+    margin-bottom: 5px;
+  }
+
+  .policy {
+    display: none;
+  }
+
+  .dark-light {
+    bottom: 60px;
+  }
+}
+
+  .side-menu {
+    position: relative;
+    top: 350px;
+    left: 0;
+  }
+  .con_nick {
+    position: relative;
+    top: 286px;
+    left: 50px;
+    display: flex;
+    align-items: center;
+  }
+  #bnickname {
+     position: relative;
+    top: 50px;
+    left: -240px;
+    width: 500px;
+  }
+  #updatenickname {
+    position: relative;
+    left: 20px;
+    top: 0;
+  }
+  
+  .que:first-child{
+    border-top: 1px solid black;
+  }
+  
+.que{
+  position: relative;
+  padding: 17px 0;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #dddddd;
+  
+}
+  
+.que::before{
+  display: inline-block;
+  content: '*';
+  font-size: 14px;
+  color: #ff0063;
+  margin: 0 5px;
+}
+
+.que.on>span{
+  font-weight: bold;
+  color: #ff0063; 
+}
+  
+.anw {
+  display: none;
+    overflow: hidden;
+  font-size: 14px;
+  background-color: #f4f4f2;
+  padding: 27px 0;
+}
+  
+.anw::before {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  margin: 0 5px;
+}
+
+.arrow-wrap {
+  position: absolute;
+  top:50%; right: 10px;
+  transform: translate(0, -50%);
+}
+
+.que .arrow-top {
+  display: none;
+}
+.que .arrow-bottom {
+  display: block;
+}
+.que.on .arrow-bottom {
+  display: none;
+}
+.que.on .arrow-top {
+  display: block; 
+}
+
+.load-more {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 30px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    position: relative;
+    top: 300px;
+}
+#Accordion_wrap {
+   width: 1000px;
+    position: relative;
+    left: 35px;
+    top: 50px;
+}
+
+
+#nickspan {
+   position: relative;
+    left: 150px;
+    top: -35px;
+}
+
+#bnickname {
+    position: relative;
+    top: -16px;
+    left: 0;
+    width: 500px;
+}
+
+
+
+
+#bemail_msg {
+   position: relative;
+    left: 150px;
+    top: -35px;
+}
+
+#bemail {
+    position: relative;
+    top: -16px;
+    left: 0;
+    width: 500px;
+}
+
+
+#badress {
+   position: relative;
+    top: -16px;
+    left: 0;
+    width: 500px;
+}
+
+
+#btel_msg {
+   position: relative;
+    left: 150px;
+    top: -35px;
+}
+
+#btel {
+    position: relative;
+    top: -16px;
+    left: 0;
+    width: 500px;
+}
+
+
+
+#bpassword_msg {
+   position: relative;
+    left: 150px;
+    top: -35px;
+}
+
+#bpassword {
+    position: relative;
+    top: -16px;
+    left: 0;
+    width: 500px;
+}
+
+.side-menu>a:hover {
+   color: #ff0063;
+}
+
+.mu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 90%;
+  left: 88%;
+  z-index: 999;
+  cursor: pointer;
+}
+#footer {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+
+    </style>
+       <script th:inline="javascript">
+      // 비로그인이면 anonymousUser
+      const loginInfo = /*[[${#authentication.principal}]]*/
+
+   </script>
+   <script>
+         let username1 = undefined;
+
+
+
+
+      $(document).ready(async function () {
+         //회원정보 출력
+         function printPage(data) {
+            $("#username").text(data.username);
+            $("#myname").text(data.bname);
+            $("#mypassword").text(data.bpassword);
+            $("#mynickname").text(data.bnickname);
+            $("#myemail").text(data.bemail);
+            $("#mytel").text(data.btel);
+            $("#myadress").text(data.badress);
+         }
+
+         // 로그인한 사용자 아이디를 저장. 비로그인이면 null
+         if (loginInfo !== "anonymousUser") {
+            username1 = loginInfo.username;
+         }
+
+         console.log(username1);
+
+         const read = await $.ajax({
+            url: "buyer/readbuyer",
+            data: {username: username1},
+            success: function (data) {
+               printPage(data.result);
+            }
+
+         })
+
+
+         console.log(read.result)
+
+
+         //닉네임변경
+         $(document).on("click", "#updatenickname", function () {
+
+            if ($("#newnickname_div").attr("value") == "show") {
+
+               $("#updatenickname").text("창닫기")
+
+               const $div = $("<div>").attr("id", "nickname_div").appendTo("#newnickname_div");
+               const $form = $("<form>").attr("id", "updatenicknameform").appendTo($div);
+               $("<input>").attr("name", "bnickname").attr("id", "bnickname").appendTo($form)
+               $("<button>").attr("id", "checkNickname").text("중복확인").appendTo($div);
+               $("<button>").attr("id", "updatenickname_btn").text("변경하기").appendTo($div)
+               $("#newnickname_div").attr("value", "hide");
+
+            }
+            else if ($("#newnickname_div").attr("value") == "hide") {
+
+               $("#newnickname_div").attr("value", "show");
+               $("#nickname_div").remove();
+               $("#updatenickname").text("변경하기")
+
+            }
+         })
+
+         /*         $(document).on("click", const , function () {
+                     $("#newnickname_div").attr("value", "show");
+                     $("#nickname_div").remove();aaa
+                     $("#updatenickname").text("변경하기")
+                  })
+         */
+         //
+
+         $(document).on("click", "#checkNickname", async function (e) {
+            const paramNickname = {
+               bnickname: $('#bnickname').val()
+            };
+            const rn = await $.ajax({
+               url: "buyer/check/nickname",
+               data: paramNickname,
+               method: "get"
+            })
+            $("#bnickname_msg").children().remove();
+            $("<span>").text(rn.result).attr("id", "nickspan").attr("value", rn.result).appendTo("#bnickname_msg");;
+         })
+      
+
+
+
+
+      $(document).on("click", "#updatenickname_btn", async function (e) {
+         e.stopPropagation();
+
+         console.log($('#bnickname').val())
+
+         //const formdata = $("#updatenickname").serialize();
+         if ($("#nickspan").attr("value") == "사용할 수 있는 닉네임입니다") {
+            alert("닉네임을 변경하시겠습니까?")
+            await $.ajax({
+               url: '/buyer/update',
+               data: {bnickname: $('#bnickname').val()},
+               method: 'put',
+               success: function (data) {
+                  console.log(data)
+                  $("#mynickname").text(data.result.bnickname);
+               }
+            }).done(() => location.href = '/buyer/read')
+         } else {
+            alert("변경 실패")
+         }
+
+      })
+
+
+
+
+
+
+
+
+      //이메일
+      $(document).on("click", "#updateemail", function () {
+
+         if ($("#newemail_div").attr("value") == "show") {
+
+            $("#updateemail").text("창닫기")
+
+            const $div = $("<div>").attr("id", "email_div").appendTo("#newemail_div");
+            const $form = $("<form>").attr("id", "updateemailform").appendTo($div);
+            $("<input>").attr("name", "bemail").attr("id", "bemail").appendTo($form)
+            $("<button>").attr("id", "checkEmail").text("중복확인").appendTo($div);
+            $("<button>").attr("id", "updateemail_btn").text("변경하기").appendTo($div)
+
+            $("#newemail_div").attr("value", "hide");
+
+         }
+
+         else if ($("#newemail_div").attr("value") == "hide") {
+            $("#newemail_div").attr("value", "show");
+            $("#email_div").remove();
+            $("#updateemail").text("변경하기")
+         }
+
+
+      })
+      $(document).on("click", "#checkEmail", async function () {
+         const paramEmail = {
+            bemail: $('#bemail').val()
+         };
+         const re = await $.ajax({
+            url: "buyer/check/email",
+            data: paramEmail,
+            method: "get"
+         })
+         $("#bemail_msg").children().remove();
+         $("<span>").text(re.result).attr("id", "emailspan").attr("value", re.result).appendTo("#bemail_msg");
+      })
+
+
+
+      $(document).on("click", "#updateemail_btn", async function (e) {
+         e.stopPropagation();
+
+         console.log($('#bemail').val())
+
+         //const formdata = $("#updatenickname").serialize();
+         if ($("#emailspan").attr("value") == "사용할 수 있는 이메일입니다") {
+
+            alert("이메일을 변경하시겠습니까?")
+
+            await $.ajax({
+               url: '/buyer/update',
+               data: {bemail: $('#bemail').val()},
+               method: 'put',
+               success: function (data) {
+                  console.log(data)
+                  $("#myemail").text(data.result.bemail);
+               }
+            }).done(() => location.href = '/buyer/read')
+
+         } else {
+            alert("변경 실패")
+         }
+      })
+
+   /*         // spring@naver.com이라면 @로 잘라서 spring과 naver.com으로 분리 출력
+      const emails = member.email.split("@");
+      $("#email2").prop("disabled", true);
+      $("#email1").val(emails[0]);
+      $("#email2").val(emails[1]);
+      
+         // #selectEmail을 읽어온다. { 직접 입력, naver, daum, gmail}
+      const $options = $("#selectEmail option");
+      let isFind = false;
+      
+      // 사용자 이메일을 #selectEmail에서 찾으면 그 option을 활성화
+      $.each($options, function(idx, option) {            
+         if($(option).text()==emails[1]) {
+            $(option).prop("selected", true);
+            isFind = true;
+         }
+         });
+         // 못 찾으면 기본값인 직접 입력을 활성화
+      if(isFind==false) {
+         $("#email2").prop("disabled", false);
+         $($options[0]).prop("selected", true)
+      }      
+   
+      */
+
+
+      //주소
+      $(document).on("click", "#updateadress", function () {
+
+         if ($("#newadress_div").attr("value") == "show") {
+
+            $("#updateadress").text("창닫기")
+
+            const $div = $("<div>").attr("id", "adress_div").appendTo("#newadress_div");
+            const $form = $("<form>").attr("id", "updateadressform").appendTo($div);
+            $("<input>").attr("name", "badress").attr("id", "badress").appendTo($form)
+            $("<button>").attr("id", "updateadress_btn").text("변경하기").appendTo($div)
+
+            $("#newadress_div").attr("value", "hide");
+
+         }
+
+         else if ($("#newadress_div").attr("value") == "hide") {
+            $("#newadress_div").attr("value", "show");
+            $("#adress_div").remove();
+            $("#updateadress").text("변경하기")
+         }
+
+
+      })
+
+      $(document).on("click", "#updateadress_btn", function (e) {
+         e.stopPropagation();
+
+         console.log($('#badress').val())
+
+         //const formdata = $("#updatenickname").serialize();
+
+         $.ajax({
+            url: '/buyer/update',
+            data: {badress: $('#badress').val()},
+            method: 'put',
+            success: function (data) {
+               console.log(data)
+               $("#myadress").text(data.result.badress);
+            }
+         })
+      })
+
+
+
+
+      //연락처
+
+      $(document).on("click", "#updatetel", function () {
+
+         if ($("#newtel_div").attr("value") == "show") {
+
+            $("#updatetel").text("창닫기")
+
+            const $div = $("<div>").attr("id", "tel_div").appendTo("#newtel_div");
+            const $form = $("<form>").attr("id", "updatetelform").appendTo($div);
+            $("<input>").attr("name", "btel").attr("id", "btel").appendTo($form);
+            $("<button>").attr("id", "checkTel").text("중복확인").appendTo($div);
+            $("<button>").attr("id", "updatetel_btn").text("변경하기").appendTo($div)
+
+            $("#newtel_div").attr("value", "hide");
+
+         }
+
+         else if ($("#newtel_div").attr("value") == "hide") {
+            $("#newtel_div").attr("value", "show");
+            $("#tel_div").remove();
+            $("#updatetel").text("변경하기")
+         }
+         $(document).on("click", "#checkTel", async function () {
+            const paramTel = {
+               btel: $('#btel').val()
+            };
+            const rt = await $.ajax({
+               url: "buyer/check/tel",
+               data: paramTel,
+               method: "get"
+            })
+            $("#btel_msg").children().remove();
+            $("<span>").text(rt.result).attr("id", "telspan").attr("value", rt.result).appendTo("#btel_msg");;
+         })
+
+
+      })
+
+      $(document).on("click", "#updatetel_btn", async function (e) {
+         e.stopPropagation();
+
+         if ($("#telspan").attr("value") == "사용 가능한 전화번호입니다") {
+
+            alert("전화번호를 변경하시겠습니까?")
+            console.log($('#btel').val())
+
+
+            await $.ajax({
+               url: '/buyer/update',
+               data: {btel: $('#btel').val()},
+               method: 'put',
+               success: function (data) {
+                  $("#mytel").text(data.result.btel);
+                  //location.href=location.href
+                  console.log(data)
+               }
+            }).done(() => location.href = '/buyer/read')
+         } else {
+            alert("변경 실패")
+         }
+      })
+
+
+
+
+
+      //비밀번호
+
+      $(document).on("click", "#updatepassword", function () {
+
+         if ($("#newpassword_div").attr("value") == "show") {
+
+            $("#updatepassword").text("창닫기")
+
+            const $div = $("<div>").attr("id", "password_div").appendTo("#newpassword_div");
+            const $form = $("<form>").attr("id", "updatepasswordform").appendTo($div);
+            $("<input>").attr("name", "bpassword").attr("id", "bpassword").appendTo($form)
+            $("<button>").attr("id", "updatepassword_btn").text("변경하기").appendTo($div)
+
+            $("#newpassword_div").attr("value", "hide");
+
+
+         }
+
+         else if ($("#newpassword_div").attr("value") == "hide") {
+            $("#newpassword_div").attr("value", "show");
+            $("#password_div").remove();
+            $("#updatepassword").text("변경하기")
+         }
+
+
+      })
+
+      $(document).on("click", "#updatepassword_btn", function (e) {
+         e.stopPropagation();
+
+         console.log($('#bpassword').val())
+
+         $.ajax({
+            url: '/buyer/update',
+            data: {bpassword: $('#bpassword').val()},
+            method: 'put',
+            success: function (data) {
+               console.log(data)
+               $("#mypassword").text(data.result.bpassword);
+            }
+         }).done(alert("비밀번호가 변경되었습니다")).done(() => location.href = '/buyer/read')
+      })
+
+
+
+
+
+
+      /*            
+      $(document).on("click", "#updatepassword", async function(){
+               if ($("#newpassword").attr("value") == "show") {
+      
+                  $("#updatepassword").text("창닫기")
+      
+                  const $div = $("<div>").attr("id", "bpassword_div").appendTo("#newpassword_div");
+                  const $form = $("<form>").attr("id", "updatepassword_form").appendTo($div);
+                  $("<input>").attr("name", "bpassword").appendTo($form)
+                  $("<button>").attr("id", "updatepassword_btn").text("변경하기").appendTo($div)
+      
+                  $("#newpassword_div").attr("value", "hide");
+               }
+      
+               else if ($("#newpassword_div").attr("value") == "hide") {
+                  $("#bpassword_div").remove();
+                  $("#newpassword_div").attr("value", "show");
+                  $("#updatepassword").text("비밀번호 변경")
+               }
+            })
+      
+            $(document).on("click", "#updatepassword_btn", async function(e){
+               e.stopPropagation();
+               const formdata = $("#updatepassword_form").serialize();
+               
+               await $.ajax({
+                  url : '/buyer/update',
+                  data : formdata,
+                  method : 'put',
+                  success : 
+                     alert("비밀번호 변경 완료")
+                  
+               })
+            })
+            
+      
+            /*      
+               const param = {
+                        username : username
+                     }
+                     $("<div>").text(param.username).appendTo("#aa");
+         
+                     const update = await $.ajax({
+                        url: "buyer/read",
+                        data: param,
+                        method: "get"
+                     });
+                     console.log(update.result);
+                     $("<div>").text(param.result).appendTo("#bname");
+         */
+
+      $("#resign").click(async function () {
+
+         const resign = await $.ajax({
+            url: "http://localhost:8087/buyer/resign",
+            method: "get"
+         }).done(() => location.href = '/buyer/resign')
+      })
+      })   ;
+
+   </script>
+</head>
+<body>
+
+
+     <nav id="nav" th:replace="fragments/nav">
+      </nav>
+      
+   <div id="navBox"></div>
+
+<!-- 메뉴바 -->
+    <div id="navi">
+        <div class="navigation">
+            <ul>
+              <a th:href="@{buyer/loginsuc}" class="active">Home</a>
+              <a th:href="@{buyer/campingAll}">Reservation</a>
+              <a th:href="@{buyer/product}">Product</a>
+              <a th:href="@{buyer/board/list}">Knowhow</a>
+            </ul>
+          </div>
+    </div>
+<!-- 메뉴바 끝 -->
+
+<div class="mu">
+<button onclick="window.open('https://open.kakao.com/o/sxVt0TDe','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');" style="border: none; background-color: transparent; cursor: pointer;">
+      <img alt="무엇이든지 물어보세요" src="https://i.postimg.cc/9QFt368X/Group-134-1.png" width="150px;">
+   </button>
+</div>
+
+
+
+
+    <div class="video-app">
+        <div class="dark-light">
+           <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+          </div>
+
+        <div class="wrapper">
+         <div class="left-side">
+          <div class="side-wrapper">
+           <div class="side-menu" style="position: relative;top: 400px;left: 0;">
+
+            <a th:href="@{buyer/read}">
+             <svg viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M210.35 246.63c33.88 0 63.22-12.15 87.2-36.13 23.97-23.97 36.12-53.3 36.12-87.19 0-33.87-12.15-63.2-36.13-87.19C273.57 12.15 244.23 0 210.35 0c-33.89 0-63.22 12.15-87.19 36.13s-36.13 53.3-36.13 87.18c0 33.89 12.16 63.23 36.13 87.2 23.98 23.97 53.32 36.12 87.2 36.12zm0 0M426.13 393.7a304.6 304.6 0 00-4.15-32.35 254.9 254.9 0 00-7.96-32.53 160.66 160.66 0 00-13.37-30.33 114.48 114.48 0 00-20.16-26.28c-7.96-7.61-17.7-13.73-28.97-18.2-11.22-4.44-23.66-6.69-36.97-6.69-5.23 0-10.28 2.14-20.05 8.5-6 3.92-13.03 8.45-20.87 13.46-6.71 4.27-15.8 8.28-27.02 11.9a107.28 107.28 0 01-33.04 5.34c-10.97 0-22.09-1.8-33.05-5.34-11.2-3.62-20.3-7.62-27-11.9-7.76-4.96-14.8-9.5-20.9-13.46-9.74-6.36-14.8-8.5-20.03-8.5-13.3 0-25.75 2.25-36.97 6.7-11.26 4.45-21 10.57-28.97 18.2a114.49 114.49 0 00-20.15 26.27c-5.56 9.78-10.06 19.99-13.38 30.34a255.5 255.5 0 00-7.95 32.52 303.52 303.52 0 00-4.15 32.36C.34 403.51 0 413.68 0 423.95c0 26.73 8.5 48.36 25.25 64.32C41.8 504.02 63.69 512 90.32 512h246.53c26.62 0 48.5-7.98 65.06-23.73 16.76-15.95 25.25-37.59 25.25-64.32 0-10.32-.35-20.5-1.03-30.25zm0 0" /></svg>
+             마이페이지
+            </a>
+
+            <a th:href="@{buyer/reHistory}">
+                <svg viewBox="0 0 443.29 443.29" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M221.65 0C99.43 0 0 99.43 0 221.65s99.43 221.64 221.65 221.64 221.64-99.43 221.64-221.64S343.86 0 221.65 0zm0 415.59c-106.94 0-193.94-87-193.94-193.94S114.7 27.7 221.65 27.7s193.94 87 193.94 193.94-87 193.94-193.94 193.94z" />
+                 <path d="M235.5 83.12h-27.7v144.26l87.17 87.18 19.59-19.59-79.06-79.06z" /></svg>
+                예약내역
+            </a>
+
+            <a th:href="@{buyer/list}">
+                <svg viewBox="0 0 512.07 512.07" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M53.33 224A53.4 53.4 0 000 277.33V448a53.4 53.4 0 0053.33 53.33h64a52.95 52.95 0 0032-10.8V224h-96zM512 304a47.3 47.3 0 00-13.89-33.58 52.97 52.97 0 0013.66-40.72c-2.5-27.12-26.93-48.37-55.64-48.37H324.35c6.53-19.82 16.98-56.15 16.98-85.33 0-46.27-39.31-85.33-64-85.33-22.16 0-38 12.48-38.67 12.99a10.72 10.72 0 00-4 8.34v72.34l-61.43 133.1-2.56 1.3V467.4C188.03 475.6 210 480 224 480h195.82c23.23 0 43.56-15.66 48.34-37.27a47.99 47.99 0 00-3.86-32.04 47.78 47.78 0 0021.35-64.02A47.76 47.76 0 00512 304z" /></svg> 
+                캠핑장문의
+            </a>
+            
+            <a th:href="@{buyer/product/order/buylist}">
+                <svg viewBox="0 0 512.07 512.07" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M509.76 194.64c-6.15-18.86-22.95-31.04-42.78-31.04H339.06L298.78 41.27c-6.2-18.8-22.95-30.93-42.73-30.93h-.2c-19.85.08-36.6 12.35-42.67 31.26l-39.1 122H45.09c-19.88 0-36.69 12.22-42.81 31.14-6.12 18.92.33 38.68 16.45 50.33L123.1 320.5l-40.17 122c-6.21 18.87.14 38.65 16.18 50.39a44.86 44.86 0 0026.56 8.84c9.17 0 18.35-2.9 26.37-8.7l104.54-75.56 103.3 75.44c16.03 11.7 36.78 11.76 52.87.15s22.58-31.33 16.52-50.23L390.04 320.5l103.48-75.56c16.02-11.7 22.4-31.44 16.24-50.3z" /></svg>
+                구매내역
+            </a>
+
+            <a th:href="@{buyer/resign}" id="resign">
+            <svg viewBox="0 0 515.6 515.6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M496.7 212.2a64.4 64.4 0 11-91.2 91.1 64.4 64.4 0 0191.2-91M303.3 212.2a64.4 64.4 0 11-91 91.1 64.4 64.4 0 0191-91M110 212.2A64.4 64.4 0 1119 303.3a64.4 64.4 0 0191.1-91"></svg>
+                회원탈퇴
+            </a>
+
+            </div>
+          </div>
+          <div class="side-wrapper">
+
+       
+          </div>
+ 
+         </div>
+         <div class="main-container" style="width: 1130px;">
+          <div class="profile">
+          <span style="color: #fff; font-size: 36px;z-index: 9; position: fixed;position: fixed;top: 142px;transform: translateX(-50%);left: 50%;
+          ">캠패스 회원 정보 수정 </span>
+          <div class="alert alert-success">
+        <strong>서버 메시지</strong><span id="target">없음</span>
+   </div>
+           <img src="https://images.unsplash.com/photo-1559543434-3e99643d333d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" class="profile-cover">
+>
+
+           <div class="profile-menu">
+            <div class="profile-avatar">
+             <img class="profile-img" src="https://i.postimg.cc/V6JGcgnd/Mask-group-9.png" alt="">
+             <div class="profile-name"><span id="mynickname" style="margin-right: 3px;"></span>(<span id="username" style="font-size: 14px; opacity: 80%;"></span>)</div>
+            </div>
+
+
+           </div>
+          </div>
+          <div class="trends">
+   
+
+          </div>
+
+
+ 
+          <div class="load-more">
+             <div id="nicknick">
+                <div style="color: var(--main-color);position: relative;top: 0px;font-size:22px; left: 50px;">캠패스 회원 정보 수정</div>
+               <div id="Accordion_wrap">
+                 <div class="que">
+                  <span>회원 정보 수정</span>
+                   <div class="arrow-wrap">
+                     <span class="arrow-top">↑</span>
+                    <span class="arrow-bottom">↓</span>
+                   </div>
+                  
+                 </div>
+                 <div class="anw">
+                  <span style="position: relative;left: 20px;">회원 정보 수정</br></br>아이디는 수정 불가합니다.</span>
+                 </div>
+                 
+                  <div class="que">
+                  <span>닉네임 변경</span>
+                 </div>
+                 <div class="anw">
+                  <span>
+                        <div style="position: relative;left: 20px;">
+                        <p style="color: #101010;"> 닉네임 <span id="mynickname" style="margin-left: 30px;"></span> <button id="updatenickname" type="button"style="margin-bottom: 10px;"> 변경하기 </button></p>
+                        
+                        <span id="bnickname_msg"></span>
+                        <div id="newnickname_div" value="show"></div>
+                     </div>
+                  </span>
+                 </div>
+                 
+                  <div class="que">
+                  <span>이메일 변경</span>
+                 </div>
+                 <div class="anw">
+                  <span>
+                        <div style="position: relative;left: 20px;">
+                        <p style="color: #101010;"> 이메일 <span id="myemail" style="margin-left: 30px;margin-right: 2px;"></span> <button id="updateemail" type="button" style="margin-bottom: 10px;"> 변경하기 </button></p>
+                        <span id="bemail_msg"></span>
+                        <div id="newemail_div" value="show"></div>
+                     </div>
+                  </span>
+                 </div>
+                 
+                 <div class="que">
+                  <span>주소 변경</span>
+                 </div>
+                 <div class="anw">
+                  <span>
+                        <div style="position: relative;left: 20px;">
+                        <p style="color: #101010;"> 주소 <span id="myadress" style="margin-left: 30px;margin-right: 2px;"></span><button id="updateadress" style="margin-bottom: 10px;"> 변경하기 </button> </p>
+                        <div id="newadress_div" value="show"></div>
+                     </div>
+                  </span>
+                 </div>
+                 
+                 <div class="que">
+                  <span>연락처 변경</span>
+                 </div>
+                 <div class="anw">
+                  <span>
+                        <div style="position: relative;left: 20px;">
+                        <p style="color: #101010;"> 연락처 <span id="mytel" style="margin-left: 30px;margin-right: 2px;"></span><button id="updatetel" style="margin-bottom: 10px;"> 변경하기 </button> </p>
+                        <span id="btel_msg"></span>
+                        <div id="newtel_div" value="show"></div>
+                     </div>
+                  </span>
+                 </div>
+                 
+                 <div class="que">
+                  <span>비밀번호 변경</span>
+                 </div>
+                 <div class="anw">
+                  <span>
+                        <div style="position: relative;left: 20px;">
+                        <p style="color: #101010;"> 비밀번호 : <span id="mypassword" style="margin-left: 30px;margin-right: 2px;"></span><button id="updatepassword" style="margin-bottom: 10px;"> 변경하기 </button></p>
+                        <div id="newpassword_div" value="show"></div>
+                     </div>
+                  </span>
+                 </div>
+            </div>
+             </div>
+
+
+          </div>
+
+
+         
+         
+        </div>
+       </div>
+       </div>
+   
+        <footer id="footer">
+            <div class="footerBox"><img alt="푸터" src="https://i.postimg.cc/jd1BC4pb/Group-133.png"></div>
+        </footer>
+       
+</body>
+</html>
+
+<script>
+$(".que").click(function() {
+      $(this).next(".anw").stop().slideToggle(300);
+     $(this).toggleClass('on').siblings().removeClass('on');
+     $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
+   });
+   
+   
+   
+    
+const toggleButton = document.querySelector('.dark-light');
+
+toggleButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const allVideos = document.querySelectorAll('.video');
+
+allVideos.forEach(v => {
+  v.addEventListener('mouseover', () => {
+    const video = v.querySelector('video');
+    video.play();
+  });
+  v.addEventListener('mouseleave', () => {
+    const video = v.querySelector('video');
+    video.pause();
+  });
+});
+</script>

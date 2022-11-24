@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>CAMPASS</title>
+  	<!-- favicons -->
+<link href="https://i.postimg.cc/mZwb1Gbc/Mask-group-11.png" rel="icon">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container" style="margin-top:100px">
+<table class="table" style="width: 75%; margin:10px auto; margin-top: 50px;">
+    <tbody>
+	      <tr th:each="campingList : ${camping}">
+	        <input type="hidden" name="pic_num" >
+	        	<img class="roomlist_main-img" >
+
+	        <td class= "roomlist_box" style="width: 40%">
+					<td  th:value="${campingList.cName}">이름</td>
+	      </tr>
+	     
+    </tbody>
+    
+    
+    
+  </table>
+</div>
+
+</body>
+</html>

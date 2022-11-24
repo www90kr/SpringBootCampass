@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.SellerDao"> 
+
+	<select id="existsByBusinessNo" resultType="boolean">
+		select count(*) from
+		seller
+		where businessNo=#{businessNo} and rownum&lt;=1
+	</select>
+
+	<select id="existsBysEmail" resultType="boolean">
+		select count(*) from seller
+		where semail=#{semail} and rownum&lt;=1
+	</select>
+
+	<select id="existsBysId" resultType="boolean">
+		select count(*) from seller
+		where username=#{username} and rownum&lt;=1
+	</select>
+	
+		<select id="existsBysTel" resultType="boolean">
+		select count(*) from seller
+		where stel=#{stel} and rownum&lt;=1
+	</select>
+
+	<select id="findBysId"
+		resultType="com.campass.demo.entity.Seller">
+		select * from seller where semail=#{semail} and sname=#{sname} <!-- 이름과 이름이 같은 
+			애의 전부를 가져옴. 그중 아이디 // email, name 입력-> 그에 맞는 아이디 출력 / 아이디찾기 -->
+		and rownum&lt;=1
+	</select>
+
+	<insert id="save">
+		insert into seller(username, spassword, sname, semail, businessNo, <!--bprofile,--> stel, businessName
+		)
+		values(#{username}, #{spassword}, #{sname}, #{semail}, #{businessNo}, <!--#{bprofile},--> #{stel}, #{businessName}
+	)
+	</insert>
+
+	<!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
+	<update id="update">
+		update seller set spassword=#{spassword}, semail=#{semail}, stel=#{stel} where username=#{username}
+	</update>
+
+	<update id="resetpw"> 
+		update seller set  spassword=#{spassword}
+		where username=#{username}
+	</update>
+	
+	<update id="changepw">
+		update seller set spassword=#{spassword}
+		where username=#{username}
+	</update>
+
+
+	<delete id="deleteBysId">
+		delete from seller where username=#{username}
+	</delete>
+
+	<select id="read" resultType="com.campass.demo.entity.Seller">
+		select * from seller
+		where username=#{username}<!--dao 입력될 값 -->
+	</select>
+	
+	<select id="SellerInforRead" resultType="com.campass.demo.dto.SellerDto$Read">
+		select username, sname, semail, stel, businessName, businessNo from seller where username =#{username} and rownum &lt;= 1
+	</select>
+	
+	
+	
+	<select id="userdataall" resultType="com.campass.demo.entity.Seller">
+		select * from seller where username=#{username}
+	</select>
+
+
+	<!-- <delete id="deleteByUsernames"> delete from member where id in <foreach 
+		collection="ids" item="id" open="(" close=")" separator=","> #{id} </foreach> 
+		</delete> -->
+
+</mapper>
+
+

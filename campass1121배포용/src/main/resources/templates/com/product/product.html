@@ -1,0 +1,1802 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap");
+.about {
+  position: fixed;
+  z-index: 10;
+  bottom: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  transition: all 0.2s ease;
+}
+.about .bg_links {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+  backdrop-filter: blur(5px);
+  position: absolute;
+}
+.about .logo {
+  width: 40px;
+  height: 40px;
+  z-index: 9;
+  background-image: url(https://rafaelavlucas.github.io/assets/codepen/logo_white.svg);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: 10px 7px;
+  opacity: 0.9;
+  transition: all 1s 0.2s ease;
+  bottom: 0;
+  right: 0;
+}
+.about .social {
+  opacity: 0;
+  right: 0;
+  bottom: 0;
+}
+.about .social .icon {
+  width: 100%;
+  height: 100%;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  display: flex;
+  transition: all 0.2s ease, background-color 0.4s ease;
+  opacity: 0;
+  border-radius: 100%;
+}
+.about .social.portfolio {
+  transition: all 0.8s ease;
+}
+.about .social.portfolio .icon {
+  background-image: url(https://rafaelavlucas.github.io/assets/codepen/link.svg);
+}
+.about .social.dribbble {
+  transition: all 0.3s ease;
+}
+.about .social.dribbble .icon {
+  background-image: url(https://rafaelavlucas.github.io/assets/codepen/dribbble.svg);
+}
+.about .social.linkedin {
+  transition: all 0.8s ease;
+}
+.about .social.linkedin .icon {
+  background-image: url(https://rafaelavlucas.github.io/assets/codepen/linkedin.svg);
+}
+.about:hover {
+  width: 105px;
+  height: 105px;
+  transition: all 0.6s cubic-bezier(0.64, 0.01, 0.07, 1.65);
+}
+.about:hover .logo {
+  opacity: 1;
+  transition: all 0.6s ease;
+}
+.about:hover .social {
+  opacity: 1;
+}
+.about:hover .social .icon {
+  opacity: 0.9;
+}
+.about:hover .social:hover {
+  background-size: 28px;
+}
+.about:hover .social:hover .icon {
+  background-size: 65%;
+  opacity: 1;
+}
+.about:hover .social.portfolio {
+  right: 0;
+  bottom: calc(100% - 40px);
+  transition: all 0.3s 0s cubic-bezier(0.64, 0.01, 0.07, 1.65);
+}
+.about:hover .social.portfolio .icon:hover {
+  background-color: #698fb7;
+}
+.about:hover .social.dribbble {
+  bottom: 45%;
+  right: 45%;
+  transition: all 0.3s 0.15s cubic-bezier(0.64, 0.01, 0.07, 1.65);
+}
+.about:hover .social.dribbble .icon:hover {
+  background-color: #ea4c89;
+}
+.about:hover .social.linkedin {
+  bottom: 0;
+  right: calc(100% - 40px);
+  transition: all 0.3s 0.25s cubic-bezier(0.64, 0.01, 0.07, 1.65);
+}
+.about:hover .social.linkedin .icon:hover {
+  background-color: #0077b5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button,
+a,
+i {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus,
+p:focus,
+ul:focus,
+li:focus,
+button:focus,
+a:focus,
+i:focus {
+  outline: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
+}
+body.no-scroll {
+  overflow: hidden;
+}
+
+.btn {
+  min-width: 160px;
+  padding: 16px 30px;
+  box-shadow: inset 0px 0px 0px 1px #7fb6ca;
+  border: 0;
+  background-color: white;
+  color: #7fb6ca;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 14px;
+  position: relative;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+}
+.btn:focus {
+  outline: 0;
+}
+.btn:before {
+  width: 100%;
+  height: 100%;
+  background-color: #7fb6ca;
+  position: absolute;
+  content: "";
+  z-index: -1;
+  left: 0;
+  top: 0;
+  transition: all 0.3s ease;
+  transform: translate(6px, 6px);
+}
+.btn:hover:before {
+  transform: translate(0px, 0px);
+}
+
+.wrapper .section-title {
+  color: #7fb6ca;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 50px;
+  line-height: normal;
+  letter-spacing: 0.04em;
+  height: 120px;
+  grid-column: 1/15;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 799px) {
+  .wrapper .section-title {
+    font-size: 32px;
+    height: 76px;
+    margin-bottom: 30px;
+  }
+}
+.wrapper .section-title b {
+  font-weight: 900;
+  margin: 0 10px;
+}
+@media screen and (max-width: 799px) {
+  .wrapper .section-title b {
+    margin: 0 5px;
+  }
+}
+.wrapper .section-title span {
+  color: transparent;
+  -webkit-text-stroke: 1px #7fb6ca;
+  margin: 0 10px;
+}
+@media screen and (max-width: 799px) {
+  .wrapper .section-title span {
+    margin: 0 5px;
+  }
+}
+.wrapper .section-title:before {
+  content: "";
+  width: 10px;
+  height: 40px;
+  background-color: #eaeaea;
+  position: absolute;
+  transform: rotate(20deg);
+  bottom: 0;
+}
+@media screen and (max-width: 799px) {
+  .wrapper .section-title:before {
+    width: 7px;
+    height: 26px;
+  }
+}
+.wrapper .module {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-column-gap: 20px;
+  width: 100%;
+  max-width: 1920px;
+  margin: auto;
+}
+@media screen and (max-width: 799px) {
+  .wrapper .module {
+    grid-column-gap: 10px;
+    grid-template-columns: 10px repeat(12, 1fr) 10px;
+  }
+}
+.wrapper .module .content {
+  grid-column: 3/13;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-column-gap: 20px;
+}
+@media screen and (max-width: 1023px) {
+  .wrapper .module .content {
+    grid-column: 2/14;
+  }
+}
+@media screen and (max-width: 799px) {
+  .wrapper .module .content {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column: 2/14;
+  }
+}
+.wrapper section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+@media screen and (max-width: 799px) {
+  .wrapper section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+
+header {
+  width: 100%;
+  background-image: linear-gradient(-225deg, #7fb6ca 0%, #c6dde2 100%);
+}
+header .main-heading {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-column-gap: 20px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading {
+    grid-template-columns: 10px repeat(12, 1fr) 10px;
+    grid-column-gap: 10px;
+  }
+}
+header .main-heading:before {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  height: calc(100% + 50px);
+  background-image: linear-gradient(225deg, #7fb6ca 0%, #c6dde2 100%);
+  grid-column-start: 3;
+  transition: all 0.4s ease;
+}
+@media screen and (max-width: 1023px) {
+  header .main-heading:before {
+    grid-column-start: 2;
+  }
+}
+@media screen and (max-width: 799px) {
+  header .main-heading:before {
+    width: 100%;
+    grid-column-end: 15;
+    height: calc(100% + 20px);
+  }
+}
+header .main-heading article {
+  grid-column-start: 3;
+  position: absolute;
+  z-index: 2;
+  color: white;
+  margin-top: 70px;
+}
+@media screen and (max-width: 1023px) {
+  header .main-heading article {
+    grid-column-start: 2;
+  }
+}
+@media screen and (max-width: 799px) {
+  header .main-heading article {
+    grid-column-start: 2;
+    margin-top: 40px;
+  }
+}
+header .main-heading article .site-title {
+  font-size: 144px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px white;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading article .site-title {
+    font-size: 68px;
+    -webkit-text-stroke: 1px white;
+  }
+}
+header .main-heading .slide-container {
+  width: 100%;
+  height: 680px;
+  grid-column: 4/13;
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-gap: 20px;
+}
+@media screen and (max-width: 1023px) {
+  header .main-heading .slide-container {
+    grid-column: 3/14;
+  }
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container {
+    height: 400px;
+  }
+}
+header .main-heading .slide-container .slide-wrapper {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-gap: 20px;
+  grid-column: 1/10;
+}
+header .main-heading .slide-container .slide-wrapper .slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #7fb6ca;
+  grid-column: 1/9;
+  visibility: hidden;
+  overflow: hidden;
+  height: 480px;
+  position: absolute;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-wrapper .slide {
+    grid-column: 1/10;
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.active {
+  opacity: 1;
+  visibility: visible;
+  height: 480px;
+  transition: all 0.4s ease;
+  top: 160px;
+  background-color: #7fb6ca;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-wrapper .slide.active {
+    height: 300px;
+    top: 80px;
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.next {
+  transition: all 0.4s ease;
+  width: 260px;
+  height: 160px;
+  opacity: 1;
+  grid-column-end: 10;
+  visibility: visible;
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-wrapper .slide.next {
+    display: none;
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-in:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: linear-gradient(-225deg, #7fb6ca 0%, #c6dde2 100%);
+  animation: anime-in-before 0.6s ease both;
+}
+@keyframes anime-in-before {
+  0% {
+    transform: translateX(101%);
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-in img {
+  animation: anime-in 0.6s 0.4s ease both;
+  z-index: 1;
+}
+@keyframes anime-in {
+  0% {
+    transform: translateX(101%);
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-next-in img {
+  animation: anime-next-in 0.4s 0.2s ease both;
+  z-index: 1;
+}
+@keyframes anime-next-in {
+  0% {
+    transform: translateX(101%);
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-out:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: linear-gradient(-225deg, #7fb6ca 0%, #c6dde2 100%);
+  animation: anime-out-before 0.6s ease both;
+}
+@keyframes anime-out-before {
+  0% {
+    transform: translateX(-101%);
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-out img {
+  animation: anime-out 0.6s 0.4s ease both;
+  z-index: 1;
+}
+@keyframes anime-out {
+  0% {
+    transform: translateX(-101%);
+  }
+}
+header .main-heading .slide-container .slide-wrapper .slide.anime-next-out img {
+  animation: anime-next-out 0.4s 0.2s ease both;
+  z-index: 1;
+}
+@keyframes anime-next-out {
+  0% {
+    transform: translateX(-101%);
+  }
+}
+header .main-heading .slide-container .slide-arrows {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  bottom: 180px;
+  width: 60px;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-arrows {
+    display: none;
+  }
+}
+header .main-heading .slide-container .slide-arrows .button-prev,
+header .main-heading .slide-container .slide-arrows .button-next {
+  bottom: 0;
+  top: initial;
+  width: 60px;
+  height: 60px;
+  position: initial;
+  margin-top: 0;
+  transition: all 0.4s ease;
+  box-shadow: inset 0px 0px 0px 1px white;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+header .main-heading .slide-container .slide-arrows .button-prev:focus,
+header .main-heading .slide-container .slide-arrows .button-next:focus {
+  outline: 0;
+}
+header .main-heading .slide-container .slide-arrows .button-prev:hover,
+header .main-heading .slide-container .slide-arrows .button-next:hover {
+  box-shadow: inset 0px 0px 0px 1px white, inset 0px 0px 0px 6px rgba(255, 255, 255, 0.2);
+}
+header .main-heading .slide-container .slide-arrows .button-prev {
+  background-image: url(https://rafaelavlucas.github.io/assets/icons/white/icon-13.svg);
+}
+header .main-heading .slide-container .slide-arrows .button-next {
+  background-image: url(https://rafaelavlucas.github.io/assets/icons/white/icon-15.svg);
+  margin-top: 20px;
+}
+header .main-heading .slide-container .slide-bullets {
+  bottom: -50px;
+  height: 80px;
+  width: calc(100% - 280px);
+  position: initial;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: absolute;
+  grid-column-start: 1;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-bullets {
+    width: 100%;
+    bottom: -20px;
+  }
+}
+header .main-heading .slide-container .slide-bullets .bullet {
+  background-color: transparent;
+  opacity: 1;
+  box-shadow: inset 0px 0px 0px 1px white;
+  width: 8px;
+  height: 30px;
+  transition: all 0.4s ease;
+  margin: 0 10px;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-bullets .bullet {
+    width: 6px;
+    height: 20px;
+    margin: 0 6px;
+  }
+}
+header .main-heading .slide-container .slide-bullets .bullet.selected {
+  box-shadow: inset 0px 0px 0px 1px white, inset 0px -60px 0px 0px white;
+  height: 40px;
+}
+@media screen and (max-width: 799px) {
+  header .main-heading .slide-container .slide-bullets .bullet.selected {
+    height: 30px;
+  }
+}
+
+.tour-list {
+  padding-top: 150px !important;
+}
+@media screen and (max-width: 799px) {
+  .tour-list {
+    padding-top: 60px !important;
+  }
+}
+.tour-list:before {
+  content: "";
+  position: absolute;
+  width: 6%;
+  max-width: 120px;
+  height: 500px;
+  border: 1px solid #7fb6ca;
+  right: 0;
+  transform: translatey(-200px);
+  animation: beforeShape1 6s ease infinite alternate both;
+}
+@keyframes beforeShape1 {
+  0% {
+    transform: translate(50px, -200px);
+  }
+  100% {
+    transform: translate(0px, -280px);
+  }
+}
+@media screen and (max-width: 1023px) {
+  .tour-list:before {
+    display: none;
+  }
+}
+.tour-list .content {
+  width: 100%;
+  margin: auto;
+}
+.circle{
+   width: 26px;
+   height: 26px;
+   background: #fff;
+   border-radius: 100%;
+   position: absolute;
+   top: 37px;
+   z-index: 90;
+   left: 38px;
+}
+.music{
+   display:none;
+}
+.openn{
+   display:block;
+   -webkit-animation: scale-up-ver-bottom 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+   animation: scale-up-ver-bottom 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@-webkit-keyframes scale-up-ver-bottom {
+   0% {
+      -webkit-transform: scaleY(0.4);
+      transform: scaleY(0.4);
+      -webkit-transform-origin: 0% 100%;
+      transform-origin: 0% 100%;
+   }
+   100% {
+      -webkit-transform: scaleY(1);
+      transform: scaleY(1);
+      -webkit-transform-origin: 0% 100%;
+      transform-origin: 0% 100%;
+   }
+}
+@keyframes scale-up-ver-bottom {
+   0% {
+      -webkit-transform: scaleY(0.4);
+      transform: scaleY(0.4);
+      -webkit-transform-origin: 0% 100%;
+      transform-origin: 0% 100%;
+   }
+   100% {
+      -webkit-transform: scaleY(1);
+      transform: scaleY(1);
+      -webkit-transform-origin: 0% 100%;
+      transform-origin: 0% 100%;
+   }
+}
+.musicname{
+   font-size: 20px;
+   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+   font-weight: bold;
+   color: #3e3f5e;
+   margin: 0px;
+   line-height: 27px;
+   position: relative;
+   top: 6px;
+}
+.artist{
+   font-size: 16px;
+   font-weight: 400;
+   color: #4a5568;
+   margin: 0px;
+   line-height: 18px;
+   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+   position: relative;
+   top: 6px;
+}
+.prev-btn, .next-btn{
+   font-size: 16px;
+   color: #3e3f5e;
+}
+.prev-btn:hover, .next-btn:hover{
+   color: #b6b3b3;
+}
+.play-btn, .pause-btn{
+   font-size: 40px;
+   color:#000000;
+}
+.play-btn:hover, .pause-btn:hover{
+   color: #b6b3b3;
+}
+ul{
+   list-style: none;
+}
+.music{
+   position: fixed;
+   width: 100%;
+   height: 4em;
+   background: #f3f3f3;
+   bottom: 0;
+}
+progress{
+   width: 100%;
+   height: 6px;
+   color: #888888;
+   background: #515151;
+   border-radius: 6px;
+   display: block;
+   margin: 0 auto;
+}
+.progress-panel{
+   text-align: center;
+   line-height: 6px;
+   width: 100%;
+   position: relative;
+   bottom: 108px;
+   left: 88px;
+}
+.time{
+   float: right;
+   position: relative;
+   right: 35px;
+   top: 28px;
+}
+#endd-time{
+   float: right;
+   position: relative;
+   right: 35px;
+   top: 36px;
+}
+progress::-webkit-progress-value {
+   background: #0d9dfc;
+}
+progress::-moz-progress-bar {
+   background: #2070fa;
+   border-radius: 10px;
+}
+progress::-webkit-progress-value {
+   background: #fc0d4d;
+}
+progress::-webkit-progress-bar {
+   background: #2070fa;
+   border-radius: 10px;
+}
+.controll-panel{
+   margin: 0 auto;
+   width: 146px;
+   height: 60px;
+   padding: 0;
+   display: block;
+   position: relative;
+   bottom: 50px;
+}
+.center {
+   /* border: 1px solid green;
+   */
+   vertical-align: middle;
+   display: table-cell;
+   display: inline-block;
+   padding: 10px;
+}
+.hidden {
+   display: none;
+}
+.controll-btn {
+   cursor: pointer;
+}
+*{
+   padding:0;
+   margin:0;
+   -webkit-font-smoothing: antialiased;
+   font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+}
+
+main{
+   animation: 5s fadeInNav ease;
+}
+
+.fl{
+   float:left;
+   width: 1400px;
+}
+
+.po{
+   padding-right:0;
+   padding-left:120px;
+   margin-top: 30px;
+}
+.album{
+   position: relative;
+   margin: 10px auto;
+   width: 120px;
+   font-family: arial;
+   float: left;
+   position: relative;
+   top: -56px;
+}
+.album h1,.album h3{
+   position: relative;
+   text-align: center;
+   z-index: 6;
+}
+.album h1{
+   margin: 30px 0 0 0;
+   color: #3b415a;
+   font-size: 12px;
+   text-transform: uppercase;
+}
+.album h3{
+   margin:5px 0 0 0;
+   color: #666;
+   font-size: 10px;
+}
+.cover{
+   position: relative;
+   margin: 0 auto;
+   width: 100px;
+   height: 100px;
+   background-size: cover;
+   border-radius: 100%;
+   overflow: hidden;
+   z-index: 4;
+}
+.cover:before{
+   content:'';
+   display: block;
+   position: absolute;
+   left: calc(50% - 13px);
+   top: calc(50% - 13px);
+   width: 26px;
+   height: 26px;
+   background: #fff;
+   border-radius: 100%;
+}
+.shadow{
+   position: absolute;
+   right: calc(50% - 14px);
+   top: 19px;
+   width: 90px;
+   height: 90px;
+   background-size: cover;
+   border-radius: 100%;
+   -webkit-filter: blur(9px);
+   filter: blur(9px);
+   z-index: 1;
+   opacity: .8;
+}
+.stars5:after{
+   content:" ";
+   display: block;
+   margin: 5px 0 0 0;
+   height: 25px;
+   text-align: center;
+   background: url(https://image.flaticon.com/icons/svg/992/992001.svg) center no-repeat;
+   background-size: 25% auto;
+}
+.rote{
+   animation: rotate_disk 10s linear forwards infinite;
+}
+@keyframes rotate_disk {
+   100% {
+      transform: rotateZ(360deg);
+   }
+}
+.box {
+   width: 100%;
+   margin: 9px;
+   display: flex;
+   align-items: center;
+   background: #fff;
+   border-radius: 30px;
+   padding: -1px;
+   transition: transform .2s ease-in-out;
+   cursor: pointer;
+}
+.box:hover {
+   background: white;
+   box-shadow: 0 -10px 30px #13010121;
+}
+.box div.icon {
+   height: 68px;
+   width: 68px;
+}
+.box div.content {
+   margin-left: 20px;
+   width: 100%;
+}
+.box div.content h3 {
+   font-size: 22px;
+   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+   font-weight: bold;
+   color: #3e3f5e;
+   margin: 0px;
+   line-height: 27px;
+}
+.box div.content h6 {
+   font-size: 16px;
+   font-weight: 400;
+   color: #4a5568;
+   margin: 0px;
+   line-height: 18px;
+   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.box div.content h5 {
+   font-size: 15px;
+   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+   font-weight: 400;
+   color: #707070;
+   margin: 0px;
+   line-height: 45px;
+   padding-right: 15px;
+   letter-spacing: .6px;
+   float: right;
+}
+.icon img {
+   width: 50px;
+   border-radius: 50%;
+   margin: 10px;
+}
+.content svg{
+   width: 15px;
+   float: right;
+   fill: #b2b2b2;
+   margin-top: 14px;
+   margin-right: 16px;
+}
+@font-face{
+   font-family:Gilroy-Bold;
+   src:local("https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-Bold.otf"),url(https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-Bold.otf) format("opentype");
+   font-weight:400;
+   font-style:normal;
+   font-display:swap
+}
+@font-face{
+   font-family:Gilroy-SemiBold;
+   src:local("https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-SemiBold.otf"),url(https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-SemiBold.otf) format("opentype");
+   font-weight:400;
+   font-style:normal;
+   font-display:swap
+}
+
+@font-face{
+   font-family:Gilroy-Regular;
+   src:local("https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-Regular.otf"),url(https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-Regular.otf) format("opentype");
+   font-weight:400;
+   font-style:normal;
+   font-display:swap
+}
+@font-face{
+   font-family:Gilroy-UltraLight;
+   src:local("https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-UltraLight.otf"),url(https://dj4bodrxy955u.cloudfront.net/fonts/Gilroy/Gilroy-UltraLight.otf) format("opentype");
+   font-weight:400;
+   font-style:normal;
+   font-display:swap
+}
+body{
+   color:#000;
+   font-family:Helvetica,Arial,sans-serif;
+   font-weight:400;
+   overflow-x: hidden;
+   height: 1000px;
+}
+
+a, h1, h2, h3, h4, h5, h6, p {
+   color: #3e3f5e;
+   font-family: Rajdhani,sans-serif;
+   line-height: 1em;
+}
+.form-row, .table, figure, h1, h2, h3, h4, h5, h6, ol, p, ul {
+   margin: 0;
+}
+p {
+   margin-top: 0;
+   margin-bottom: 1rem;
+}
+
+a, h1, h2, h3, h4, h5, h6, p {
+   color: #3e3f5e;
+   font-family: Rajdhani,sans-serif;
+   line-height: 1em;
+}
+.form-row, .table, figure, h1, h2, h3, h4, h5, h6, ol, p, ul {
+   margin: 0;
+}
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+h1 {
+   color: #272727;
+   font-size: 96px;
+   font-weight: 700;
+}
+h2 {
+   color: #151515;
+   font-size: 64px;
+   font-weight: 700;
+}
+h6 {
+   color: #D6D6D6;
+   font-size: 24px;
+   font-weight: 600;
+}
+p.description {
+   color: #5A5A5A;
+   font-size: 24px;
+   font-weight: normal;
+}
+h1::selection {
+   color: white;
+   background: #272727;
+}
+h1::-moz-selection {
+   color: white;
+   background: #272727;
+}
+.section {
+   width: 100vw;
+   height: 100vh;
+   min-height: 800px;
+   background: white;
+   position: relative;
+}
+.sectionWrapper {
+   width: 85%;
+   height: 100%;
+   margin: auto;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   position: relative;
+}
+
+#services {
+   width: 249px;
+}
+#work {
+   width: 224px;
+}
+#contact {
+   width: 208px;
+}
+.header {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.headerWrapper {
+   text-align: center;
+   position: relative;
+   padding: 56px 71px 128px 108px;
+}
+.headerWrapper h6 {
+   animation: 1s fadeIn ease;
+}
+@keyframes fadeIn {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
+}
+.headerWrapper h1 {
+   animation: 1.5s fadeInTitle ease;
+}
+@keyframes fadeInTitle {
+   0% {
+      opacity: 0;
+   }
+   25% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
+}
+/* Services */
+.services h6 {
+   margin-bottom: 5px;
+}
+.services h2 {
+   margin-bottom: 15px;
+}
+.services .description {
+   margin-bottom: 60px;
+   width: 685px;
+   line-height: 40px;
+}
+.services .grid {
+   display: grid;
+   grid-template-columns: 500px 500px;
+   grid-column-gap: 130px;
+   grid-template-rows: 150px 150px;
+   grid-row-gap: 30px;
+}
+.services .grid .card {
+   width: 420px;
+   padding: 43px 40px;
+   background: linear-gradient(to bottom right, #313131, #0F0F0F);
+   border-radius: 5px;
+   display: block;
+}
+.services .grid .card h3 {
+   color: white;
+   font-size: 24px;
+   font-weight: 700;
+   margin-bottom: 5px;
+}
+.services .grid .card p {
+   color: #C3C3C3;
+   font-size: 22px;
+   font-weight: normal;
+}
+/* Responsive */
+@media (max-width: 1280px) {
+   .services .grid {
+      display: grid;
+      grid-template-columns: 500px 500px;
+      grid-column-gap: 50px;
+      grid-template-rows: 150px 150px;
+      grid-row-gap: 30px;
+   }
+}
+@media (max-width: 1200px) {
+   .services .sectionWrapper {
+      padding-top: 185px;
+      padding-bottom: 185px;
+   }
+   .services .grid {
+      display: grid;
+      grid-template-columns: 480px;
+      grid-template-rows: 150px 150px;
+      grid-row-gap: 30px;
+   }
+   .services .grid .card {
+      width: 420px;
+      padding: 43px 40px;
+      background: linear-gradient(to bottom right, #313131, #0F0F0F);
+      border-radius: 5px;
+   }
+}
+@media (max-width: 850px) {
+   .services .sectionWrapper {
+      padding-top: 150px;
+      padding-bottom: 150px;
+   }
+   h6 {
+      font-size: 22px;
+   }
+   h2 {
+      font-size: 48px;
+   }
+   .services .description {
+      font-size: 22px;
+      width: initial;
+   }
+   .services .square.blue {
+      width: 75px;
+      height: 75px;
+   }
+   .services .grid {
+      display: grid;
+      grid-template-columns: 85%;
+      grid-template-rows: initial;
+      grid-row-gap: 25px;
+   }
+   .services .grid .card {
+      width: 100%;
+      padding: 31.5px 30px;
+      background: linear-gradient(to bottom right, #313131, #0F0F0F);
+      border-radius: 5px;
+   }
+   .services .grid .card h3 {
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 5px;
+   }
+   .services .grid .card p {
+      color: #C3C3C3;
+      font-size: 20px;
+      font-weight: normal;
+   }
+}
+@media (max-width: 850px) and (min-width: 440px){
+   .headerWrapper {
+      position: static;
+      padding: 0;
+   }
+   
+   #services {
+      width: 134px;
+   }
+   #work {
+      width: 150px;
+   }
+   #contact {
+      width: 125px;
+   }
+   h6 {
+      font-size: 22px;
+   }
+   .headerWrapper h1 {
+      color: #272727;
+      font-size: 56px;
+      font-weight: 700;
+      animation: 1.5s fadeInTitle ease;
+   }
+   @media (max-width: 440px) {
+      .background {
+         max-height: 700px;
+      }
+      .headerWrapper {
+         position: static;
+         padding: 0;
+      }
+      
+      #services {
+         width: 134px;
+      }
+      #work {
+         width: 150px;
+      }
+      #contact {
+         width: 125px;
+      }
+      .headerWrapper h6 {
+         color: #D6D6D6;
+         font-size: 22px;
+         font-weight: 600;
+         text-transform: uppercase;
+         animation: 1s fadeIn ease;
+      }
+      .headerWrapper h1 {
+         color: #272727;
+         font-size: 48px;
+         font-weight: 700;
+         animation: 1.5s fadeInTitle ease;
+      }
+   }
+
+   #section-banner {
+      position: relative;
+      left: 13%;
+      /* justify-content: center; */
+      border-radius: 30px;
+   }
+   
+
+
+    </style>
+    <script>
+        window.addEventListener("load", event => {
+    const arrowNext = document.querySelector(".button-next"),
+        arrowPrev = document.querySelector(".button-prev"),
+        imageActive = document.querySelector(".active img"),
+        imageNext = document.querySelector(".next img"),
+        slideActive = document.querySelector(".active"),
+        slideNext = document.querySelector(".next");
+
+    const images = [{
+            id: 0,
+            image: "https://i.postimg.cc/bJBVtFGD/david-castro-9-Jygz-JGUd-Q0-unsplash.jpg"
+        },
+        {
+            id: 1,
+            image: "https://i.postimg.cc/YCxHWMtv/harli-marten-M9jr-KDXOQo-U-unsplash.jpg"
+        },
+        {
+            id: 2,
+            image: "https://i.postimg.cc/gkPQqQS8/tegan-mierle-f-Dost-El-Vh-N8-unsplash.jpg"
+        },
+        {
+            id: 3,
+            image: "https://i.postimg.cc/T1x0gMdP/kimson-doan-AZMm-Uy2q-L6-A-unsplash.jpg"
+        }
+    ];
+
+    arrowNext.addEventListener("click", nextPhoto);
+    arrowPrev.addEventListener("click", prevPhoto);
+
+    function nextPhoto() {
+        const nextId = ~~imageNext.dataset.id + 1,
+            nextPicture = images.find(element => element.id == nextId),
+            bullet = document.querySelectorAll(".bullet"),
+            activeBullet = [...bullet].find(
+                element => element.dataset.id == ~~imageNext.dataset.id
+            );
+
+
+        // Add Classes to Anime Photos
+
+        slideNext.classList.add("anime-next-in");
+        slideActive.classList.add("anime-in");
+
+        // To Remove the Class that anime in
+        setTimeout(function () {
+            slideActive.classList.remove("anime-in");
+            slideNext.classList.remove("anime-next-in");
+        }, 960);
+
+        // To Populate the Active and Next Slide
+
+        imageActive.src = imageNext.src;
+        imageActive.dataset.id = imageNext.dataset.id;
+
+        if (imageActive.dataset.id == images.length - 1) {
+            imageNext.src = images[0].image;
+            imageNext.dataset.id = images[0].id;
+        } else {
+            imageNext.src = nextPicture.image;
+            imageNext.dataset.id = nextPicture.id;
+        }
+
+        // To Add Active bullets
+        bullet.forEach(function (el) {
+            el.classList.remove("selected");
+        });
+        activeBullet.classList.add("selected");
+
+    }
+
+    function prevPhoto() {
+        const prevId = ~~imageActive.dataset.id - 1,
+            prevPicture = images.find(element => element.id == prevId),
+            bullet = document.querySelectorAll(".bullet");
+        let activeBullet = [...bullet].find(
+            element => element.dataset.id == prevId
+        );
+
+        // Add Classes to Anime Photos
+
+        slideActive.classList.add("anime-out");
+        slideNext.classList.add("anime-next-out");
+
+        // To Remove the Class that anime in
+        setTimeout(function () {
+            slideActive.classList.remove("anime-out");
+            slideNext.classList.remove("anime-next-out");
+        }, 960);
+
+
+        // To Populate the Active and Next Slide
+        if (imageActive.dataset.id == 0) {
+            imageNext.src = imageActive.src;
+            imageNext.dataset.id = imageActive.dataset.id;
+            imageActive.src = images[images.length - 1].image;
+            imageActive.dataset.id = images[images.length - 1].id;
+            activeBullet = [...bullet].find(
+                element => element.dataset.id == imageActive.dataset.id
+            );
+        } else {
+            imageNext.src = imageActive.src;
+            imageNext.dataset.id = imageActive.dataset.id;
+            imageActive.src = prevPicture.image;
+            imageActive.dataset.id = prevPicture.id;
+        }
+
+        // To Add Active bullets
+        bullet.forEach(function (el) {
+            el.classList.remove("selected");
+        });
+        activeBullet.classList.add("selected");
+    }
+
+    // To Populate the first images on page load
+    imageActive.src = images[0].image;
+    imageActive.dataset.id = images[0].id;
+
+    imageNext.src = images[1].image;
+    imageNext.dataset.id = images[1].id;
+
+
+
+  
+    
+    // body.addEventListener("click", closeVideo);
+
+
+
+    // ytLink.href = videoUrl;
+
+
+
+    function closeVideo() {
+
+        body.classList.remove('no-scroll');
+        modalVideo.classList.remove('video-open');
+        videoFrame.src = "";
+
+    }
+
+
+});
+
+const musicbar = document.querySelector(".music");
+const musicname = document.querySelector(".musicname");
+const artis = document.querySelector(".artist");
+const img = document.querySelector(".cover");
+const imgs = document.querySelector(".shadow");
+const rote = document.querySelector(".cover");
+const playBtn = document.querySelector(".play-btn");
+const pauseBtn = document.querySelector(".pause-btn");
+const preBtn = document.querySelector(".prev-btn");
+const nextBtn = document.querySelector(".next-btn");
+const progressBar = document.getElementById("progress-bar");
+let currentTrack = 0;
+let currentList;
+
+let tracks = [
+  {
+    track: 1,
+    name: "Tones And I",
+    artist: "Dance Monkey",
+    duration: "03:56",
+    image:
+      "https://is3-ssl.mzstatic.com/image/thumb/Music123/v4/85/8e/3e/858e3ef9-cf9e-e54c-fb73-b2513694a308/075679838872.jpg/268x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/22/e5/8e/22e58eeb-5916-c584-257c-735e1b4b0175/mzaf_17966999117302129087.plus.aac.p.m4a"
+  },
+  {
+    track: 2,
+    name: "Never Never",
+    artist: "Drenchill",
+    duration: "02:47",
+    image:
+      "https://is4-ssl.mzstatic.com/image/thumb/Music113/v4/cc/99/b4/cc99b464-414c-a097-d896-11e0c371308a/886447895276.jpg/626x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/28/53/c1/2853c193-df5f-72cb-ea6a-062b7ec432af/mzaf_10693040049667551718.plus.aac.p.m4a"
+  },
+  {
+    track: 3,
+    name: "Falling",
+    artist: "Trevor Daniel",
+    duration: "02:39",
+    image:
+      "https://i.pinimg.com/736x/5c/27/fb/5c27fb8c0b480d7ce08b15f57cbe53ff.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/83/bc/70/83bc709e-25de-3797-8450-c751df462713/mzaf_7811558218024776548.plus.aac.p.m4a"
+  },
+  {
+    track: 4,
+    name: "Ride It",
+    artist: "Regard",
+    duration: "02:20",
+    image:
+      "https://is2-ssl.mzstatic.com/image/thumb/Music123/v4/61/bf/01/61bf0139-35c7-8f06-432d-9e7d316fba32/886447846674.jpg/626x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/0a/82/fe/0a82feaf-ab78-c268-d91d-65f698b91ce1/mzaf_3492393954382629146.plus.aac.p.m4a"
+  },
+  {
+    track: 5,
+    name: "everything i wanted",
+    artist: "Billie Eilish",
+    duration: "04:47",
+    image:
+      "https://is3-ssl.mzstatic.com/image/thumb/Music123/v4/85/57/85/855785ff-6433-a6b5-45e2-ccee55d608dc/19UM1IM00404.rgb.jpg/626x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/72/cf/5a/72cf5ad7-e1b3-d6ce-84b1-973d0b52d10b/mzaf_2144917941139718442.plus.aac.p.m4a"
+  },
+  {
+    track: 6,
+    name: "Don't Start Now",
+    artist: "Dua Lipa",
+    duration: "03:01",
+    image:
+      "https://is2-ssl.mzstatic.com/image/thumb/Music123/v4/58/89/69/58896934-fedf-e9ca-494f-48c06d6a259a/190295322175.jpg/626x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/d0/0b/d2/d00bd29b-1a4a-239b-23df-b3df6bb7d30e/mzaf_16326686631763178212.plus.aac.p.m4a"
+  },
+
+  {
+    track: 7,
+    name: "Nightmare",
+    artist: "Halsey",
+    duration: "04:47",
+    image:
+      "https://is5-ssl.mzstatic.com/image/thumb/Music113/v4/96/2d/77/962d7757-a2e7-9461-d5e9-b0f724ea999f/19UMGIM38270.rgb.jpg/268x0w.jpg",
+    url:
+      "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/c8/cc/64/c8cc640a-6ae6-9f28-def2-05588c7f43dc/mzaf_520533846207392561.plus.aac.p.m4a"
+  }
+];
+
+
+
+
+function addChoosedBackground() {
+  currentList = document.getElementById(currentTrack);
+  currentList.classList.add("song-play-now");
+}
+
+function removePlayedBackground() {
+  currentList.classList.remove("song-play-now");
+}
+
+
+
+
+
+
+function calculateTotalValue(length) {
+  let minutes = Math.floor(length / 60),
+    seconds_int = length - minutes * 60,
+    seconds_str = seconds_int.toString(),
+    seconds = seconds_str.substr(0, 2),
+    time = minutes + ":" + seconds;
+
+  return time;
+}
+
+    </script>
+</head>
+<body>
+    <!-- about -->
+<div class="about">
+    <a class="bg_links social portfolio" href="https://www.rafaelalucas.com/dailyui" target="_blank">
+       <span class="icon"></span>
+    </a>
+    <a class="bg_links social dribbble" href="https://dribbble.com/rafaelalucas" target="_blank">
+       <span class="icon"></span>
+    </a>
+    <a class="bg_links social linkedin" href="https://www.linkedin.com/in/rafaelalucas/" target="_blank">
+       <span class="icon"></span>
+    </a>
+    <a class="bg_links logo"></a>
+ </div>
+ <!-- end about -->
+ 
+
+ <header>
+ 
+    <div class="main-heading">
+       <article>
+          <h1 class="site-title">Product</h1>
+ 
+       </article>
+ 
+       <div class="slide-container">
+          <!-- Additional required wrapper -->
+          <div class="slide-wrapper">
+             <!-- Slides -->
+             <div class="slide active">
+                <img src="" alt="" data-id="">
+             </div>
+             <div class="slide next">
+                <img src="" alt="" data-id="">
+             </div>
+ 
+          </div>
+          <div class="slide-arrows">
+             <!-- If we need navigation buttons -->
+ 
+             <div class="button-prev"></div>
+ 
+             <div class="button-next"></div>
+          </div>
+          <div class="slide-bullets">
+             <span class="bullet selected" data-id="0"></span>
+             <span class="bullet" data-id="1"></span>
+             <span class="bullet" data-id="2"></span>
+             <span class="bullet" data-id="3"></span>
+          </div>
+ 
+       </div>
+    </div>
+ </header>
+ 
+ <div class="wrapper">
+    <section class="module tour-list">
+       <h3 class="section-title"><b>Camping</b><span>Product</span></h3>
+       <div class="content">
+
+        
+        <main class="container">
+
+
+            <style>
+              .post__card-2 {
+                padding-right: .8rem;
+                padding-top: .5rem;
+                padding-bottom: .5rem;
+                max-width: 277.5px;
+                width: 100%;
+                float: left;
+              }
+          
+              .post__card_-2 {
+                overflow: hidden;
+                border-radius: 0rem;
+                background-color: #fff;
+              }
+          
+              .post__card__image-2 {
+                height: 11rem;
+                border-radius: 10px;
+                background-size: cover;
+                background-position: center;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+                cursor: pointer;
+            }
+              .post__card__image-2:hover {
+                scale: 110%;
+              }
+          
+              .post__card_meta-2 {
+                padding: 0.5em;
+              }
+          
+              .post__card_title-2 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+              }
+          
+              .post__card_alttitle-2 {
+                color: #4a5568;
+                margin: 0;
+                line-height: 1.5;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-size: 1.125rem
+              }
+            </style>
+          
+            <div class="col-md-6 mt-3 fl po">
+              <a href="https://www.coupang.com/vp/products/6470680907?itemId=14122607561&vendorItemId=81369508669&q=%EC%B0%A8%EB%B0%95+%ED%85%90%ED%8A%B8&itemsCount=36&searchId=99323c87a52c4fe5938eec3109d58603&rank=2&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/XJv6dfty/c9d7dd673b47a983678bebc7f13fce05.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">경질코펠</p>
+                      <p class="post__card_alttitle-2">데이브렉</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+              <a href="https://www.coupang.com/vp/products/226832222?itemId=718818755&vendorItemId=83356913545&q=%EC%BA%A0%ED%95%91+%EB%83%84%EB%B9%84&itemsCount=36&searchId=582f079e74df467dabca2f6b9ad7f916&rank=9&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/5thkNwbV/4c70f393371f9099e7ddabf61dfb35c8.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">마이버디스텐머그컵</p>
+                      <p class="post__card_alttitle-2">데일리라이크</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/Wz3ZBHCb/378e26de057b7d026c48cb4137785b02.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">올인원 셀카봉</p>
+                      <p class="post__card_alttitle-2">셀루미</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="https://www.coupang.com/vp/products/6470680907?itemId=14122607561&vendorItemId=81369508669&q=%EC%B0%A8%EB%B0%95+%ED%85%90%ED%8A%B8&itemsCount=36&searchId=99323c87a52c4fe5938eec3109d58603&rank=2&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/4NvK8Zmb/87d80887d27aec73c1e8d65939fd852f.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">포레스트 차박텐트
+                      </p>
+                      <p class="post__card_alttitle-2">BECAMP</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="https://www.coupang.com/vp/products/4842449826?itemId=6259764155&vendorItemId=82149831238&q=%EC%BA%A0%ED%95%91%EC%9A%A9%ED%92%88+%EC%A1%B0%EB%A6%AC%EB%8F%84%EA%B5%AC&itemsCount=36&searchId=ac3470bcbd2c44d98f6668d680b675e8&rank=3&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/TPK3XXYs/9ed28dda5d007b214ec183d548a35ff6.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">심플 키친툴 세트</p>
+                      <p class="post__card_alttitle-2">코베아</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </a>
+            <a href="hhttps://www.coupang.com/vp/products/6674108425?itemId=15365454036&vendorItemId=82585618970&sourceType=srp_product_ads&clickEventId=c10f8aa8-9330-4b9c-a4aa-0d6465c84509&korePlacement=15&koreSubPlacement=12&q=%EC%BA%A0%ED%95%91%EC%9A%A9%ED%92%88+%ED%85%8C%EC%9D%B4%EB%B8%94&itemsCount=36&searchId=a7081a7573e342538f1237b50f6f3797&rank=11&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/bJQ8zYXm/e51dd172b29ecd5b439fe1698466e88b.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">캠핑웨건 롤테이블</p>
+                      <p class="post__card_alttitle-2">라비모어</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </a>
+
+              <a href="https://web.goout.jp/gear/59601/?amp=1" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/FHfMrF30/0f40e958bae8aeabd05e5d14331d5570.jpg)">
+                </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">트렁크카고</p>
+                      <p class="post__card_alttitle-2">Go Out</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="https://www.coupang.com/vp/products/5734485398?itemId=9632783054&vendorItemId=81547537613&sourceType=srp_product_ads&clickEventId=ba920218-c951-400d-a771-9f05b095dc2a&korePlacement=15&koreSubPlacement=1&q=%EC%BA%A0%ED%95%91%EC%9A%A9%ED%92%88+%EC%A1%B0%EB%A6%AC%EB%8F%84%EA%B5%AC&itemsCount=36&searchId=5b52dad3e50e4b0dadbbb3ca7403fddf&rank=36&isAddedCart=" target=”_blank”>
+              <div class="post__card-2">
+                <div class="post__card_-2">
+                  <div class="post__card__image-2" style="background-image: url(https://i.postimg.cc/TPkfBCDC/c2f55e7b529e04e33de9e31a09ff4272.jpg)">
+                  </div>
+                  <div>
+                    <div class="post__card_meta-2">
+                      <p class="post__card_title-2">조리도구세트 11종</p>
+                      <p class="post__card_alttitle-2">오모리</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </a>
+    
+    
+    
+              
+            </div>
+    
+    
+            
+            <br><br><br><br>
+          
+          </main>
+
+
+ 
+       </div>
+    </section>
+ 
+    
+
+ 
+
+ 
+ </div>
+ 
+</body>
+</html>

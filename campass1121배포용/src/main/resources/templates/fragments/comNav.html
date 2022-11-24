@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<title>Insert title here</title>
+
+
+<style>
+
+#nav {
+    position: fixed;
+    width: 1400px;
+    top: 0;
+    z-index: 9999999999999999;
+}
+#menu_authenticated {
+   position: fixed;
+    top: 25px;
+    left: 1771px;
+}
+.navbar-brand {
+   position: fixed;
+    left: 60px;
+    top: 25px;
+}
+
+#nav {
+   width: 1400px;
+}
+.navbar-nav {
+    display: flex;
+    align-items: center;
+   position: fixed;
+    left: 1610px;    
+    top: 15px;
+}
+
+.navbar-brand {
+   position:fixed;
+   left: 60px;
+   top: 25px;
+}
+
+ul{
+   list-style: none;
+}
+
+.dropdown{
+  position : relative;
+  display : inline-block;
+}
+
+.dropdown-content{
+	left:-60px;
+  display : none;
+  position : absolute;
+  z-index : 9999999; /*다른 요소들보다 앞에 배치*/
+}
+
+.dropdown-content a{
+  display : block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+#logout:hover {
+   font-weight: 700;
+   color: #ff0063;
+}
+.nav-link:hover {
+      font-weight: 700;
+   color: #ff0063;
+   background-color:  rgb(226, 226, 226);
+   
+}
+
+</style>
+</head>
+<body>
+
+<div id="navBox001"></div>
+
+<!-- 메뉴바 -->
+    <div id="navi">
+        <div class="theme-switch">
+          <div class="switch"></div>
+        </div>
+        <div class="navigation">
+            <ul>
+              <a   th:href="com/home}" >Home</a>
+              <a th:href="com/campingAll}" >Reservation</a>
+              <a th:href="com/product}" >Product</a>
+              <a th:href="com/board/list}" class="active">Knowhow</a>
+            </ul>
+          </div>
+    </div>
+    
+<div id="nav" class="navbar navbar-expand-sm">
+   <div class="container-fluid">
+      <div>
+      
+      
+     
+         <a class="navbar-brand" th:href="com/home}"><img src="https://ifh.cc/g/qzoPtk.png" width="120px" alt="캠패스_핑크로고"></a>
+      </div>
+      <!-- 비로그인이면 아래 ul을 출력하는 EL -->
+      <ul sec:authorize="isAnonymous()" class="navbar-nav" id="menu_anonymous">
+         <li><a class="nav-link" th:href="buyer/login}" style="position: fixed;
+    left: 1820px; top: 17px;"><img alt="로그인" src="https://i.postimg.cc/52t8G0wt/free-icon-depressed-4728026-1.png" width="40px;" style="z-index: 9999999999;"></a></li>
+       </ul>
+       <!-- 로그인을 했다면 아래 ul을 출력하는 EL -->
+       <ul sec:authorize="isAuthenticated()" class="navbar-nav" id="menu_authenticated">
+         <li sec:authorize="isAuthenticated()">
+            <div class="dropdown">
+               <span class="dropbtn"><img alt="마이페이지" src="https://i.postimg.cc/V6JGcgnd/Mask-group-9.png" width="30px;"></span>
+               <div class="dropdown-content" style="background-color: white; width: 150px; text-align: center; padding: 10px; cursor: pointer;">
+                  <div id="myPa" class="nav-link" sec:authorize="isAuthenticated()" style="cursor: pointer;" onclick="myPa();">마이페이지</div>
+                    <div class="nav-link" style="cursor: pointer;">예약내역</div>
+                    <div class="nav-link">위시리스트</div>
+                    <div class="nav-link" id="logout" sec:authorize="isAuthenticated()" onclick="logout();" href="#" style="cursor: pointer;">로그아웃</div>               
+               </div>
+            </div>
+         </li>
+       </ul>
+   </div>
+
+
+
+<script th:inline="javascript">
+   function logout() {      
+      //alert("!!!!!!!!!!!!!!!!!")
+      const choice = confirm('로그아웃하시겠습니까?');
+      if(choice==false)
+         return;
+      $.ajax({
+         url:"http://localhost:8087/buyer/logout",
+         method: "post",
+      }).done(()=> location.href = '/com/home')
+      
+   }
+</script>
+
+<script th:inline="javascript">
+      function myPa() {      
+          //alert("!!!!!!!!!!!!!!!!!")
+
+          $.ajax({
+             url:"http://localhost:8087/buyer/read",
+             method: "get",
+          }).done(()=> location.href = '/buyer/read')
+          
+       }
+</script>
+
+
+
+      
+</div>
+</body>
+</html>

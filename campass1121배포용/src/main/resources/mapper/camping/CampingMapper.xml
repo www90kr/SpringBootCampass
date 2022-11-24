@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.CampingDao">
+<!-- 등록 -->
+  <insert id="save">
+  <selectKey keyProperty="cCode" resultType="int" order="BEFORE">
+  select nvl(max (cCode),0)+1 from camping
+  
+  </selectKey>
+      insert into Camping(cCode, cTel, cName, cContent,cAddr, cSite, cLikeCnt,cReviewStarSum ,cReviewCnt,cPhoto, cFileName, c_ctCode,c_caCode, c_cOptionCode, c_username)
+  		values( #{cCode}, #{cTel}, #{cName}, #{cContent},#{cAddr}, #{cSite}, 0,0 ,0,#{cPhoto,jdbcType=VARCHAR}, #{cFileName,jdbcType=VARCHAR}, #{c_ctCode,jdbcType=VARCHAR},#{c_caCode,jdbcType=VARCHAR}, #{c_cOptionCode,jdbcType=VARCHAR}, #{c_username} ) 
+  </insert>  
+  
+  <!--
+  	select * from student where rownum<=5 order by kor desc
+  	
+  	select * from 
+  		(select * from student order by kor desc)   inline view
+  	where rownum between 6 and 10 
+  	
+   -->
+  <select id="findAll" resultType="com.campass.demo.dto.CampingDto$CListDto">
+  	select rnum, b.* from
+	  	(
+	  		select rownum as rnum, a.* from
+	   			(select * from Camping  where c_username=#{loginId} order by cCode asc) a
+	   		where rownum&lt;=#{endRownum}
+	   	) b
+	where rnum&gt;=#{startRownum}	
+  </select>
+  
+  <!-- 수정 -->
+  <update id="update">
+  	update Camping
+  	  <trim prefix="set" suffixOverrides=",">
+	   	<if test="cName != null">cName=#{cName},</if>
+	  	<if test="cContent != null">cContent=#{cContent},</if>
+	  	<if test="cAddr != null">cAddr=#{cAddr},</if>
+	  	<if test="cSite != null">cSite=#{cSite},</if>
+	  	<if test="cLikeCnt != null">cLikeCnt=cLikeCnt+1,</if>
+	  	<if test="cReviewStarSum != null">cReviewStarSum=#{cReviewStarSum},</if>
+	  	<if test="cReviewCnt != null">cReviewCnt=cReviewCnt+1,</if>
+	  	<if test="cPhoto != null">cPhoto=#{cPhoto},</if>
+	  	<if test="cFileName != null">cFileName=#{cFileName},</if>
+	  	<if test="c_ctCode != null">c_ctCode=#{c_ctCode},</if>
+	  	<if test="c_caCode != null">c_caCode=#{c_caCode},</if>
+	  	<if test="c_cOptionCode != null">c_cOptionCode=#{c_cOptionCode},</if>
+	  </trim>
+  	where cCode=#{cCode}
+  </update>
+  
+  
+
+  <update id="updateDel" >
+  	update Camping
+  	  <trim prefix="set" suffixOverrides=",">
+  		<if test="cReviewStarSum != null">cReviewStarSum=cReviewStarSum,</if>
+	  	<if test="cReviewCnt != null">cReviewCnt=cReviewCnt-1,</if>
+  	  </trim>
+  	where cCode=#{cCode}
+  </update>
+  
+  
+  <!-- 읽기   CDATA 외우기 -->
+    <select id="findById" resultType="com.campass.demo.entity.Camping">
+  	<![CDATA[
+  	select * from Camping where cCode=#{cCode} and rownum<=1
+  	]]>
+  </select>
+  
+      <select id="findWriterById" resultType="string">
+  	select c_username from Camping where cCode=#{cCode} and rownum&lt;=1
+ 	 </select>
+ 	 
+ 	 
+ 	 <select id="getcNameById" resultType="string">
+  	select cName from Camping where cCode=#{cCode} and rownum&lt;=1
+ 	 </select>
+ 	 
+ 	 <select id="getczNameById" resultType="string">
+  	select czName from cZone where czCode=#{czCode} and rownum&lt;=1
+ 	 </select>
+
+  
+   	<delete id="deleteById">
+  		delete from Camping where cCode=#{cCode}
+  	</delete>
+  
+
+  
+    <!-- cName을 입력한 경우 where절을 추가하는 동적 쿼리 -->
+  <select id="count" resultType="int">
+	select   count(cCode) from Camping
+	<where>
+		<if test="cName!=null">cName=#{cName}</if> 
+	</where>
+  </select>	
+  
+  
+   	 <select id="findcaNameByccaCode" resultType="string">
+  	select caName from (select cArea. * from cArea where caCode= #{c_caCode})
+	cArea inner join camping on caCode=c_caCode;
+ 	 </select>
+  
+
+  
+  
+  
+    <select id="BBfindAll" resultType="com.campass.demo.dto.CampingDto$CListDto">
+  	select rnum, b.* from
+	  	(
+	  		select rownum as rnum, a.* from
+	   			(select ccode, cName, caddr, caname, cPhoto from camping, carea where  c_caCode=caCode order by cCode asc) a
+	   		where rownum&lt;=#{endRownum}
+	   	) b
+	where rnum&gt;=#{startRownum}	
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <!-- 읽기   CDATA 외우기 -->
+    <select id="BBfindById" resultType="com.campass.demo.entity.Camping">
+  	<![CDATA[
+  	select * from Camping where cCode=#{cCode} and rownum<=1
+  	]]>
+  </select>
+  
+  
+<select id="campingList" parameterType="hashmap" resultType="com.campass.demo.dto.CampingDto$CSearchDto">
+  
+select * from (select rownum as rn, a.* from(select distinct cCode,cName,cAddr,cPhoto
+
+from (select camping.*,czCode,czPrice from (select Camping. * from Camping)
+
+Camping inner join CZone on cCode=cz_cCode
+)
+<if test="SearchDto.ch_caCode !=null ">inner join (select * from CArea where caCode=#{SearchDto.ch_caCode})
+
+on caCode = c_caCode
+
+</if>
+
+<if test="SearchDto.ch_ctCode !=null ">inner join (select * from CType where ctCode=#{SearchDto.ch_ctCode})
+
+on ctCode = c_ctCode
+
+</if>
+
+<where>
+<if test="value != null">
+czCode not in (select re_czCode from Reservation where (#{SearchDto.ch_CheckIn,jdbcType=VARCHAR} between rCheckIn and 
+rCheckOut or #{SearchDto.ch_CheckOut,jdbcType=VARCHAR} between 
+rCheckIn and rCheckOut 
+or rCheckIn between
+#{SearchDto.ch_CheckIn,jdbcType=VARCHAR} and
+#{SearchDto.ch_CheckOut,jdbcType=VARCHAR} or rCheckOut between
+#{SearchDto.ch_CheckIn,jdbcType=VARCHAR} and
+#{SearchDto.ch_CheckOut,jdbcType=VARCHAR}))
+
+</if>
+</where>
+)a)
+</select>
+
+  
+  
+
+</mapper>

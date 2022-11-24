@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+*{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+/* 사용자 주소 정보 */
+	.addressInfo_input_div{
+			display: none;
+		}
+		
+.pmainImg {
+	width : 200px;
+}
+
+.toptext_div{
+    width: 1150px;
+    margin: 0 auto;
+    text-align: right;
+    padding : 15px;
+        	}
+        	
+.toptext {
+    color: #FF375B;
+    font-weight: bold;
+}    
+
+.cart_table{
+	margin-left:auto; 
+    margin-right:auto;
+    width: 1150px;
+    border : 1px solid black;
+}
+
+.th{
+	width:10px;
+	height:100px;	
+}
+
+#cart_price_table{
+	border : 1px solid black;
+	width : 600px;
+	height : 80px;
+	text-align: center;
+    margin: 50px auto 30px auto; 
+}
+
+.address_div,.info_div{
+	width : 500px;
+	border : 2px solid grey;
+	line-height:2em;
+	margin:0 auto;
+	
+}
+
+.content_main{
+	padding :  50px 10px 50px 10px;
+	text-align: center;
+}
+
+#orderfintext{
+	height : 300px;
+	text-align: center;
+	padding: 200px 0;
+}
+
+#orderfin_btn{
+	text-align: center;
+	font-size : 20px;
+}
+
+#pay_div{
+	text-align: center;
+}
+
+.payspan{
+	padding : 20px;
+}
+
+p{
+	font-size : 23px;
+}
+
+.orderButton {
+	width: 200px;
+	height: 55px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+}
+
+.button1 {
+	width: 100px;
+	height: 55px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+	margin : 15px;
+}
+
+.button2 {
+	width: 200	px;
+	height: 55px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+}
+
+a{
+	text-decoration:none;
+}

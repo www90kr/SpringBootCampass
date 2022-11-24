@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.CZoneDao">
+
+  <insert id="cZoneSave">
+	  <selectKey keyProperty="czCode" resultType="int" order="BEFORE">
+	 		 select nvl(max (czCode),0)+1 from czone  
+	  </selectKey>
+      insert into czone(czCode, czName, czPrice,  czPhoto, czFileName, cz_username, cz_cCode)
+  		values(#{czCode},#{czName}, #{czPrice}, #{czPhoto}, #{czFileName,jdbcType=VARCHAR}, #{cz_username}, #{cz_cCode} )
+  </insert>  
+  
+	<select id="czFindAll" resultType="com.campass.demo.dto.CZoneDto$CZListDto" >
+	  
+	  
+	   			select * from CZone where cz_cCode = #{cCode} order by czCode asc
+	
+	</select>
+  
+  
+	<select id="czFindById" resultType="com.campass.demo.entity.CZone">
+		select * from czone where czCode=#{czCode} and rownum&lt;=1
+	</select>
+	
+	
+    <select id="czFindWriterById" resultType="String">
+		select cz_username from czone where czCode=#{czCode} and rownum&lt;=1
+	</select>
+
+  
+  <!-- 제목, 내용, 조회수, 좋아요, 싫어요, 댓글수 중 사용자가 선택한 컬럼을 변경 -->
+  <!-- 수정 -->
+  <update id="cZoneUpdate">
+  	update CZone
+  	  <trim prefix="set" suffixOverrides=",">
+	   	<if test="czName != null">czName=#{czName},</if>
+	  	<if test="czPrice != null">czPrice=#{czPrice,jdbcType=VARCHAR},</if>
+	  	<if test="czFileName != null">czFileName=#{czFileName,jdbcType=VARCHAR}</if>
+	  </trim>
+  	where czCode=#{czCode}
+  </update>
+ 
+  <delete id="cZoneDel">
+  	delete from czone where czCode=#{czCode}
+  </delete>
+  
+  
+  <!-- 
+  	collections : 여러개의 값을 담은 리스트. 이름이 파라미터와 일치해야 한다
+  	JS: for username of usernames
+  	MB : <foreach collection="usernames" item="username">
+  	
+  	delete from Buyer where username in ('spring','summer')
+  	
+  -->
+  <delete id="deleteByUsernames">
+  	delete from czone where czCode in
+  	<foreach collection="czCodes" item="czCodes" open="(" close=")" separator=","> 
+	  #{czCode}
+	</foreach> 
+  </delete>
+
+<select id="czDetail" parameterType="hashmap" resultType="com.campass.demo.dto.CZoneDto$CZListDto">
+select camping.cCode, czCode,czName,czPrice,czPhoto from (select Camping. * from Camping)
+Camping 	
+inner join (select * from CZone where cz_cCode=#{cCode}) 
+on cCode=cz_cCode  	
+<if test="value != null">  	
+ inner join (select * from CArea where caCode=#{searchDto.ch_caCode})
+on caCode = c_caCode
+</if>
+
+<if test="value != null">  	
+ inner join (select * from CType where ctCode=#{searchDto.ch_ctCode})
+on ctCode = c_ctCode
+</if>
+
+
+
+<where>
+
+<if test="value !=null">
+czCode not in (select re_czCode from Reservation where #{searchDto.ch_checkIn} between rCheckIn and 
+rCheckOut or #{searchDto.ch_checkOut} between 
+rCheckIn and rCheckOut 
+or rCheckIn between
+#{searchDto.ch_checkIn}' and
+#{searchDto.ch_checkOut} or rCheckOut between
+#{searchDto.ch_checkIn} and
+#{searchDto.ch_checkOut});  
+ 
+ 
+ </if>
+ </where>
+</select>
+
+
+<select id="findbyCzCode" resultType="com.campass.demo.entity.CZone">
+select * from CZone where czCode =#{czCode}
+
+</select>
+
+
+
+
+
+</mapper>

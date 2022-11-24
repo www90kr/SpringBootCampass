@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <title>CAMPASS</title>
+   <!-- favicons -->
+<link href="https://ifh.cc/g/NdOrVp.png" rel="icon">
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <style>
+   
+   body{
+      position: relative;
+      width: 1920px;
+      height: 100%;
+      overflow-x:hidden;
+      overflow-y:hidden;
+      background-color: #fff;
+   }
+   
+   input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+   }
+   
+   #section00 {
+    position: relative;
+    top: -15px;
+    left: 27px;
+   }
+   
+      .fail {
+         color: #aaa;
+         font-size: 0.75em;
+      }
+
+      .success {
+         color: #aaa;
+         font-size: 0.75em;
+      }
+
+      #checkUsername {
+         float: right;
+         width: 100px;
+      }
+
+      #checkEmail {
+         float: right;
+         width: 100px;
+
+      }
+
+      #checkNickname {
+         float: right;
+         width: 100px;
+      }
+
+      #join {
+         color: beige;
+         background-color: black;
+      }
+
+      #top {
+         margin-top: 30px;
+         text-align: center;
+         font-size: 15px;
+         color: #AAA;
+
+      }
+
+      input {
+         width: 480px;
+         margin-right: 20px;
+         height: 30px;
+         border: 1px solid #edefe4;
+      }
+      
+		#join_form {
+		    padding: 150px;
+		    position: relative;
+		    top: -120px;
+		    left: 500px;
+		    width: 1400px;
+		}
+
+      select.box {
+         width: 150px;
+         height: 30px;
+         box-sizing: border-box;
+         margin-left: 5px;
+         padding: 5px 0 5px 10px;
+         border-radius: 4px;
+         border: 1px solid #d9d6d6;
+         color: #383838;
+         background-color: #ffffff;
+         font-family: 'Montserrat', 'Pretendard', sans-serif;
+         float: right;
+      }
+
+      option {
+         font-size: 16px;
+      }
+
+      .info .box#domain-list option {
+         font-size: 14px;
+         background-color: #ffffff;
+      }
+
+      .buyer {
+         display: flex;
+         margin-bottom: 20px;
+      }
+
+      #join {
+         background-color: black;
+         color: white;
+         width: 100px;
+         border-radius: 20px;
+         text-decoration: none;
+      }
+
+      h1 {
+         position: relative;
+          left: 0;
+          top: 41px;
+          text-align: center;
+          font-size: 36px;
+          margin: 50px;
+          margin-top: 95px;
+
+      }
+
+      #select {
+         text-align: center;
+      }
+
+      #joincheck {
+         color: white;
+         text-decoration: none;
+      }
+      
+      .form-group {
+         position: relative;
+         left: 0px;
+      }
+      #bjoin {
+         background-color: #ff0063;
+         color: white;
+         border: 1px solid #ff0063;
+         border-radius: 5px;
+         font-weight: 700;
+         font-size: 16px;
+      }
+      #bjo {
+         background-color: white;
+         color: #ff0063;
+         border: 1px solid #ff0063;
+         border-radius: 5px;
+         font-weight: 700;
+         font-size: 16px;
+      }
+
+      .swal-button swal-button--confirm {
+         left: -20px;
+      }
+      
+      button {
+        color: #FFF;
+        background-color: #ff0063;
+        font-size: 14px;
+        text-align: center;
+        font-style: normal;
+        border-radius: 5px;
+        width: 0;
+        height:35px;
+        font-weight:500;
+        border: 1px solid #ff0063;
+        border-width: 1px 1px 3px;
+        box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+        margin-bottom: 10px;
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+      
+      .swal-button {
+    background-color: #7cd1f9;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    /* font-size: 14px; */
+    padding: 0px 220px;
+    /* text-align: center; */
+    margin: 0;
+    cursor: pointer;
+}
+
+input:hover {
+    border: 2px solid rgb(161, 166, 252);
+}
+input:focus {
+   outline: 2px solid rgb(161, 166, 252);
+}
+
+   #navBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 85px;
+    z-index: 99;
+    background: var(--background);
+    border-bottom: 1px solid #ebebeb;
+}
+   
+   
+   :root {
+  --background: #fff;
+  --text: #000;
+  --highlight: #ff0063;
+}
+
+
+
+#navi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 93%;
+  left: 87%;
+  z-index: 999;
+}
+
+#navi .navigation {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999620;
+}
+ 
+
+
+/*
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+*/
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: var(--text);
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: var(--highlight);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: var(--highlight);
+}
+#naviul .active:hover:before {
+  opacity: 0;
+  
+}
+.mu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 90%;
+  left: 88%;
+  z-index: 999;
+  cursor: pointer;
+}
+
+   </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+   <script>
+
+      $(document).ready(async function () {
+
+
+         const r1 =
+            $("#checkUsername").click(async function () {
+            
+               const paramUsername = {
+                  username: $('#username').val()
+               }
+               const ri = await $.ajax({
+                  url: "/buyer/check/id",
+                  data: paramUsername,
+                  method: "get"
+               })
+                  
+               //   .done(()=>$("#username_msg").attr("class","success"))
+               //   .fail(response=>$("#username_msg").attr("class","fail"));
+
+               $("#username_msg").children().remove();
+               $("<span>").text(ri.result).appendTo("#username_msg");
+               
+               
+
+            })
+
+         // 아이디 패턴 체크 함수
+         function usernameCheck() {
+            $("#username_msg").text("");
+            const pattern = /^[0-9A-Z]{8,10}$/;
+            const $username = $("#username").val().toUpperCase();
+            $("#username").val($username);
+            const result = pattern.test($username);
+            if (result == false)
+               $("#username_msg").text("아이디는 대문자와 숫자 8~10자입니다").attr("class", "fail")
+            return result;
+         }
+
+
+
+
+
+
+
+
+         var r2 =
+            $("#checkEmail").click(async function () {
+               var emailpat = $("#bemail").val();
+               var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+               if (emailpat.match(regExp) != null) {
+                  $("#bemail_msg").children().remove();
+
+                  const paramEmail = {
+                     bemail: $('#bemail').val()
+                  };
+                  const re = await $.ajax({
+                     url: "/buyer/check/email",
+                     data: paramEmail,
+                     method: "get"
+                  })
+                  $("<span>").text(re.result).appendTo("#bemail_msg");
+               }
+               else {
+                  swal("이메일형식이 올바르지 않습니다.")
+                  $("#bemail_msg").children().remove();
+                  $("<span>").text("이메일형식이 올바르지 않습니다. ").appendTo("#bemail_msg");
+               }
+
+            })
+
+         const r3 =
+            $("#checkNickname").click(async function () {
+               const paramNickname = {
+                  bnickname: $('#bnickname').val()
+               };
+               const rn = await $.ajax({
+                  url: "/buyer/check/nickname",
+                  data: paramNickname,
+                  method: "get"
+               })
+               $("#bnickname_msg").children().remove();
+               $("<span>").text(rn.result).appendTo("#bnickname_msg");
+            })
+
+         const r4 =
+            $("#checkTel").click(async function () {
+               const paramTel = {
+                  btel: $('#btel').val()
+               };
+               const rt = await $.ajax({
+                  url: "/buyer/check/tel",
+                  data: paramTel,
+                  method: "get"
+               })
+               $("#btel_msg").children().remove();
+               $("<span>").text(rt.result).appendTo("#btel_msg");
+            })
+
+         //   $("#username").on("click", checkUsername);
+         //   $("#bnickname").on("click", checkNickname);
+         //   $("#bemail").on("click", checkEmail);
+         //   $("#btel").on("click", checkTel);
+         //회원가입 버튼 누르면 회원가입
+         $("#bjoin").click(async function () {
+               //이메일 패턴체크
+               var emailpat = $("#bemail").val();
+               var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+   
+   				
+   
+               if (emailpat.match(regExp) != null) {
+                     
+//                     const choice = confirm('회원가입하시겠습니까?.');
+   
+//                     if (choice == false)
+//                        return;
+   
+                     const param = {
+                        username: $('#username').val(),
+                        bname: $('#bname').val(),
+                        bpassword: $('#bpassword').val(),
+                        bemail: $('#bemail').val(),
+                        bnickname: $('#bnickname').val(),
+                        btel: $('#btel').val(),
+                        badress: $('#badress').val()
+                     }
+   
+                     const ra = await $.ajax({
+                        url: "/buyer/new",
+                        data: param,
+                        method: "post"
+                     }).done(() => swal("가입성공!")).done(() => location.href = 'buyer/login').fail((response) => swal("가입신청실패"));
+   
+                     console.log(ra.result);
+                     $("<div>").text((ra.result) + ("!")).appendTo("#aa");
+
+                                     
+               } else {
+                  swal("회원가입 실패");
+
+               }
+         })
+
+
+   })
+
+
+
+   </script>
+</head>
+
+<body>
+       <nav id="nav" th:replace="fragments/nav">
+      </nav>
+      
+      <div id="navBox"></div>
+
+	<!-- 메뉴바 -->
+	    <div id="navi">
+	        <div class="theme-switch">
+	          <div class="switch"></div>
+	        </div>
+	        <div class="navigation">
+	            <ul>
+	              <a th:href="@{com/home}" class="active">Home</a>
+	              <a th:href="@{com/campingAll}">Reservation</a>
+	              <a th:href="@{com/product}">Product</a>
+	              <a th:href="@{com/board/list}" >Knowhow</a>
+	            </ul>
+	          </div>
+	    </div>
+   
+   	<div class="mu">
+		<div onclick="window.open('https://open.kakao.com/o/sxVt0TDe','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');">
+	      <img alt="무엇이든지 물어보세요" src="https://i.postimg.cc/9QFt368X/Group-134-1.png" width="150px;">
+	   </div>
+	</div>
+   <section id="section00">
+   
+   <h1 style="color: #ff0063;">CAMPASS</h1>
+   <p id="top" style="font-weight: 800; font-family: 'Noto Sans KR', sans-serif;">개인 정보를 입력하고 캠패스와 함께 여행을 시작하세요</p>
+   <div id="page">
+      <div id="main">
+         <section id="section">
+            <div id="join_form">
+               <div>
+                  <label for="username" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">아이디</label>
+                  <span id="username_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input type="text" id="username" name="username" placeholder="영문 소문자,숫자 포함수 6~12자 이내" required>
+                     <button id="checkUsername" style="width: 100px; cursor: pointer">중복확인</button>
+                  </div>
+               </div>
+               <div>
+                  <label for="bpassword" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">비밀번호</label>
+                  <span id="bpassword_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input id="bpassword" type="password" name="password"
+                        placeholder="영문 대소문자,숫자,특수문자 포함 8~12자 이내" aria-label="" required style=" width: 600px;">
+                  </div>
+               </div>
+
+               <div>
+                  <label for="bname" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">이름</label>
+                  <span id="name_msg"></span>
+                  <div class="buyer">
+                     <input id="bname" type="text"  name="name" placeholder="예약시 예약자명으로 자동 입력됩니다." required style="width: 600px;">
+                  </div>
+               </div>
+
+               <div>
+                  <label for="bemail" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">이메일</label>
+                  <span id="bemail_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input id="bemail" type="text" name="email" placeholder="비밀번호 변경 시 임시비밀번호가 발송됩니다." required>
+
+                     <button id="checkEmail" style="cursor: pointer">중복확인</button>
+                  </div>
+               </div>
+               <div>
+                  <label for="bnickname" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;" >닉네임</label>
+                  <span id="bnickname_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input id="bnickname" type="text" name="nickname" placeholder="3~10자 이내" required>
+                     <button id="checkNickname" style="cursor: pointer">중복확인</button>
+                  </div>
+
+               </div>
+               <div>
+                  <label for="btel" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">연락처</label>
+                  <span id="btel_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input id="btel" type="number" name="tel" placeholder="11자" required>
+                     <button id="checkTel" style="width: 100px; cursor: pointer;">중복확인</button>
+                  </div>
+               </div>
+
+               <div>
+                  <label for="badress" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">주소</label>
+                  <span id="badress_msg" class="fail success"></span>
+                  <div class="buyer">
+                     <input id="badress" type="text" name="adress" placeholder="배송지 주소를 입력하세요" required style="width: 600px;">
+                  </div>
+               </div>
+
+
+
+               <div class="form-group">
+                  <button id="bjoin" style="width:610px; height: 35px; cursor: pointer; margin-top: 12px;"  type="submit">회원가입</button>
+               </div>
+               <a href="login">
+                  <button id="bjo" style="width:610px; height: 35px; cursor: pointer;">로그인하러가기</button>
+               </a>
+            </div>
+         </section>
+      </div>
+
+      <div id="aa"></div>
+   </section>
+</body>
+
+</html>
