@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.campass.demo.dao.MemoDao">
+	<insert id="save">
+		insert into memos values(memos_seq.nextval, #{title}, #{content}, sysdate, #{sender}, #{receiver}, 0, 0, 0)
+	</insert>
+	
+	<select id="getMno" resultType="int">
+		select nvl(max(mno),0)+1 from memos
+	</select>
+	
+	<!--
+		메모를 여러통 보낼 때 한통 한통마다 insert를 하면 작업 부하가 크다 -> insert all을 이용해 한번의 쿼리로 여러개를 insert하고 싶다
+		여기서 오라클 쿼리가 약간 복잡하다
+		- 1. insert all을 날리려면 insert가 아닌 update를 작성해야 한다
+		- 2. 쿼리 내부에서 sequence를 직접 사용하거나 selectKey를 사용할 수 없다(있기는 한데 우리 수업범위를 넘어간다)    
+	 -->
+	<update id="saveAll">
+		<foreach collection="memos" item="memo" open="insert all" close="SELECT * FROM DUAL" separator=" ">
+			into memos(mno, title, content, sender, receiver) values(#{memo.mno}, #{memo.title}, #{memo.content}, #{memo.sender}, #{memo.receiver}) 
+		</foreach>
+	</update>
+	
+	<select id="countByReceiver" resultType="int">
+		select count(*) from memos where receiver=#{receiver} and disabledByReceiver=0 and isRead=0
+	</select>
+	
+	<select id="findBySender" resultType="com.campass.demo.entity.Memo">
+		select * from memos where sender=#{sender} and disabledBySender=0
+	</select>
+	
+	<select id="findByReceiver" resultType="com.campass.demo.entity.Memo">
+		select * from memos where receiver=#{receover} and disabledByReceiver=0
+	</select>
+	
+	<update id="setToRead">
+		update memos set isRead=1 where mno=#{mno}
+	</update>
+	
+	<!-- 보낸이와 mno의 리스트를 받아 여러개를 비활성화한다 -->
+	<update id="disabledBySender">
+		update memos set disabledBySender=1 where sender=#{sender} and mno in
+  		<foreach collection="mnos" item="mno" open="(" close=")" separator=","> 
+	  		#{mno}
+		</foreach> 
+	</update>
+	
+	<!-- 받은이와 mno의 리스트를 받아 여러개를 비활성화한다 -->
+	<update id="disabledByReceiver">
+		update memos set disabledByReceiver=1 where receiver=#{receiver} and mno in
+  		<foreach collection="mnos" item="mno" open="(" close=")" separator=","> 
+	  		#{mno}
+		</foreach> 
+	</update>
+	
+	<delete id="deleteByDisabled">
+		delete from memos where disabledBySender=1 and disabledByReceiver=1 
+	</delete>
+	
+	<select id="findById" resultType="com.campass.demo.entity.Memo">
+		select * from memos where mno=#{mno} and rownum&lt;=1
+	</select>
+</mapper>

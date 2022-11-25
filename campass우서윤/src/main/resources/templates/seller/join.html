@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<title>CAMPASS</title>
+	<!-- favicons -->
+<link href="https://i.postimg.cc/mZwb1Gbc/Mask-group-11.png" rel="icon">
+
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+	<style>
+			/* 로고 */
+		.logo {
+			position: fixed;
+			z-index: 9999620;
+			left: 48px;
+			    top: -60px;
+			width: 97px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		/* 로고 끝 */
+	body{
+		position: relative;
+		width: 1920px;
+		height: 100%;
+		overflow-x:hidden;
+		overflow-y:hidden;
+	}
+	
+	input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+	}
+	
+	#section00 {
+	    position: relative;
+		    top: -25px;
+	    left: 27px;
+	}
+	
+		.fail {
+			color: #aaa;
+			font-size: 0.75em;
+		}
+
+		.success {
+			color: #aaa;
+			font-size: 0.75em;
+		}
+
+		#checkUsername {
+			float: right;
+			width: 100px;
+		}
+
+		#checkEmail {
+			float: right;
+			width: 100px;
+
+		}
+
+		#checkNickname {
+			float: right;
+			width: 100px;
+		}
+
+		#join {
+			color: beige;
+			background-color: black;
+		}
+
+		#top {
+			margin-top: 30px;
+			text-align: center;
+			font-size: 15px;
+			color: #AAA;
+
+		}
+
+		input {
+			width: 480px;
+			margin-right: 20px;
+			height: 30px;
+			border: 1px solid #edefe4;
+		}
+		
+		#join_form {
+			padding: 150px;
+			position: relative;
+			top:-120px;
+			left: 500px;
+			width: 1400px;
+		}
+
+		select.box {
+			width: 150px;
+			height: 30px;
+			box-sizing: border-box;
+			margin-left: 5px;
+			padding: 5px 0 5px 10px;
+			border-radius: 4px;
+			border: 1px solid #d9d6d6;
+			color: #383838;
+			background-color: #ffffff;
+			font-family: 'Montserrat', 'Pretendard', sans-serif;
+			float: right;
+		}
+
+		option {
+			font-size: 16px;
+		}
+
+		.info .box#domain-list option {
+			font-size: 14px;
+			background-color: #ffffff;
+		}
+
+		.seller {
+			display: flex;
+			margin-bottom: 20px;
+		}
+
+		#join {
+			background-color: black;
+			color: white;
+			width: 100px;
+			border-radius: 20px;
+			text-decoration: none;
+		}
+
+		h1 {
+			position: relative;
+		    left: 0;
+		    top: 41px;
+		    text-align: center;
+		    font-size: 36px;
+		    margin: 50px;
+		    margin-top: 95px;
+
+		}
+
+		#select {
+			text-align: center;
+		}
+
+		#joincheck {
+			color: white;
+			text-decoration: none;
+		}
+		
+		.form-group {
+			position: relative;
+			left: 0px;
+		}
+		#bjoin {
+			background-color: rgb(161,166,252);
+			color: white;
+			border: 1px solid rgb(161,166,252);
+			border-radius: 5px;
+			font-weight: 700;
+			font-size: 16px;
+		}
+		#bjo {
+			background-color: white;
+			color: rgb(161,166,252);
+			border: 1px solid rgb(161,166,252);
+			border-radius: 5px;
+			font-weight: 700;
+			font-size: 16px;
+		}
+
+		.swal-button swal-button--confirm {
+			left: -20px;
+		}
+		
+		button {
+		  color: #FFF;
+		  background-color: rgb(161,166,252);
+		  font-size: 14px;
+		  text-align: center;
+		  font-style: normal;
+		  border-radius: 5px;
+		  width: 0;
+		  height:35px;
+		  font-weight:500;
+		  border: 1px solid rgb(161,166,252);
+		  border-width: 1px 1px 3px;
+		  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+		  margin-bottom: 10px;
+		  font-family: 'Noto Sans KR', sans-serif;
+		}
+		
+		.swal-button {
+    background-color: #7cd1f9;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    /* font-size: 14px; */
+    padding: 0px 220px;
+    /* text-align: center; */
+    margin: 0;
+    cursor: pointer;
+}
+
+   #navBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 85px;
+    z-index: 99;
+    background: var(--background);
+    border-bottom: 1px solid #ebebeb;
+}
+   
+   
+   :root {
+  --background: #fff;
+  --text: #000;
+  --highlight: rgb(161,166,252);
+}
+
+
+
+#navi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 93%;
+  left: 87%;
+  z-index: 999;
+}
+
+#navi .navigation {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999620;
+}
+ 
+
+
+/*
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+*/
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: var(--text);
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: var(--highlight);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: var(--highlight);
+}
+#naviul .active:hover:before {
+  opacity: 0;
+  
+}
+.mu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 90%;
+  left: 88%;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.right-bar {
+	    position: relative;
+    left: 30px;
+}
+input:hover {
+    border: 2px solid rgb(161, 166, 252);
+}
+input:focus {
+	outline: 2px solid rgb(161, 166, 252);
+}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<script>
+
+		$(document).ready(async function () {
+
+
+			const r1 =
+				$("#checkUsername").click(async function () {
+					const paramUsername = {
+						username: $('#username').val()
+					}
+					const ri = await $.ajax({
+						url: "/seller/check/id",
+						data: paramUsername,
+						method: "get"
+					})
+					//	.done(()=>$("#username_msg").attr("class","success"))
+					//	.fail(response=>$("#username_msg").attr("class","fail"));
+
+					$("#username_msg").children().remove();
+					$("<span>").text(ri.result).appendTo("#username_msg");
+
+				})
+			const r2 =
+				$("#checkEmail").click(async function () {
+					
+				var emailpat = $("#semail").val();
+            	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+				if (emailpat.match(regExp) != null) {
+                 	$("#semail_msg").children().remove();
+                 	
+					const paramEmail = {
+						semail: $('#semail').val()
+					};
+					const re = await $.ajax({
+						url: "/seller/check/email",
+						data: paramEmail,
+						method: "get"
+					})
+					$("#semail_msg").children().remove();
+					$("<span>").text(re.result).appendTo("#semail_msg");
+					}
+					else {
+                  			$("#semail_msg").children().remove();
+                  			$("<span>").text("이메일형식이 올바르지 않습니다. ").appendTo("#semail_msg");
+					}
+				})
+
+			const r3 =
+				$("#checkBusinessNo").click(async function () {
+					const paramBusinessNo = {
+						businessNo: $('#businessNo').val()
+					};
+					const rn = await $.ajax({
+						url: "/seller/check/businessNo",
+						data: paramBusinessNo,
+						method: "get"
+					})
+					$("#businessNo_msg").children().remove();
+					$("<span>").text(rn.result).appendTo("#businessNo_msg");
+				})
+
+			const r4 =
+				$("#checkTel").click(async function () {
+
+					const paramTel = {
+						stel: $('#stel').val()
+					};
+					const rt = await $.ajax({
+						url: "/seller/check/tel",
+						data: paramTel,
+						method: "get"
+					})
+					$("#stel_msg").children().remove();
+					$("<span>").text(rt.result).appendTo("#stel_msg");
+					
+			
+				})
+
+			//	$("#username").on("click", checkUsername);
+			//	$("#snickname").on("click", checkNickname);
+			//	$("#semail").on("click", checkEmail);
+			//	$("#stel").on("click", checkTel);
+
+			//회원가입 버튼 누르면 회원가입
+			$("#sjoin").click(async function () {
+				var emailpat = $("#semail").val();
+               	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+   				
+
+  	             if (emailpat.match(regExp) != null ) {
+	
+					const choice = confirm('회원가입하시겠습니까?.');
+	
+						if (choice == false)
+							return;
+		
+							const param = {
+								username: $('#username').val(),
+								sname: $('#sname').val(),
+								spassword: $('#spassword').val(),
+								semail: $('#semail').val(),
+								businessNo: $('#businessNo').val(),
+								stel: $('#stel').val(),
+								businessName: $('#businessName').val()
+							}
+							//$("<div>").text(param.email).appendTo("#aa");
+			
+							const ra = await $.ajax({
+								url: "/seller/new",
+								data: param,
+								method: "post"
+							}).done(() => alert("가입성공!")).done(() => location.href = '/seller/login').fail((response) => alert("가입신청실패"));
+	
+					console.log(ra.result);
+					$("<div>").text((ra.result) + ("!")).appendTo("#aa");
+	 				
+ 				} else {
+                  alert("회원가입 실패");
+
+               }
+		
+
+			})
+
+		})
+
+
+
+	</script>
+
+</head>
+
+<body>
+<!-- 로고 -->
+<h1 class="logo">
+    <a th:href="@{/seller/campingAll}">
+        <!-- <img src="https://ifh.cc/g/Xo5FkN.png" width="120px" alt="캠패스_다크그레이로고"> -->
+                <img src="https://i.postimg.cc/xTncBRdm/Mask-group-10.png" width="120px" alt="캠패스_핑크로고">
+    </a>
+</h1>
+<!-- 로고 끝 -->
+   	<div class="mu">
+		<div onclick="window.open('https://open.kakao.com/o/sxVt0TDe','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');">
+	      <img alt="무엇이든지 물어보세요" src="https://i.postimg.cc/9QFt368X/Group-134-1.png" width="150px;">
+	   </div>
+	</div>
+	<section id="section00">
+	
+	<h1 style="color: rgb(161,166,252);">CAMPASS</h1>
+	<p id="top" style="font-weight: 800; font-family: 'Noto Sans KR', sans-serif;">개인 정보를 입력하고 캠패스와 함께 여행을 시작하세요</p>
+	<div id="page">
+		<div id="main">
+			<section id="section">
+				<div id="join_form">
+					<div>
+						<label for="username" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">아이디</label>
+						<span id="username_msg" class="fail success"></span>
+						<div class="seller">
+							<input type="text" id="username" name="username" placeholder="영문 소문자,숫자 포함수 6~12자 이내" required>
+							<button id="checkUsername" style="width: 100px; cursor: pointer">중복확인</button>
+						</div>
+					</div>
+					<div>
+						<label for="spassword" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">비밀번호</label>
+						<span id="spassword_msg" class="fail success"></span>
+						<div class="seller">
+							<input id="spassword" type="password" name="password"
+								placeholder="영문 대소문자,숫자,특수문자 포함 8~12자 이내" aria-label="" required style=" width: 600px;">
+						</div>
+					</div>
+
+					<div>
+						<label for="sname" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">이름</label>
+						<span id="name_msg"></span>
+						<div class="seller">
+							<input id="sname" type="text"  name="name" placeholder="이름을 입력하세요." required style="width: 600px;">
+						</div>
+					</div>
+
+					<div>
+						<label for="semail" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">이메일</label>
+						<span id="semail_msg" class="fail success"></span>
+						<div class="seller">
+							<input id="semail" type="text" name="email" placeholder="비밀번호 변경 시 임시비밀번호가 발송됩니다." required>
+
+							<button id="checkEmail" style="cursor: pointer">중복확인</button>
+						</div>
+					</div>
+			
+					<div>
+						<label for="stel" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">연락처</label>
+						<span id="stel_msg" class="fail success"></span>
+						<div class="seller">
+							<input id="stel" type="tel" name="tel" placeholder="000-0000-0000" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13">
+							<button id="checkTel" style="width: 100px; cursor: pointer;">중복확인</button>
+						</div>
+					</div>
+					<div>
+						<label for="businessName" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;" >사업자명</label>
+						<span id="businessName_msg" class="fail success"></span>
+						<div class="seller">
+							<input id="businessName" type="text" name="businessName" placeholder="사업자명을 입력하세요." required>
+						</div>
+
+					</div>
+					<div>
+						<label for="businessNo" style="font-weight: 700; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">사업자번호</label>
+						<span id="businessNo_msg" class="fail success"></span>
+						<div class="seller">
+							<input id="businessNo" type="number" name="businessNo" placeholder="사업자 번호를 입력하세요" required style="width: 480px;">
+							<button id="checkBusinessNo" style="width: 100px; cursor: pointer;">중복확인</button>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<button id="sjoin" style="width:610px; height: 35px; cursor: pointer; margin-top: 12px;"  type="submit">회원가입</button>
+					</div>
+					<a href="login">
+						<button id="bjo" style="width:610px; height: 35px; cursor: pointer;">로그인하러가기</button>
+					</a>
+				</div>
+			</section>
+		</div>
+
+		<div id="aa"></div>
+	</section>
+</body>
+
+</html>

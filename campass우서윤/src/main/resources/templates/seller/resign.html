@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <title>CAMPASS</title>
+   <!-- favicons -->
+<link href="https://i.postimg.cc/mZwb1Gbc/Mask-group-11.png" rel="icon">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
+   <!-- alert창 cdn -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+   <style>
+   /* 로고 */
+   .logo {
+     position: fixed;
+     z-index: 9999620;
+     left: 48px;
+     top: 30px;
+     width: 97px;
+     height: 30px;
+     cursor: pointer;
+   }
+   /* 로고 끝 */
+   
+   body {
+      /*
+      background: url("https://i.postimg.cc/j2zj8Ycn/Frame-12-5.png");
+      */
+      background-color:#EEE;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+      height:100%;
+      background-size: cover;
+   }
+   
+   #findBox{
+    height: 350px;
+    width: 600px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,8,0.1);
+    padding: 50px 35px;
+}
+
+#findBox *{
+    font-family: 'Poppins',sans-serif;
+    color: #101010;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+  text-align: center;
+  /* left: 30px; */
+  position: relative;
+  left: 105px;
+  top: 0;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: #ccc;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: var(--highlight);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: rgb(161,166,252);
+  font-weight: bold;
+}
+#naviul .active:hover:before {
+  opacity: 0; 
+}
+
+input {
+   width: 500px;
+   height: 30px;
+   position: relative;
+    top: 30px;
+    left: 0;
+}
+.input_box {
+   position: relative;
+   left: 50px;
+}
+
+
+button {
+   border-radius: 8px;
+   color: #FFFFFF;
+   font-size: 12px;
+   font-weight: bold;
+   width: 250px;
+   height: 30px;
+   text-transform: uppercase;
+   /*
+   transition: transform 80ms ease-in;
+   */
+   cursor: pointer;
+   position: relative;
+   top: 75px;
+    left: 50px;
+}
+
+#findusername {
+   background-color: rgb(161,166,252);
+   margin-top: 20px;
+   position: relative;
+   left: 8%;
+   width: 510px;
+   height: 40px;
+}
+
+#menu {
+   margin-top: 30px;
+   position: relative;
+   left: 8%;
+}
+
+.swal-button {
+   background-color: #7cd1f9;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    left: -90px;
+    top: -10px;
+}
+
+h2 {
+   text-align: center;
+}
+
+.input_box {
+   margin-top: 30px;
+}
+#bpassword:hover {
+    border: 2px solid rgb(161, 166, 252);
+}
+#bpassword:focus {
+   outline: 2px solid rgb(161, 166, 252);
+}
+
+   </style>
+
+</head>
+
+	<script th:inline="javascript">
+		$(document).ready(async function () {
+
+
+			$("#resign").click(async function () {
+				const paramPassword= {
+					spassword: $('#spassword').val()
+				};
+
+				const resign = await $.ajax({
+					url: "/seller/delete",
+					data: paramPassword,
+					method: "delete"
+				}).done(()=> location.href = '/seller/home')
+				
+				
+			})
+
+})
+
+	</script>
+
+
+
+	</script>
+
+</head>
+
+
+<body>
+<!-- 로고 -->
+<h1 class="logo">
+    <a th:href="@{/seller/campingAll}">
+        <!-- <img src="https://ifh.cc/g/Xo5FkN.png" width="120px" alt="캠패스_다크그레이로고"> -->
+                <img src="https://i.postimg.cc/xTncBRdm/Mask-group-10.png" width="120px" alt="캠패스_핑크로고">
+    </a>
+</h1>
+<!-- 로고 끝 -->
+   <div id="findBox">
+      <div id="navi">
+           <h2 style="color: rgb(161,166,252); position: relative;top: 30px; left: 0;">캠패스에서 회원탈퇴를 원하십니까?</h2>
+       </div>
+       <p style="font-size: 14px; text-align: center; color: #aaa; font-weight: 500; margin-top: 50px; position: relative;
+    top: 20px;">
+          - 가입하신 방법에 따라 '실명확인' 후 회원탈퇴가 가능합니다.   <br>
+          - 입력하신 정보는 회원탈퇴 이외의 목적으로 사용하지 않습니다.   <br>
+
+       </p>
+       
+      <div class="input_box">
+         <div>
+            <input id="spassword" type="password" name="password" class="form-control" placeholder="비밀번호" >
+         </div>
+
+      </div>
+      <button id="resign" style="color: white; background-color:rgb(161,166,252); border: 1px solid rgb(161,166,252);">회원탈퇴하기</button>
+      <a href="read">
+         <button id="cnlth" style="color: rgb(161,166,252); border: 1px solid rgb(161,166,252);">취소</button>
+      </a>
+      
+         <div id="aa"></div>
+   </div>
+
+</body>
+
+</html>
+
+

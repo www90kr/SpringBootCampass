@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script sec:authorize="isAuthenticated()" src="/script/websocket.js"></script>
+<script sec:authorize="isAuthenticated()" src="/script/memostate.js"></script>
+    <title>Document</title>
+    <style>
+        @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap");
+:root {
+  --body-font: "Manrope", sans-serif;
+  --body-color: #b3b3b3;
+  --body-bg-color: #f2f2f2;
+  --theme-bg-color: #fafafa;
+  --border-color: #efefef;
+  --logo-color: #ff0063;
+  --main-color: #101010;
+  --header-bg-color: #fff;
+}
+
+.dark-mode {
+  --body-bg-color: #1e222b;
+  --theme-bg-color: #212835;
+  --border-color: #393f50;
+  --header-bg-color: #323a4b;
+  --main-color: #fefffd;
+  --body-color: #dddee0;
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: 15px;
+  color: var(--body-color);
+  background-color: var(--body-bg-color);
+  margin: 0;
+  font-weight: 600;
+  height:1230px;
+  min-height: -webkit-fill-available;
+
+}
+
+#navi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 93%;
+  left: 87%;
+  z-index: 99999999999;
+}
+
+#navi .navigation {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 2.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999620;
+}
+ 
+
+
+/*
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+*/
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: #000;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+      top: -15px;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: #ff0063;
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: #ff0063;
+}
+#naviul .active:hover:before {
+  opacity: 0;
+  
+}
+
+   #navBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 85px;
+    z-index: 999999;
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.video-app {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  height: 110vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+.user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.user-profile + svg {
+  width: 14px;
+}
+
+.notify {
+  position: relative;
+}
+.notify:before {
+  content: "";
+  position: absolute;
+  background-color: var(--logo-color);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  right: -6px;
+  bottom: 15px;
+}
+
+.menu-item.active {
+  color: var(--logo-color);
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+  background-color: var(--theme-bg-color);
+}
+
+.side-wrapper:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.side-wrapper svg {
+  width: 20px;
+  fill: var(--body-color);
+  margin-right: 25px;
+  flex-shrink: 0;
+}
+
+.username {
+  color: var(--main-color);
+  font-size: 15px;
+}
+
+.side-menu a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.side-menu a:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.side-menu {
+  padding: 20px;
+}
+
+.side-title {
+  padding: 0 0 20px;
+  font-size: 15px;
+}
+
+
+
+.show-more {
+  margin-top: 20px;
+  padding: 12px 16px;
+}
+
+.left-side {
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  overflow: auto;
+  flex-shrink: 0;
+}
+
+
+
+.profile {
+   height: 45vh;
+    max-height: 320px;
+    min-height: 270px;
+    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 1920px;
+    left: 0;
+    z-index: 9999;
+}
+
+.profile-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 4px 4px 6px 6px;
+}
+
+.profile-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--header-bg-color);
+    width: 100%;
+    box-shadow: -1px 3px 8px -1px rgb(0 0 0 / 10%);
+    border-radius: 0 0 4px 4px;
+    padding: 10px 280px;
+    z-index: 2;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 15px;
+}
+
+.profile-avatar {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  white-space: nowrap;
+}
+
+.menu-items {
+  display: flex;
+  cursor: pointer;
+}
+
+.profile-menu-link {
+  padding: 20px;
+  transition: 0.2s;
+}
+.profile-menu-link.active, .profile-menu-link:hover {
+  border-bottom: 3px solid var(--logo-color);
+  color: var(--logo-color);
+}
+
+
+.profile-name {
+  color: var(--main-color);
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 26px 16px;
+  white-space: nowrap;
+}
+.profile-item svg {
+  width: 22px;
+  margin-right: 10px;
+}
+
+.profile-contact-info {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  top: 20px;
+  color: #fff;
+}
+.profile-contact-info svg {
+  width: 18px;
+}
+
+.profile-contact {
+  border: 1px solid rgba(239, 239, 239, 0.3);
+  padding: 16px;
+  margin-left: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
+.follow {
+  border: 2px solid var(--border-color);
+  border-radius: 25px 0 0 25px;
+  color: var(--body-color);
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+}
+.follow:hover {
+  background-color: var(--header-bg-color);
+}
+
+.follow-option {
+  border-radius: 0 25px 25px 0;
+  margin-left: -2px;
+}
+
+.trends {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 45px;
+}
+.trends a {
+  text-decoration: none;
+  color: var(--body-color);
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.trends svg {
+  width: 20px;
+  margin-right: 16px;
+}
+
+.follow-option.active {
+  background-color: var(--header-bg-color);
+  margin-left: -3px;
+}
+
+.play-all {
+  background-color: var(--logo-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+.play-all svg {
+  width: 12px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.video video {
+  transition: 0.4s;
+  max-width: 100%;
+  display: block;
+  border-radius: 4px 4px 0 0;
+}
+
+.video {
+  overflow: hidden;
+  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  position: relative;
+  background-color: var(--header-bg-color);
+  cursor: pointer;
+}
+.video:hover .video-time {
+  opacity: 0;
+}
+.video:hover video {
+  transform: scale(2.2);
+  transform-origin: center;
+}
+.video:hover .view {
+  padding: 10px;
+}
+
+.video-time {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #fff;
+  bottom: 80px;
+  right: 6px;
+  transition: 0.3s ease-in;
+}
+
+.video-content {
+  width: 100%;
+  color: var(--main-color);
+  padding: 15px 10px 0;
+  border-radius: 0 0 4px 4px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view {
+  padding: 10px;
+  position: relative;
+  background-color: var(--header-bg-color);
+  z-index: 1;
+  font-size: 13px;
+}
+
+.load-more {
+  display: flex;
+  align-items: center;
+  /*justify-content: center;*/
+  padding: 30px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+.load-more svg {
+  width: 16px;
+  margin-right: 15px;
+}
+.load-more:hover svg {
+  -webkit-animation: load 0.9s linear infinite;
+          animation: load 0.9s linear infinite;
+}
+
+@-webkit-keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.language {
+  margin-bottom: 8px;
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+.footer-links a + a {
+  margin-left: 8px;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.link-footer a {
+  color: var(--body-color);
+  font-size: 14px;
+}
+
+.footer {
+  padding: 30px 0;
+}
+.footer-last {
+  border-top: 1px solid var(--border-color);
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+}
+.social-media svg {
+  width: 100%;
+}
+.social-media a {
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--body-color);
+  padding: 8px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+}
+
+.policy a {
+  text-decoration: none;
+  color: var(--body-color);
+}
+
+@media (max-width: 1030px) {
+  .profile-name {
+    display: none;
+  }
+
+  .profile-menu-link {
+    padding: 20px 10px;
+    font-size: 14px;
+  }
+
+  .trends {
+    padding: 40px 10px;
+  }
+}
+@media (max-width: 1120px) {
+  .footer-row {
+    flex-direction: column;
+  }
+  .footer-row + .footer-row {
+    margin-top: 10px;
+  }
+  .footer-row .button {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .play-all {
+    color: transparent;
+    white-space: nowrap;
+    width: 30px;
+    padding: 0;
+    fill: #fff;
+    height: 30px;
+    position: relative;
+  }
+
+  .profile-item {
+    padding: 20px 10px;
+  }
+
+  .play-all svg {
+    position: absolute;
+    left: 58%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    fill: #fff;
+  }
+}
+@media (max-width: 840px) {
+  .profile-contact {
+    padding: 6px;
+  }
+
+  .profile-item, .profile-avatar {
+    flex-direction: column;
+  }
+
+  .profile-item svg {
+    margin-right: 0;
+  }
+
+  .profile-item {
+    text-align: center;
+  }
+
+  .profile-img {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .profile-name {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 6px;
+  }
+
+  .profile-menu {
+    flex-direction: column;
+  }
+
+  .menu-items {
+    order: 1;
+  }
+}
+@media (max-width: 980px) {
+  .videos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .profile {
+    min-height: 380px;
+    max-height: 380px;
+  }
+}
+@media (max-width: 800px) {
+  .trends .follow-buttons {
+    display: none;
+  }
+}
+@media (max-width: 750px) {
+  .left-side {
+    display: none;
+  }
+
+  .header-menu {
+    display: none;
+  }
+
+  .search-bar input  {
+    max-width: 140px;
+  }
+
+
+}
+@media (max-width: 440px) {
+  .user-settings svg {
+    display: none;
+  }
+
+  .videos {
+    grid-template-columns: 1fr;
+  }
+}
+.dark-light {
+  position: fixed;
+  bottom: 30px;
+  right: 15px;
+  background-color: var(--header-bg-color);
+  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 50%;
+  z-index: 3;
+}
+.dark-light svg {
+  width: 28px;
+}
+
+.dark-mode .dark-light svg {
+  fill: #ffce45;
+  stroke: #ffce45;
+}
+
+.dark-light svg {
+  fill: transparent;
+  transition: 0.5s;
+}
+
+@media (max-width: 475px) {
+  .footer-links {
+    flex-direction: column;
+  }
+
+  .footer-links a + a {
+    margin-left: 0;
+  }
+
+  .footer-row:last-child {
+    align-items: flex-end;
+  }
+
+  .footer-row {
+    align-items: flex-start;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-links a {
+    margin-bottom: 5px;
+  }
+
+  .policy {
+    display: none;
+  }
+
+  .dark-light {
+    bottom: 60px;
+  }
+}
+
+  .side-menu {
+    position: relative;
+    top: 350px;
+    left: 0;
+  }
+  .con_nick {
+    position: relative;
+    top: 286px;
+    left: 50px;
+    display: flex;
+    align-items: center;
+  }
+  #bnickname {
+     position: relative;
+    top: 50px;
+    left: -240px;
+    width: 500px;
+  }
+  #updatenickname {
+    position: relative;
+    left: 20px;
+    top: 0;
+  }
+  
+
+.load-more {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 30px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    position: relative;
+    top: 200px;
+    left: -70px;
+}
+
+.side-menu>a:hover {
+   color: #ff0063;
+}
+
+.mu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 90%;
+  left: 88%;
+  z-index: 999;
+  cursor: pointer;
+}
+#footer {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+#section01 {
+    position: relative;
+    left: 50px;
+    top: 30px;
+    width: 1000px;
+}
+
+.whiteBox {
+    background-color: rgb(10,10,10,0.8);
+    width: 1116px;
+    height: 1063px;
+    position: absolute;
+    left: 520px;
+    z-index: 99;
+}
+    </style>
+       <script th:inline="javascript">
+      // 비로그인이면 anonymousUser
+      const loginInfo = /*[[${#authentication.principal}]]*/
+
+   </script>
+   <script>
+
+
+      $(document).ready(function() {
+         $("body").on("click", ".review_btn", function() {
+            var rCode = ($(this).attr("data-rCode"));
+            $("#rCode").val(rCode);
+            
+            var cCode = ($(this).attr("data-cCode"));
+            $("#cCode").val(cCode);
+         
+         })
+         
+         $("#modalBtn").click(function() {
+            $("#frm-review").submit();
+         })
+      })
+      
+      
+   </script>
+   <script th:inline="javascript">
+      // 비로그인이면 anonymousUser
+      const loginInfo = /*[[${#authentication.principal}]]*/
+
+   </script>
+
+<script>
+let username = null;
+
+   $(document).ready(async function() {   
+      
+      // 로그인한 사용자 아이디를 저장. 비로그인이면 null
+      if(loginInfo!=="anonymousUser") {
+         username = loginInfo.username;
+      }
+      console.log(username);
+      })
+      
+</script>
+</head>
+<body>
+
+
+     <nav id="nav" th:replace="/fragments/nav">
+      </nav>
+      
+   <div id="navBox"></div>
+
+<!-- 메뉴바 -->
+    <div id="navi">
+        <div class="navigation">
+            <ul>
+              <a  th:href="@{/buyer/loginsuc}" class="active" >Home</a>
+              <a th:href="@{/buyer/campingAll}" >Reservation</a>
+               <a th:href="@{/buyer/product}">Product</a>
+              <a th:href="@{/buyer/board/list}">Knowhow</a>
+
+            </ul>
+          </div>
+    </div>
+<!-- 메뉴바 끝 -->
+<div class="whiteBox"></div>
+<div class="mu">
+<button onclick="window.open('https://open.kakao.com/o/sxVt0TDe','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');" style="border: none; background-color: transparent; cursor: pointer;">
+      <img alt="무엇이든지 물어보세요" src="https://i.postimg.cc/9QFt368X/Group-134-1.png" width="150px;">
+   </button>
+</div>
+
+    <div class="video-app">
+        <div class="dark-light">
+           <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+          </div>
+
+        <div class="wrapper">
+         <div class="left-side">
+          <div class="side-wrapper">
+           <div class="side-menu" style="position: relative;top: 400px;left: 0;">
+
+            <a th:href="@{/buyer/read}">
+             <svg viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M210.35 246.63c33.88 0 63.22-12.15 87.2-36.13 23.97-23.97 36.12-53.3 36.12-87.19 0-33.87-12.15-63.2-36.13-87.19C273.57 12.15 244.23 0 210.35 0c-33.89 0-63.22 12.15-87.19 36.13s-36.13 53.3-36.13 87.18c0 33.89 12.16 63.23 36.13 87.2 23.98 23.97 53.32 36.12 87.2 36.12zm0 0M426.13 393.7a304.6 304.6 0 00-4.15-32.35 254.9 254.9 0 00-7.96-32.53 160.66 160.66 0 00-13.37-30.33 114.48 114.48 0 00-20.16-26.28c-7.96-7.61-17.7-13.73-28.97-18.2-11.22-4.44-23.66-6.69-36.97-6.69-5.23 0-10.28 2.14-20.05 8.5-6 3.92-13.03 8.45-20.87 13.46-6.71 4.27-15.8 8.28-27.02 11.9a107.28 107.28 0 01-33.04 5.34c-10.97 0-22.09-1.8-33.05-5.34-11.2-3.62-20.3-7.62-27-11.9-7.76-4.96-14.8-9.5-20.9-13.46-9.74-6.36-14.8-8.5-20.03-8.5-13.3 0-25.75 2.25-36.97 6.7-11.26 4.45-21 10.57-28.97 18.2a114.49 114.49 0 00-20.15 26.27c-5.56 9.78-10.06 19.99-13.38 30.34a255.5 255.5 0 00-7.95 32.52 303.52 303.52 0 00-4.15 32.36C.34 403.51 0 413.68 0 423.95c0 26.73 8.5 48.36 25.25 64.32C41.8 504.02 63.69 512 90.32 512h246.53c26.62 0 48.5-7.98 65.06-23.73 16.76-15.95 25.25-37.59 25.25-64.32 0-10.32-.35-20.5-1.03-30.25zm0 0" /></svg>
+             마이페이지
+            </a>
+
+            <a th:href="@{/buyer/reHistory}">
+                <svg viewBox="0 0 443.29 443.29" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M221.65 0C99.43 0 0 99.43 0 221.65s99.43 221.64 221.65 221.64 221.64-99.43 221.64-221.64S343.86 0 221.65 0zm0 415.59c-106.94 0-193.94-87-193.94-193.94S114.7 27.7 221.65 27.7s193.94 87 193.94 193.94-87 193.94-193.94 193.94z" />
+                 <path d="M235.5 83.12h-27.7v144.26l87.17 87.18 19.59-19.59-79.06-79.06z" /></svg>
+                예약내역
+            </a>
+
+            <a th:href="@{/buyer/list}">
+                <svg viewBox="0 0 512.07 512.07" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M53.33 224A53.4 53.4 0 000 277.33V448a53.4 53.4 0 0053.33 53.33h64a52.95 52.95 0 0032-10.8V224h-96zM512 304a47.3 47.3 0 00-13.89-33.58 52.97 52.97 0 0013.66-40.72c-2.5-27.12-26.93-48.37-55.64-48.37H324.35c6.53-19.82 16.98-56.15 16.98-85.33 0-46.27-39.31-85.33-64-85.33-22.16 0-38 12.48-38.67 12.99a10.72 10.72 0 00-4 8.34v72.34l-61.43 133.1-2.56 1.3V467.4C188.03 475.6 210 480 224 480h195.82c23.23 0 43.56-15.66 48.34-37.27a47.99 47.99 0 00-3.86-32.04 47.78 47.78 0 0021.35-64.02A47.76 47.76 0 00512 304z" /></svg> 
+                캠핑장문의
+            </a>
+            
+            <a th:href="@{/buyer/product/order/buylist}">
+                <svg viewBox="0 0 512.07 512.07" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M509.76 194.64c-6.15-18.86-22.95-31.04-42.78-31.04H339.06L298.78 41.27c-6.2-18.8-22.95-30.93-42.73-30.93h-.2c-19.85.08-36.6 12.35-42.67 31.26l-39.1 122H45.09c-19.88 0-36.69 12.22-42.81 31.14-6.12 18.92.33 38.68 16.45 50.33L123.1 320.5l-40.17 122c-6.21 18.87.14 38.65 16.18 50.39a44.86 44.86 0 0026.56 8.84c9.17 0 18.35-2.9 26.37-8.7l104.54-75.56 103.3 75.44c16.03 11.7 36.78 11.76 52.87.15s22.58-31.33 16.52-50.23L390.04 320.5l103.48-75.56c16.02-11.7 22.4-31.44 16.24-50.3z" /></svg>
+                구매내역
+            </a>
+
+            <a th:href="@{/buyer/resign}" id="resign">
+            <svg viewBox="0 0 515.6 515.6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M496.7 212.2a64.4 64.4 0 11-91.2 91.1 64.4 64.4 0 0191.2-91M303.3 212.2a64.4 64.4 0 11-91 91.1 64.4 64.4 0 0191-91M110 212.2A64.4 64.4 0 1119 303.3a64.4 64.4 0 0191.1-91"></svg>
+                회원탈퇴
+            </a>
+
+            </div>
+          </div>
+          
+         
+          <div class="side-wrapper">
+
+       
+          </div>
+ 
+         </div>
+         <div class="main-container" style="width: 1130px;">
+          <div class="profile">
+          <span style="color: #fff; font-size: 36px;z-index: 9; position: fixed;position: fixed;top: 142px;transform: translateX(-50%);left: 50%;
+          ">캠패스 캠핑장 문의</span>
+           <img src="https://images.unsplash.com/photo-1559543434-3e99643d333d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" class="profile-cover">
+
+           <div class="profile-menu">
+            <div class="profile-avatar">
+             <img class="profile-img" src="https://i.postimg.cc/V6JGcgnd/Mask-group-9.png" alt="">
+             <div class="profile-name"><span id="mynickname" style="margin-right: 3px;">캠패스에 오신것을 환영합니다.</span></div>
+            </div>
+
+
+           </div>
+          </div>
+        
+
+
+          </div>
+
+
+          <div class="load-more">
+             <div id="nicknick">
+                <div style="color: var(--main-color);position: relative;top: 0px;font-size:22px; left: 50px;">캠패스 캠핑장 문의</div>
+
+
+               <section id="section01">
+                       <div class="re_history">
+
+                       <table class="table table-hover">
+
+
+             </div>
+
+
+          </div>
+
+
+         
+        </div>
+       </div>
+       </div>
+       
+
+<script th:inline="javascript">
+      // 비로그인이면 anonymousUser
+      const loginInfo = /*[[${#authentication.principal}]]*/
+
+   </script>
+
+<script>
+let username = null;
+
+   $(document).ready(async function() {   
+      
+      // 로그인한 사용자 아이디를 저장. 비로그인이면 null
+      if(loginInfo!=="anonymousUser") {
+         username = loginInfo.username;
+      }
+      console.log(username);
+      })
+      
+</script>
+<script>
+   const reservations = [
+      {no:1234, site:'A', day: '2022-09-30', username:'SELLER', status: '입금대기'},
+      {no:1233, site:'B', day: '2022-09-28', username:'SPRING', status: '입금대기'},
+      {no:1232, site:'C', day: '2022-09-28', username:'SUMMER', status: '입금완료'},
+      {no:1231, site:'A', day: '2022-09-27', username:'WINTER', status: '입금완료'},
+      {no:1229, site:'B', day: '2022-09-26', username:'WINTER', status: '입금대기'},
+      {no:1228, site:'C', day: '2022-09-26', username:'SUMMER', status: '취소신청'},
+      {no:1227, site:'A', day: '2022-09-26', username:'SUMMER', status: '취소완료'}
+   ];
+   
+   // 입금확인, 취소완료를 하면 서버로 보내는 메소드
+   function sendAJaxMessage() {
+      const params = {
+         title: $("#username").text() + "님 " + $("#send").text(),
+         content: "예약일 : " + $("#day").text() + ", 예약번호 : " + $("#send").attr("data-no"), 
+         receiver: $("#username").text()
+      };
+      $.ajax({
+         url: "/buyer/memos/new",
+         method: "post",
+         data: params
+      }).done(()=>location.reload());
+   }
+   
+   $(document).ready(function() {
+      const $tbody = $('#tbody');
+      const $payCheck = $('#pay_check');
+      const $cancelCheck = $('#cancel_check');
+      let list = reservations;
+      
+
+      
+      // 13라인의 예약정보를 화면에 출력
+      function printReservations(list) {
+         $tbody.empty();
+         const $t = $('#tr_template').html();
+         for(const r of list) 
+            $tbody.append($t.replace('{no1}',r.no).replace('{status}',r.status).replace('{site}',r.site).replace('{day}',r.day)   .replace('{username}',r.username).replace('{no2}',r.no));
+         
+         // 각 행 마지막 컬럼에 입금확인 또는 취소완료 버튼을 출력
+         // 상태 컬럼이 입금대기면 입금확인 버튼을, 취소신청이면 취소완료 버튼을, 다른 것이면 버튼을 없애버린다 
+         $('.reservation_td').each(function(idx, element) {
+            const $element = $(element);
+            if($element.prev().text()=="입금대기") 
+               $element.children('button').text("입금확인").attr("class","pay");
+            else if($element.prev().text()=="취소신청") 
+               $element.children('button').text("취소완료").attr("class","cancel");
+            else
+               $element.children('button').css("display","none");
+         })
+      }
+      printReservations(reservations);
+      
+      function displayNone() {
+         $payCheck.css("display", "none");
+         $cancelCheck.css("display", "none");
+      }
+      
+      // 입금확인 처리
+      $("body").on("click", ".pay", function() {
+         displayNone();
+         const no = $(this).attr("data-no");
+         let r = reservations.filter(a=>a.no==no)[0];
+         $payCheck.empty();
+         const $p = $('#pay_template').html();
+         $payCheck.append($p.replace('{username}', r.username).replace('{day}', r.day).replace('{site}', r.site).replace('{status}', r.status).replace('{no}', r.no));
+         $payCheck.css("display", "block");
+      });
+      
+      // 취소완료 처리
+      $("body").on("click", ".cancel", function() {
+         displayNone();
+         const no = $(this).attr("data-no");
+         let r = reservations.filter(a=>a.no==no)[0];
+         $cancelCheck.empty();
+         const $p = $('#cancel_template').html();
+         $cancelCheck.append($p.replace('{username}', r.username).replace('{day}', r.day).replace('{site}', r.site).replace('{status}', r.status).replace('{no}', r.no));
+         $cancelCheck.css("display", "block");
+      });      
+   })
+</script>
+</head>
+<body>
+
+   <div class="alert alert-success">
+        <strong>서버 메시지</strong><span id="target">없음</span>
+   </div>
+   
+   <button onclick="location.href='/buyer/send_allcheck'">캠핑장 문의</button>
+   
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th>예약신청번호</th><th>사이트</th><th>예약일</th><th>예약자</th><th>상태</th><th></th>
+         </tr>
+      </thead>
+      <tbody id="tbody">
+      </tbody>
+   </table>
+   <div id="pay_check" class="alert alert-danger" style="display:none;">
+       <strong>입금 확인</strong>
+       <div id="target">
+       </div>
+     </div>
+     <div id="cancel_check" class="alert alert-info" style="display:none;">
+       <strong>입금 확인</strong>
+       <div id="target">
+       </div>
+     </div>
+</body>
+</html>
+
+<!--  예약신청목록 출력을 위한 템플릿 -->
+<template id="tr_template">
+   <tr>
+      <td>{no1}</td>
+      <td>{site}</td>
+      <td>{day}</td>
+      <td>{username}</td>
+      <td>{status}</td>
+      <td class='reservation_td'><button data-no="{no2}"></button></td>
+   </tr>
+</template>
+
+<!-- 입금 확인 출력을 위한 템플릿 -->
+<template id="pay_template">
+   <ul>
+      <li>입금자<span id="username">{username}</span></li>
+      <li>예약일 : <span id="day">{day}</span></li>
+      <li>사이트 : <span id="site">{site}</span></li>
+      <li>상태 : {status}</li>
+      <button id="send" data-no="{no}" onclick="sendAJaxMessage();">입금 확인</button>
+   </ul>
+</template>
+
+<!-- 취소 완료 출력을 위한 템플릿 -->
+<template id="cancel_template">
+   <ul>
+      <li>입금자<span id="username">{username}</span></li>
+      <li>예약일 : <span id="day">{day}</span></li>
+      <li>사이트 : <span id="site">{site}</span></li>
+      <li>상태 : {status}</li>
+      <button id="send" data-no="{no}" onclick="sendAJaxMessage();">예약 취소</button>
+   </ul>
+</template>
+
+       
+</body>
+</html>

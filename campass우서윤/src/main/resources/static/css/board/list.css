@@ -1,0 +1,44 @@
+
+	
+		.pagination {
+			display: flex;
+			justify-content: center;
+		}
+
+		.pagination li {
+			display: none;
+		}
+		
+		#cate-img{
+   width:100%;
+    }
+    
+    
+.table {
+	width:1000px;
+	justify-content: center;
+	text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.write_btn {
+	width: 100px;
+	height: 35px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+	
+}
+
+.writebtn_div{
+	text-align: center;
+}
+
+a{
+	text-decoration-line: none;
+    color: deeppink;
+    font-weight: bold;
+	
+}

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>CAMPASS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<!-- favicons -->
+<link href="https://i.postimg.cc/mZwb1Gbc/Mask-group-11.png" rel="icon">
+
+<!-- CSS -->
+<!-- 
+    <link rel="stylesheet" href="../../static/css/plugin/reset.css">
+    <link rel="stylesheet" href="../../static/css/plugin/common.css">
+    <link rel="stylesheet" href="../../static/css/detailPage.css">
+ -->
+ <link th:href="@{/css/plugin/reset.css}" rel="stylesheet" />
+ <link th:href="@{/css/plugin/common.css}" rel="stylesheet" />
+ <link th:href="@{/css/index.css}" rel="stylesheet" />
+    
+<!-- Bootstrap -->
+<!-- 
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+ -->
+<!-- JS -->
+   <script type="text/javascript" th:src="@{/js/plugin/jquery-1.8.1.min.js}"></script>
+   <script type="text/javascript" th:src="@{/js/plugin/easing.js}"></script>
+   <script type="text/javascript" th:src="@{/js/main.js}"></script>
+   
+<!-- icon -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script th:inline="javascript">
+	// 비로그인이면 anonymousUser
+	const loginInfo = /*[[${#authentication.principal}]]*/
+
+</script>
+</head>
+<body>
+ <header id="header" th:replace="/fragments/header">
+      </header>
+
+<script>
+//let username = null;
+
+	$(document).ready(async function() {	
+		
+		// 로그인한 사용자 아이디를 저장. 비로그인이면 null
+		if(loginInfo!=="anonymousUser") {
+			username = loginInfo.username;
+		}
+		console.log(username);
+		})
+		
+</script>
+<script th:inline="javascript">
+$(document).ready(async function(){
+      $("#menu").on("click", "#campass_logout", (e)=> {
+         alert("!!!!!!!!!!!!!!!!!")
+         e.preventDefault();
+         const choice = confirm('로그아웃하시겠습니까?');
+         if(choice==false)
+            return;
+         $.ajax({
+            url:"http://localhost:8087/seller/logout",
+            method: "post",
+         }).done(()=> location.href = '/com/home')
+      })
+   });
+      </script>
+      
+      <script th:inline="javascript">
+$(document).ready(async function(){
+      $("#menu2").on("click", "#read", (e)=> {
+         
+         e.preventDefault();
+         const choice = confirm('마이페이지');
+         if(choice==false)
+            return;
+         $.ajax({
+            url:"http://localhost:8087/seller/read",
+            method: "get",
+         }).done(()=> location.href = '/seller/read')
+      })
+   });
+      </script>
+
+   </script>
+
+
+    <button class="startPoint"><img alt="위로" src="https://i.postimg.cc/P53877hy/free-icon-up-arrow-3042413.png" width="50px;"></button>
+
+      <div class="cursor"></div>
+      <div class="cursor2"></div>
+
+
+
+
+<div id="navBox"></div>
+
+<!-- 메뉴바 -->
+    <div id="navi">
+        <div class="theme-switch">
+          <div class="switch"></div>
+        </div>
+        <div class="navigation">
+            <ul>
+              <a th:href="@{/seller/loginsuc}" class="active" >Home</a>
+              <a th:href="@{/seller/campingAll}" >Reservation</a>
+              <a href="#" >Product</a>
+              <a href="#" >Knowhow</a>
+            </ul>
+          </div>
+    </div>
+
+
+<!-- 햄버거 -->
+<div class="hamburger">
+
+    <div class="hamburgerlines">
+        <span class="lines line1">
+
+        </span>
+        <span class="lines line2">
+
+        </span>
+        <span class="lines line3">
+
+        </span>
+    </div>
+    <ul class="menu-items">
+
+          
+          <!-- Page cursor
+          ================================================== -->
+          
+              
+         
+    </ul>
+</div>
+<!-- 햄버거끝 -->
+
+<div class="mu">
+<button onclick="window.open('https://open.kakao.com/o/sxVt0TDe','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');">
+      <img alt="무엇이든지 물어보세요" src="https://i.postimg.cc/9QFt368X/Group-134-1.png" width="150px;">
+   </button>
+</div>
+
+
+
+
+<section id="container">
+
+<!-- section01 시작 -->
+    <section id="section01">
+
+        <!-- 메인 글씨 -->
+        <div id="mainFont">
+            <div class="mainFont01">
+                <img src="https://ifh.cc/g/MHPCja.png" alt="메인폰트01">
+            </div>
+            <div class="mainFont02">
+                <img src="https://ifh.cc/g/CZG6hh.png" alt="메인폰트02">
+            </div>
+            <div class="mainFont03">
+                <img src="https://ifh.cc/g/AxdZWb.png" alt="메인폰트03">
+            </div>
+        </div>
+
+        <!-- 예약조회 부트스트랩 -->
+        <div id="booking" class="section">
+            <div class="section-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="booking-form">
+                
+                <script>
+                
+              $('#ch_checkIn').change(function (){            
+                      var ch_checkIn = $('#ch_checkIn').val();            
+                      alert(ch_checkIn);    
+                      console.log(ch_checkIn.value);    });         
+                      
+                        $('#ch_checkOut').change(function (){            
+                          var ch_checkOut = $('#ch_checkOut').val();            
+                          alert(ch_checkOut);
+                          console.log(ch_checkOut.value);         });   
+                </script>
+
+                
+                        
+                  <script>
+                  
+                  
+                  
+            $(document).ready(function() {
+               $('#clickk').click(function() {
+                  //  검증 수행
+               
+               $( "#frm").submit();
+                     });
+                  });
+            
+
+                     </script>
+                        
+                        
+                        
+                        
+                        
+                            <form id="frm" name="frm" method="post" action="/campingSearch">
+                                <div class="row no-margin">
+                                    <div class="form-group">
+                                        <span class="form-label">Region</span>
+                                        <select id="ch_caCode" name="ch_caCode" class="form-control">
+                                            <option  disabled>전체</option>
+                                            <option value="1">강원</option>
+                                            <option value="2">경기/인천</option>
+                                            <option value="3">서울/가평</option>
+                                            <option value="4">전라</option>
+                                            <option value="5">제주</option>
+                                            <option value="6">충청</option>
+                                            <option value="7">경상</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row no-margin">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <span class="form-label">Check In</span>
+                                                    <input id="ch_checkIn" name="ch_checkIn" class="form-control" type="date" required>
+                                                </div>
+                                         
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <span class="form-label">Check out</span>
+                                                    <input id="ch_checkOut" name="ch_checkOut" class="form-control" type="date" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <span class="form-label">Shape</span>
+                                                    <select id="ch_ctCode" name="ch_ctCode" class="form-control">
+                                                        <option disabled>전체</option>
+                                                        <option value="1">캠핑장</option>
+                                                        <option value="2">글램핑</option>
+                                                        <option value="3">차박</option>
+                                                    </select>
+                                                    <span class="select-arrow"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-btn">
+                                            <button id="clickk" name="clickk"class="submit-btn">Check availability</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 예약조회 부트스트랩끝 -->
+        <!-- 비디오 시작 -->
+                <div class="homeVideo">
+                    <video width="100%" height="auto" autoplay="autoplay" loop="loop" muted="muted">
+                        <source src="/video/video01.mp4" type="video/mp4">
+                    </video>
+                </div>
+        <!-- 비디오 끝 -->
+    </section>
+<!-- section01 끝 -->
+
+<!-- section02 시작 -->
+<section id="section02">
+    <div class="content">
+        <div class="content__container">
+          <p class="content__container__text">
+            Hello
+          </p>
+          
+          <ul class="content__container__list">
+            <li class="content__container__list__item">Camper !</li>
+            <li class="content__container__list__item">Camping!</li>
+            <li class="content__container__list__item">Campass !</li>
+            <li class="content__container__list__item">everybody !</li>
+          </ul>
+        </div>
+      </div>
+</section>
+<!-- section03 끝 -->
+
+<!-- section03 시작 -->
+<section id="section03">
+    <div class="section3">
+        <span class="home03_01_00">THE CAMPASS</span>
+        <div class="home03_01_01">
+            <span>What is Campass?</span>
+            <span>Camp and Compass</span>
+            <span>Campass</span>
+        </div>
+        <p class="home03_01_02">
+            캠패스는캠퍼들에게 캠핑에 대한 정보를 알려주며 나침반같이 캠핑의 길을 알려주는 공간이다.
+        </p>
+        <span class="home03_01_03">
+            캠핑에 대한 관심도는 증가하는데 많은 사람들이 캠핑에 대한 많은 지식들이 없어 캠핑장이 어디에 어떤 곳이 있으며 어떤 규칙을 가지고<br> 
+            운영하는지를 모르거나 캠핑에 대한 다양한 소통을 할수 있는 공간이 많이 부족한 상황이다. 이러한 상황에서 캠패스는 여러 사용자들과 소통하며<br> 
+            캠핑에 대한 다양한 정보를 제공한다. 또한 캠퍼들이 원하는 캠핑장형태, 지역, 날짜를 선택해 캠핑장을 추천받을 수 있고,<br> 
+            캠핑장에 어울리는용품을 추천, 구매할 수 있다. 게시판에서는 캠퍼들의 캠핑 노하우를 볼 수있으며 Q&A 게시판에서는 캠핑에 대한 질문을 할 수있다.
+        </span>
+    </div>
+</section>
+<!-- section03 끝 -->
+
+
+<section id="section04">
+    <div class="section04">
+        <span class="home04_01_00">THE CAMPASS</span>
+        <span class="home04_01_01">
+            캠퍼들을 위한<br> 
+            오늘의 추천 캠핑장
+        </span>
+        <div class="home04_01_02">
+            <!-- <img src="https://i.postimg.cc/RFnSKVv0/Mask-group.png" alt="추천캠핑장이미지"> -->
+            <!-- <img src="https://i.postimg.cc/CMz6gPNS/Mask-group-1.png" alt="추천캠핑장이미지"> -->
+            <img src="https://i.postimg.cc/j5W6G9r1/Mask-group-2.png" alt="추천캠핑장이미지">
+        </div>
+
+        
+        <div id="section05" class="on">
+
+            <div class="wrapper05">
+
+                <!-- <div class="title">
+                    <div><img src="img/section03/title01.png" alt=""></div>
+                    <div><img src="img/section03/title02.png" alt=""></div>
+                    <div><img src="img/section03/title03.png" alt=""></div>
+                </div> -->
+                <div class="thumb">
+                    <div class="circle">
+                        <img src="https://i.postimg.cc/xdXxVQBv/Png-Item-5870726.png" width="200px" alt="돌아가는나침반">
+                    </div>
+                </div>
+            </div>
+
+            <div id="conta">
+                <button class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Explore</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- section06시작 -->
+        <section id="section06">
+            <div class="inner">
+               <a href="http://localhost:8087/campingRead?cCode=1">
+                <div class="ep_image ep01_image">
+                    <img src="https://i.postimg.cc/wMcfY4PX/tumblr-o45jwvds-L11qho82wo1-1280.jpg" width="1920px" alt="베스트캠핑장01">
+                    <div class="ep01_hover ep_hover">
+                        <div class="ep_text01">
+                            <span style="color:#fff;">서울/가평</span>
+                        </div>
+                        <div class="ep_01">
+                               <span style="color: #fff;">가평 새연글램핑카라반설악2호점</span>                       
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="ep_image ep02_image">
+                <a href="http://localhost:8087/campingRead?cCode=11">
+                    <img src="https://64.media.tumblr.com/6fb397d822f4f9f4596dff2085b18f2e/tumblr_nzsvb4p6xS1qho82wo1_1280.jpg" width="1920px" alt="베스트캠핑장02">
+                    <div class="ep02_hover ep_hover">
+                        <div class="ep02_text01">
+                            <span style="color:#fff;">경기/인천</span>
+                        </div>
+                        <div class="ep_01 ep02_02">
+                               <span style="color: #fff;">포천 운악승마캠핑카라반</span>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+
+                <div class="ep_image ep03_image">
+                <a href="http://localhost:8087/campingRead?cCode=23">
+                    <img src="https://64.media.tumblr.com/5af3f8303456e376ceda1517553ba786/tumblr_o4986gakjh1qho82wo1_1280.jpg" width="1920px" alt="베스트캠핑장03">
+                    <div class="ep03_hover ep_hover">
+                        <div class="ep03_text01">
+                            <span style="color:#fff;">강원</span>
+                        </div>
+                        <div class="ep_01 ep03_02">
+                            <span style="color: #fff;">산청 펫글램핑</span>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+
+                <div class="ep_image ep04_image">
+                    <img src="https://64.media.tumblr.com/f19901f50b79604839ca761cd6d74748/tumblr_o65rohhkQL1qho82wo1_1280.jpg" width="1920px" alt="베스트캠핑장04">
+                    <div class="ep04_hover ep_hover">
+                        <div class="ep04_text01 ">
+                            <span style="color:#fff;">제주</span>
+                        </div>
+                        <div class="ep_01 ep04_02">
+                            <span style="color: #fff;">제주 별헤는밤글램핑펜션</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </section>
+        <!-- section06 끝 -->
+
+        <!-- section07 용품 시작 -->
+        <section id="section07">
+            <div id="wrapper">
+                <section class="slideshow" id="js-header">
+              
+                  <div class="slideshow__slide js-slider-home-slide is-current" data-slide="1">
+                    <div class="slideshow__slide-background-parallax background-absolute js-parallax" data-speed="-1" data-position="top" data-target="#js-header">
+                      <div class="slideshow__slide-background-load-wrap background-absolute">
+                        <div class="slideshow__slide-background-load background-absolute">
+                          <div class="slideshow__slide-background-wrap background-absolute">
+                            <div class="slideshow__slide-background background-absolute">
+                              <div class="slideshow__slide-image-wrap background-absolute">
+                                <div class="slideshow__slide-image background-absolute" style="background-image: url('https://i.postimg.cc/TwqXnd7V/martin-jernberg-Tv-Kk-Nx-IT1-GI-unsplash.jpg');"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="slideshow__slide-caption">
+                      <div class="slideshow__slide-caption-text">
+                        <div class="se07 js-parallax" data-speed="2" data-position="top" data-target="#js-header">
+                          <h1 class="slideshow__slide-caption-title">Tenton Eve Orange</h1>
+                          <a class="slideshow__slide-caption-subtitle -load o-hsub -link" href="#">
+                            <span class="slideshow__slide-caption-subtitle-label">테톤 아담&이브_이브 침낭보러가기</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="slideshow__slide js-slider-home-slide is-next" data-slide="2">
+                    <div class="slideshow__slide-background-parallax background-absolute js-parallax" data-speed="-1" data-position="top" data-target="#js-header">
+                      <div class="slideshow__slide-background-load-wrap background-absolute">
+                        <div class="slideshow__slide-background-load background-absolute">
+                          <div class="slideshow__slide-background-wrap background-absolute">
+                            <div class="slideshow__slide-background background-absolute">
+                              <div class="slideshow__slide-image-wrap background-absolute">
+                                <div class="slideshow__slide-image background-absolute" style="background-image: url('https://i.postimg.cc/LsgP97CK/image.png');"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="slideshow__slide-caption">
+                      <div class="slideshow__slide-caption-text">
+                        <div class="se07 js-parallax" data-speed="2" data-position="top" data-target="#js-header">
+                          <h1 class="slideshow__slide-caption-title">Tactical Field Office M / Coyote Tan</h1>
+                          <a class="slideshow__slide-caption-subtitle -load o-hsub -link" href="#">
+                            <span class="slideshow__slide-caption-subtitle-label">택티컬 필드 오피스 M / 코요테탄 보러가기</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="slideshow__slide js-slider-home-slide is-prev" data-slide="3">
+                    <div class="slideshow__slide-background-parallax background-absolute js-parallax" data-speed="-1" data-position="top" data-target="#js-header">
+                      <div class="slideshow__slide-background-load-wrap background-absolute">
+                        <div class="slideshow__slide-background-load background-absolute">
+                          <div class="slideshow__slide-background-wrap background-absolute">
+                            <div class="slideshow__slide-background background-absolute">
+                              <div class="slideshow__slide-image-wrap background-absolute">
+                                <div class="slideshow__slide-image background-absolute" style="background-image: url('https://images.pexels.com/photos/196666/pexels-photo-196666.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920');"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="slideshow__slide-caption">
+                      <div class="slideshow__slide-caption-text">
+                        <div class="se07 js-parallax" data-speed="2" data-position="top" data-target="#js-header">
+                          <h1 class="slideshow__slide-caption-title">Prime Deluxe Plus</h1>
+                          <a class="slideshow__slide-caption-subtitle -load o-hsub -link" href="#">
+                            <span class="slideshow__slide-caption-subtitle-label">프라임디럭스플러스 보러가기</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="c-header-home_footer">
+                    <div class="o-se07">
+                      <div class="c-header-home_controls -nomobile o-button-group">
+                        <div class="js-parallax is-inview" data-speed="1" data-position="top" data-target="#js-header">
+                          <button class="o-button -white -square -left js-slider-home-button js-slider-home-prev" type="button">
+                            <span class="o-button_label">
+                              <svg class="o-button_icon" role="img">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-prev"></use>
+                              </svg>
+                            </span>
+                          </button>
+                          <button class="o-button -white -square js-slider-home-button js-slider-home-next" type="button">
+                            <span class="o-button_label">
+                              <svg class="o-button_icon" role="img">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-next"></use>
+                              </svg>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                </section>
+                <div>
+              
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <symbol viewBox="0 0 18 18" id="arrow-next">
+                      <path id="arrow-next-arrow.svg" d="M12.6,9L4,17.3L4.7,18l8.5-8.3l0,0L14,9l0,0l-0.7-0.7l0,0L4.7,0L4,0.7L12.6,9z" />
+                    </symbol>
+                    <symbol viewBox="0 0 18 18" id="arrow-prev">
+                      <path id="arrow-prev-arrow.svg" d="M14,0.7L13.3,0L4.7,8.3l0,0L4,9l0,0l0.7,0.7l0,0l8.5,8.3l0.7-0.7L5.4,9L14,0.7z" />
+                    </symbol>
+                  </svg>
+        </section>
+        <!-- section07 끝 -->
+
+        <!-- section08 노하우 시작 -->
+        <section id="section08">
+
+            <div class="ga_text">
+                <div class="section08_title">
+                    <span>Knowhow</span>
+                </div>
+                <div class="ga_text01">
+                    <img src="https://ifh.cc/g/DrvVKD.png" alt="노하우검은글씨">
+                    <div class="ga01_hover ga_hover">
+                        <div class="ga01_text01">
+                            <img src="https://ifh.cc/g/wgsMqb.png" alt="노하우하얀글씨">
+                        </div>
+                        <div class="ga01_text02">
+                            <img src="https://ifh.cc/g/mBF7b9.png" alt="노하우호버화면">
+                        </div>
+                    </div>
+                </div>
+    
+                
+                <div class="section08_button">
+                    <button class="learn-more">
+                        <span class="circle" aria-hidden="true">
+                            <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">Explore</span>
+                    </button>
+                </div>
+
+            </div>
+    
+        </section>
+        <!-- section08 노하우 끝 -->
+
+
+        <footer id="footer">
+            <div class="footerBox"><img alt="푸터" src="https://i.postimg.cc/jd1BC4pb/Group-133.png"></div>
+        </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" th:src="@{/js/plugin/gsap.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugin/scrollTrigger.js}"></script>
+<script type="text/javascript" th:src="@{/js/scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/js/setting.js}"></script>
+
+<link th:href="@{/css/index.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
+<script th:inline="javascript">
+
+//마우스커서
+//UPDATE: I was able to get this working again... Enjoy!
+
+var cursor = document.querySelector('.cursor');
+var cursorinner = document.querySelector('.cursor2');
+var a = document.querySelectorAll('a');
+
+document.addEventListener('mousemove', function(e){
+var x = e.clientX;
+var y = e.clientY;
+cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+});
+
+document.addEventListener('mousemove', function(e){
+var x = e.clientX;
+var y = e.clientY;
+cursorinner.style.left = x + 'px';
+cursorinner.style.top = y + 'px';
+});
+
+document.addEventListener('mousedown', function(){
+cursor.classList.add('click');
+cursorinner.classList.add('cursorinnerhover')
+});
+
+document.addEventListener('mouseup', function(){
+cursor.classList.remove('click')
+cursorinner.classList.remove('cursorinnerhover')
+});
+
+a.forEach(item => {
+item.addEventListener('mouseover', () => {
+ cursor.classList.add('hover');
+});
+item.addEventListener('mouseleave', () => {
+ cursor.classList.remove('hover');
+});
+})
+
+//용품js
+const $window = $(window);
+const $body = $("body");
+
+class Slideshow {
+constructor(userOptions = {}) {
+ const defaultOptions = {
+   $el: $(".slideshow"),
+   showArrows: false,
+   showPagination: true,
+   duration: 10000,
+   autoplay: true
+ };
+
+ let options = Object.assign({}, defaultOptions, userOptions);
+
+ this.$el = options.$el;
+ this.maxSlide = this.$el.find($(".js-slider-home-slide")).length;
+ this.showArrows = this.maxSlide > 1 ? options.showArrows : false;
+ this.showPagination = options.showPagination;
+ this.currentSlide = 1;
+ this.isAnimating = false;
+ this.animationDuration = 1200;
+ this.autoplaySpeed = options.duration;
+ this.interval;
+ this.$controls = this.$el.find(".js-slider-home-button");
+ this.autoplay = this.maxSlide > 1 ? options.autoplay : false;
+
+ this.$el.on("click", ".js-slider-home-next", (event) => this.nextSlide());
+ this.$el.on("click", ".js-slider-home-prev", (event) => this.prevSlide());
+ this.$el.on("click", ".js-pagination-item", (event) => {
+   if (!this.isAnimating) {
+     this.preventClick();
+     this.goToSlide(event.target.dataset.slide);
+   }
+ });
+
+ this.init();
+}
+
+init() {
+ this.goToSlide(1);
+ if (this.autoplay) {
+   this.startAutoplay();
+ }
+
+ if (this.showPagination) {
+   let paginationNumber = this.maxSlide;
+   let pagination = '<div class="pagination"><div class="se07">';
+
+   for (let i = 0; i < this.maxSlide; i++) {
+     let item = `<span class="pagination__item js-pagination-item ${
+       i === 0 ? "is-current" : ""
+     }" data-slide=${i + 1}>${i + 1}</span>`;
+     pagination = pagination + item;
+   }
+
+   pagination = pagination + "</div></div>";
+
+   this.$el.append(pagination);
+ }
+}
+
+preventClick() {
+ this.isAnimating = true;
+ this.$controls.prop("disabled", true);
+ clearInterval(this.interval);
+
+ setTimeout(() => {
+   this.isAnimating = false;
+   this.$controls.prop("disabled", false);
+   if (this.autoplay) {
+     this.startAutoplay();
+   }
+ }, this.animationDuration);
+}
+
+goToSlide(index) {
+ this.currentSlide = parseInt(index);
+
+ if (this.currentSlide > this.maxSlide) {
+   this.currentSlide = 1;
+ }
+
+ if (this.currentSlide === 0) {
+   this.currentSlide = this.maxSlide;
+ }
+
+ const newCurrent = this.$el.find(
+   '.js-slider-home-slide[data-slide="' + this.currentSlide + '"]'
+ );
+ const newPrev =
+   this.currentSlide === 1
+     ? this.$el.find(".js-slider-home-slide").last()
+     : newCurrent.prev(".js-slider-home-slide");
+ const newNext =
+   this.currentSlide === this.maxSlide
+     ? this.$el.find(".js-slider-home-slide").first()
+     : newCurrent.next(".js-slider-home-slide");
+
+ this.$el
+   .find(".js-slider-home-slide")
+   .removeClass("is-prev is-next is-current");
+ this.$el.find(".js-pagination-item").removeClass("is-current");
+
+ if (this.maxSlide > 1) {
+   newPrev.addClass("is-prev");
+   newNext.addClass("is-next");
+ }
+
+ newCurrent.addClass("is-current");
+ this.$el
+   .find('.js-pagination-item[data-slide="' + this.currentSlide + '"]')
+   .addClass("is-current");
+}
+
+nextSlide() {
+ this.preventClick();
+ this.goToSlide(this.currentSlide + 1);
+}
+
+prevSlide() {
+ this.preventClick();
+ this.goToSlide(this.currentSlide - 1);
+}
+
+startAutoplay() {
+ this.interval = setInterval(() => {
+   if (!this.isAnimating) {
+     this.nextSlide();
+   }
+ }, this.autoplaySpeed);
+}
+
+destroy() {
+ this.$el.off();
+}
+}
+
+(function () {
+let loaded = false;
+let maxLoad = 3000;
+
+function load() {
+ const options = {
+   showPagination: true
+ };
+
+ let slideShow = new Slideshow(options);
+}
+
+function addLoadClass() {
+ $body.addClass("is-loaded");
+
+ setTimeout(function () {
+   $body.addClass("is-animated");
+ }, 600);
+}
+
+$window.on("load", function () {
+ if (!loaded) {
+   loaded = true;
+   load();
+ }
+});
+
+setTimeout(function () {
+ if (!loaded) {
+   loaded = true;
+   load();
+ }
+}, maxLoad);
+
+addLoadClass();
+})();
+
+
+
+
+
+
+
+
+
+</script>

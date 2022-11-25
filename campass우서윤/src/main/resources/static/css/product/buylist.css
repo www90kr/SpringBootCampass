@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+th {
+	font-size: 20px;
+}
+
+.tkdvnaInfo {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	position: relative;
+	top: 85px;
+}
+
+.rkrurAmo {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	position: relative;
+	top: 85px;
+}
+
+.order {
+	font-size: 35px;
+	position: relative;
+	left: 400px;
+}
+
+#orderList {
+	margin: 20px 300px 20px 300px;
+}
+
+.buylist_table {
+	width: 1000px;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 50px;
+}
+
+.pmainImg {
+	width: 180px;
+	height: 180px;
+	float: left;
+	margin: 20px;
+}
+
+.reviewBtn {
+	width: 100px;
+	height: 30px;
+}
+
+/* 홈버튼 */
+#goHome {
+	cursor: pointer;
+	background-color: #FF0063;
+	color: white;
+	width: 150px;
+	height: 50px;
+	text-align: center;
+	font-size: 22px;
+	margin: 0 auto;
+	line-height: 50px;
+}
+
+/* 모달창*/
+.modal-footer{
+	margin:0 auto;
+}
+
+#modalBtn {
+	background-color:#ff0063;
+}
+
+.star {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    color: #F90A51;
+    cursor: pointer;
+}
+
+.starText {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #808080;
+    font-weight: 500;
+}

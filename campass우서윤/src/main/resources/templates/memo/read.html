@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script sec:authorize="isAuthenticated()" src="/script/websocket.js"></script>
+<script>
+$(document).ready(function() {
+	const params = new URLSearchParams(location.search);
+	const mno = params.get("mno")
+	$.ajax("/buyer/memos?mno=" + mno).done(result=> {
+		$("#title").text(result.title);
+		$("#content").text(result.content);
+	})
+});
+
+$(document).ready(function() {
+	const params = new URLSearchParams(location.search);
+	const mno = params.get("mno")
+	$.ajax("/seller/memos?mno=" + mno).done(result=> {
+		$("#title").text(result.title);
+		$("#content").text(result.content);
+	})
+});
+</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>제목</td><td id="title"></td>
+			<td>내용</td><td id="content"></td>
+		</tr>
+	</table>
+</body>
+</html>

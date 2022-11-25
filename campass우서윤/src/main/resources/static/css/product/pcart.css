@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+*{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.toptext {
+    color: #FF375B;
+    font-weight: bold;
+}
+
+.toptext_div, #delete_section{
+    width: 1150px;
+    margin: 0 auto;
+    text-align: right;
+    padding : 5px;
+        	}
+
+#main{	
+	text-align: center;
+	margin : 0 auto;
+	padding : 10px;
+}
+
+.pmainImg {
+	width : 200px;
+}
+
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+.cart_table{
+	border : 1px solid black;
+	width : 1150px;
+}
+
+.countbutton{
+    border: 0;
+    background: none;
+    background: #eee;
+    padding: 8px;
+    margin : 5px;
+}
+
+.subject_table{
+	border : 1px solid gray;
+}
+
+#cart_price_table{
+	border : 1px solid black;
+	width : 600px;
+	height : 80px;
+}
+
+#section{
+	height:50px;
+}
+.empty_text{
+	font-size : 25px;
+}
+
+.orderBtn {
+	width: 400px;
+	height: 55px;
+	background-color: #ff0063;
+	color: white;
+	border: none;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <title>CAMPASS</title>
+  	<!-- favicons -->
+<link href="https://i.postimg.cc/mZwb1Gbc/Mask-group-11.png" rel="icon">
+<script>
+	$(document).ready(function() {
+		$('#click').click(function() {
+			//  검증 수행
+		
+			$( "#frm").submit();
+		});
+	});
+</script>
+</head>
+<body>
+
+<div class="container" style="width: 800px; margin-top: 100px;">
+<h2 style="text-align: center;">캠핑장</h2>
+	<hr/>
+	<form id='frm' action="/seller/cAdd" method="post" enctype="multipart/form-data">
+
+		
+		<div class="label1">
+    	  	<label>캠핑장이름 : </label>
+     		<span id="Name"></span>
+      		<input type="text" class="form-control" id="cName" name="cName" required>
+    	</div>
+    	
+		<div class="label1">
+		<label>CONTENT : </label>
+		<span id="content"></span>
+		<textarea id="summernote" name="cContent"></textarea>
+		</div>
+		
+		
+		<hr/>
+		
+		<div class="label2">
+      		<label>캠핑주소</label>
+      		<input type="text" class="form-control" id="cAddr" name="cAddr" required placeholder="CAMPING ADRESS">
+    	</div>
+		
+   		
+	    <div class="label2">
+     		 <label>캠핑연락처</label>
+     		 <input type="text" class="form-control" id="cTel" name="cTel" required placeholder="숫자만 입력하세요">
+   		 </div>
+   		 
+   		<div class="label2">
+      		<label>캠핑사이트</label>
+      		<input type="text" class="form-control" id="cSite" name="cSite" required placeholder="CAMPING SITE">
+    	</div>
+	
+		
+		<br/>
+		    <input type="hidden" > <!-- select 저장용 -->
+			<select id="c_caCode" name="c_caCode" class="form-select" onchange="change_caCode();">
+               <option disabled>전체</option>
+               <option value="1">강원</option>
+              <option value="2">경기/인천</option>
+              <option value="3">서울/가평</option>
+               <option value="4">전라</option>
+               <option value="5">제주</option>
+               <option value="6">충청</option>
+               <option value="7">경상</option>
+			</select>
+  	  <br/>
+ 			<select id="c_ctCode"  name="c_ctCode" class="form-select" onchange="change_caCode();">
+			    <option disabled>전체</option>
+			    <option value="1">캠핑장</option>
+			    <option value="2">글램핑</option>
+			    <option value="3">차박</option>
+			  	</select>
+		<hr/>		   		
+				   		photo:<input type="file" name="cPhoto"> 
+		<hr/>
+		
+	<button type="button" id="click">클릭</button>
+	
+	</form>
+	
+	
+	
+	
+	<script>
+		$('#summernote').summernote({
+			placeholder : '욕설등 문제가 있는 글은 삭제됩니다',
+			tabsize : 2,
+			height : 500
+		});
+	</script>
+
+
+							<script type="text/javascript">
+							
+							function change_caCode(){
+								const id = document.getElementById("c_caCode");
+								const c_caCode = id.options[id.selectedIndex].value;
+								document.f.c_caCode.value = c_caCode;
+							}
+							
+							function change_ctCode(){
+								var val1 = document.getElementById("c_ctCode");
+								var val2 = document.getElementById("c_ctCode").options.selectedIndex;
+							
+								console.log(" ct value : " + val1.options[val2].value);
+								
+							}
+							
+							  
+							</script>
+</body>
+</html>

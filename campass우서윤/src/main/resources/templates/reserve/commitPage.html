@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <title>CAMPASS</title>
+
+<!-- favicons -->
+<link href="https://ifh.cc/g/NdOrVp.png" rel="icon">
+
+<!-- CSS -->
+    <link rel="stylesheet" href="css/plugin/reset.css">
+    <link rel="stylesheet" href="css/plugin/common.css">
+    <link rel="stylesheet" href="css/reCheck.css">
+
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- JS -->
+    <script src="js/plugin/jquery-1.8.1.min.js"></script>
+    <script src="js/plugin/easing.js"></script>
+    <script src="js/price.js"></script>
+    <style>
+    #navi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 93%;
+  left: 87%;
+  z-index: 99999999999;
+}
+
+#navi .navigation {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 3.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999620;
+}
+ 
+
+
+/*
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+*/
+
+#navi ul {
+  display: flex;
+  list-style-type: none;
+}
+#navi ul a {
+  margin: 10px 30px;
+  position: relative;
+  color: #000;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+      top: -15px;
+}
+#navi ul a:before {
+  position: absolute;
+  bottom: -2px;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: #ff0063;
+  transform: translateX(-100%);
+  opacity: 0;
+}
+#navi ul a:hover:before {
+  opacity: 1;
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+}
+#navi ul .active {
+  color: #ff0063;
+}
+#naviul .active:hover:before {
+  opacity: 0;
+  
+}
+
+   #navBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 85px;
+    z-index: 999999;
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+    
+}
+    
+#section01 {
+    text-align: center;
+    width: 1920px;
+    height: 85px;
+    top: 194px;
+    position:relative;
+}
+
+
+.part02{
+     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.part03{
+        display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#parts{
+display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.part02 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    left: -60px;
+    font-weight: 700;
+}
+    </style>
+    
+
+</head>
+<body>
+
+    <!-- favicons -->
+<link href="https://ifh.cc/g/NdOrVp.png" rel="icon">
+
+  <nav id="nav" th:replace="/fragments/nav">
+      </nav>
+
+
+<div id="navBox"></div>
+
+<!-- 메뉴바 -->
+    <div id="navi">
+        <div class="navigation">
+            <ul>
+              <a th:href="@{/buyer/loginsuc}" class="active">Home</a>
+              <a th:href="@{/buyer/campingAll}">Reservation</a>
+              <a th:href="@{/buyer/product}">Product</a>
+              <a th:href="@{/buyer/board/list}">Knowhow</a>
+            </ul>
+          </div>
+    </div>
+<!-- 메뉴바 끝 -->
+
+
+
+
+<!-- 공용 헤더 끝 -->
+
+<!-- section 시작 -->
+<section id="container">
+    <section id="section01">
+        <div class="part01" style="position: relative;top: -25px;">
+            <div class="c_icon">
+                <img src="https://ifh.cc/g/H1m11M.png" width="80px" alt="예약확인">
+            </div>
+            <br>
+            <br>
+            <strong class="reservation_check" style="position: relative;top: -20px;font-size: 26px;">예약신청이 정상적으로 처리되었습니다.</strong>
+        </div>
+
+        
+     <div id="parts" style="border: 1px solid #aaa;width: 550px;border-radius: 8px;    height: 500px;/* display: flex; *//* justify-content: center; */position: relative;left: 710px;top: -20px;">
+        <div class="part02" style="top: 20px;">
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">예약번호</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">이용일자</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">캠핑장명</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">구역</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">결제금액</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">결제수단</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">예약자명</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">예약일자</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">예약자전화번호</label>
+            <label for="find_id_email" style="margin-left: 30px; margin-top: 20px; color: #757575;">예약자계좌번호</label>
+        </div>
+        
+        <div class="part03" style="    top: 17px;
+    position: relative;">
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 19px; font-weight: 700;"><tr><td th:text="${reservation.rCode}">예약번호</td></tr></span> 
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 20px; font-weight: 700;"><tr><td th:text="${reservation.rCheckIn}">체크인날짜</td></tr> ~ <tr><td th:text="${reservation.rCheckOut}">체크아웃날짜</td></tr></span>
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 19px; font-weight: 700;"><tr><td th:text="${cname}">캠핑장이름</td></tr></span> 
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 21px; font-weight: 700;"><tr><td th:text="${czname}">캠핑장구역</td></tr></span>  
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 20px; font-weight: 700;"><tr><td th:text="${reservation.rPrice}">예약금액</td></tr></span>  
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 20px; font-weight: 700;"><tr><td th:text="${reservation.rName}">예약자명</td></tr></span> 
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 20px; font-weight: 700;"><tr><td th:text="${reservation.rTel}">예약자연락처</td></tr></span> 
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 25px; font-weight: 700;"><tr><td th:text="${reservation.rStatus}">예약상태</td></tr></span>  
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 43px; font-weight: 700;"><tr><td th:text="${reservation.rbank}">예약상태</td></tr></span>  
+            <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 16px; font-weight: 700;"><tr><td th:text="${reservation.rbankno}">예약상태</td></tr></span>  
+           <span class="helper-text" id="find_id_email_msg" style="margin-left: 30px; margin-top: 25px; font-weight: 700;"><tr><td th:text="${reservation.rDate}">예약일자</td></tr></span>  
+        </div>
+      </div>
+        <div class="reCheck_button">
+           <a th:href="@{'/buyer/loginsuc'}">
+            <button type="button" class="home_button" style="width: 250px; height: 50px; background-color: #F90A51; border: #F90A51;color: #fff;    border-radius: 8px;">홈으로 가기</button></a>
+            <a th:href="@{'/buyer/reHistory'}" >
+            <button type="button" class="campList_button" style="width: 250px; height: 50px; background-color: #F90A51; border: #F90A51;color: #fff;    border-radius: 8px;">예약내역으로 가기</button></a>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+
+
+<script src="js/plugin/gsap.js"></script>
+<script src="js/plugin/scrollTrigger.js"></script>
+<script src="js/plugin/slick.min.js"></script>
+<script src="js/scrollbar.js"></script>
+<script src="js/setting.js"></script>
+<script src="js/main.js"></script>
+
+
+</body>
+</html>
